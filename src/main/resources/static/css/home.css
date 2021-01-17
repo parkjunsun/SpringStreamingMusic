@@ -1,0 +1,515 @@
+            input[type=text] {
+                border: 1px solid skyblue;
+                float:left;
+                padding: 7px;
+                width:30%;
+            }
+
+
+            input[type=text]:hover {
+                background:aliceblue;
+            }
+
+
+            input[type=text]:focus {
+                font-size: 120%;
+            }
+
+
+            #btn_search {
+                width 7%;
+                background: #2196F3;
+                padding: 7px;
+                color:white;
+                float: left;
+                font-size: 20px;
+                border: 1px solid skyblue;
+                border-left:none;
+                cursor: pointer;
+            }
+
+            #wrapper {
+                border: 5pt none #fff;
+                width: 1250px;
+                margin: 0 auto;
+                padding-left: 20px;
+                padding-bottom: 10px;
+
+            }
+
+
+            #btn_div {
+                float:right;
+                padding-right: 35px;
+                margin-top: 5px;
+            }
+
+            #time_div {
+                float:right;
+                padding-bottom: 20px;
+            }
+
+
+            #btn_div i {
+                cursor: pointer;
+            }
+
+
+            #content {
+                border: 5pt  none #fff;
+                width: 1250px;
+                margin: 0 auto;
+            }
+
+            .float-frame {
+                background: #fff;
+                border: 1px solid #fff;
+                padding: 10px;
+                overflow: hidden;
+            }
+
+
+            .float-unit {
+                width: 190px;
+                height: 180px;
+                margin-left: 10px;
+                float: left;
+                position: relative;
+                color: white;
+
+            }
+
+
+            .image {
+                width: 100%;
+                height: 180px;
+                opacity: 1;
+                transition: .5s ease;
+                backface-visibility: hidden;
+                filter:brightness(0.8);
+            }
+
+            .middle {
+                transition: .5s ease;
+                opacity: 0;
+                position: absolute;
+                top: 10%;
+                left: 50%;
+                transform: translateX(-50%);
+                -ms-transform: translateX(-50%);
+                text-align: center;
+            }
+
+
+            .float-unit:hover .image {
+                filter:brightness(0.2);
+            }
+
+
+            .float-unit:hover .img-button {filter:brightness(0.2);}
+            .float-unit:hover .img-button2 {filter:brightness(0.2);}
+            .float-unit:hover .img-button3 {filter:brightness(0.2);}
+            .float-unit:hover .img-button4 {filter:brightness(0.2);}
+            .float-unit:hover .img-button5 {filter:brightness(0.2);}
+            .float-unit:hover .img-button6 {filter:brightness(0.2);}
+            .float-unit:hover .img-button7 {filter:brightness(0.2);}
+            .float-unit:hover .img-button8 {filter:brightness(0.2);}
+            .float-unit:hover .img-button9 {filter:brightness(0.2);}
+            .float-unit:hover .img-button10 {filter:brightness(0.2);}
+            .float-unit:hover .img-button11 {filter:brightness(0.2);}
+            .float-unit:hover .img-button12 {filter:brightness(0.2);}
+
+
+
+
+
+            .float-unit:hover .upper {
+                display: none;
+            }
+
+            .float-unit:hover .middle {
+                opacity: 1;
+            }
+
+
+            .upper {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 75%;
+                width: 100%;
+                text-align:center;
+                font-weight: bold;
+            }
+
+
+
+
+            .text1 {
+               font-size: 15px;
+               text-align:center;
+               font-weight: bold;
+
+            }
+
+
+            .text2 {
+                font-size: 12px;
+                text-align: center;
+                color: gray;
+                font-weight: bold;
+            }
+
+
+            .icon {
+                left: 0;
+                right: 0;
+                width: 100%;
+
+            }
+
+            .icon i {
+                font-size: 35px;
+            }
+
+
+            table {
+                border-top: 1px solid gray;
+                border-collapse: collapse;
+                padding: 10px;
+                width:100%;
+            }
+
+            tr,td {
+                border-bottom: 1px solid #B0C4DE;
+                padding: 20px;
+            }
+
+
+            .rank {
+                padding-right: 20px;
+                font: italic bold 15px arial, sans-serif;
+                color: #444;
+            }
+
+
+            .pic {
+                display: none;
+                width:80px;
+                height:80px;
+            }
+
+
+            .title{
+                padding-right:200px;
+            }
+
+
+	    .shorting{
+               width: 300px;
+	       white-space: nowrap;
+               overflow: hidden;
+               text-overflow: ellipsis;
+            }
+
+
+            .artist{
+                padding-right: 50px;
+                font-weight: lighter;
+                color: gray;
+            }
+
+
+            .play i{
+                color: #3A56B7;
+                font-size:30px;
+                cursor: pointer;
+
+            }
+
+
+            .add i{
+                font-size: 30px;
+                cursor: pointer;
+            }
+
+
+            .list1:hover .pic{
+                display: block;
+
+            }
+
+            .list1:hover .title{
+                font-weight: bold;
+                font-size:18px;
+
+            }
+
+            .list1:hover .rank{
+                font-size: 30px;
+            }
+
+            .list2:hover .pic{
+                display: block;
+            }
+
+            .list2:hover .title{
+                font-weight: bold;
+                font-size:18px;
+            }
+
+            .list2:hover .rank{
+                font-size: 30px;
+            }
+
+            .list3:hover .pic{
+                display: block;
+            }
+
+            .list3:hover .title{
+                font-weight: bold;
+                font-size:18px;
+            }
+
+            .list3:hover .rank{
+                font-size: 30px;
+            }
+
+            .list4:hover .pic{
+                display: block;
+            }
+
+            .list4:hover .title{
+                font-weight: bold;
+                font-size:18px;
+            }
+
+            .list4:hover .rank{
+                font-size: 30px;
+            }
+
+            .list5:hover .pic{
+                display: block;
+            }
+
+            .list5:hover .title{
+                font-weight: bold;
+                font-size:18px;
+            }
+
+
+            .list5:hover .rank{
+                font-size: 30px;
+            }
+
+            .list6:hover .pic{
+                display: block;
+            }
+
+            .list6:hover .title{
+                font-weight: bold;
+                font-size:18px;
+            }
+
+            .list6:hover .rank{
+                font-size: 30px;
+            }
+
+            .list7:hover .pic{
+                display: block;
+            }
+
+            .list7:hover .title{
+                font-weight: bold;
+                font-size:18px;
+            }
+
+            .list7:hover .rank{
+                font-size: 30px;
+            }
+
+            .list8:hover .pic{
+                display: block;
+            }
+
+            .list8:hover .title{
+                font-weight: bold;
+                font-size:18px;
+            }
+
+            .list8:hover .rank{
+                font-size: 30px;
+            }
+
+            .list9:hover .pic{
+                display: block;
+            }
+
+            .list9:hover .title{
+                font-weight: bold;
+                font-size:18px;
+            }
+
+            .list9:hover .rank{
+                font-size: 30px;
+            }
+
+            .list10:hover .pic{
+                display: block;
+            }
+
+            .list10:hover .title{
+                font-weight: bold;
+                font-size:18px;
+            }
+
+            .list10:hover .rank{
+                font-size: 30px;
+            }
+
+            input.play-button {
+                background: url("http://192.168.111.150:5000/static/img/playadsa.PNG") no-repeat;
+                border: none;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                font-size: 0;
+                line-height: 0;
+            }
+
+
+            input.add-button {
+                background: url("http://192.168.111.150:5000/static/img/add2.PNG") no-repeat;
+                border: none;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                font-size: 0;
+                line-height: 0;
+            }
+
+
+            input.desc_btn {
+                background: url("http://192.168.111.150:5000/static/img/desc.png") no-repeat;
+                border: none;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                font-size: 0;
+                line-height: 0;
+            }
+
+
+
+            #fixed {
+                position:fixed;
+                background-color: black;
+                height: 170px;
+                width: 100%;
+                bottom: 0;
+
+            }
+
+
+
+            #progress-bar {
+                position: relative;
+                width: 100%;
+                height: 20px;
+                cursor: pointer;
+            }
+
+
+            #YouTube-player-volume {
+                display: inline-block;
+                width: 150px;
+                cursor: pointer;
+            }
+
+
+            .track_info {
+                padding-top: 30px;
+                padding-left: 100px;
+                float:left;
+            }
+
+
+            .controller {
+                width: 35%;
+                padding-top: 40px;
+                padding-left: 0px;
+                padding-right: 0px;
+                margin: 0 auto;
+                color: white;
+            }
+
+
+
+
+            .icon {
+                text-align: center;
+
+            }
+
+
+            .icon #play_toggle {
+                text-align:center;
+                cursor: pointer;
+            }
+
+            #replay {
+                cursor: pointer;
+            }
+
+
+
+            /*.util {
+                padding-top: 80px;
+                padding-right:0px;
+                color: white;
+                cursor: pointer;
+            }*/
+
+
+
+
+            #thumb {
+                border: 3px solid gray;
+                border-radius: 20px;
+                -moz-border-radius: 20px;
+                -khtml-border-radius: 20px;
+                -webkit-border-radius: 20px;
+                width:120px;
+                height: 120px;
+
+            }
+
+
+
+            input[name=album_id]{
+                background-size: 100% 180px;
+                border: none;
+                width: 190px;
+                height: 180px;
+                cursor: pointer;
+                font-size: 0;
+                line-height: 0;
+                opacity: 1;
+                transition: .5s ease;
+                backface-visibility: hidden;
+                filter:brightness(0.8);
+            }
+
+
+            input.img-button { background: url("{{info[0].img}}") no-repeat; }
+            input.img-button2 { background: url("{{info[1].img}}") no-repeat; }
+            input.img-button3 { background: url("{{info[2].img}}") no-repeat; }
+            input.img-button4 { background: url("{{info[3].img}}") no-repeat; }
+            input.img-button5 { background: url("{{info[4].img}}") no-repeat; }
+            input.img-button6 { background: url("{{info[5].img}}") no-repeat; }
+            input.img-button7 { background: url("{{info[6].img}}") no-repeat; }
+            input.img-button8 { background: url("{{info[7].img}}") no-repeat; }
+            input.img-button9 { background: url("{{info[8].img}}") no-repeat; }
+            input.img-button10 { background: url("{{info[9].img}}") no-repeat; }
+            input.img-button11 { background: url("{{info[10].img}}") no-repeat; }
+            input.img-button12 { background: url("{{info[11].img}}") no-repeat; }
