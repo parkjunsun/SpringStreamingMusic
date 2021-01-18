@@ -1,8 +1,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header::userHead">
-    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    var message = /*[[${titleName}]]*/
+    /* ]]> */
+    alert(message);
+</script>
 <body>
 <div th:replace="fragments/top::header"></div>
+<div id = "wrapper">
+    <span style="font-weight:bold; font-size:25px; padding-bottom:20px;" >실시간 차트</span><br><br>
+    <div id="time_div"><p id="date" style="color:gray;"></p></div>
+    <table>
+        <tr class="list1">
+            <td class="rank">1</td>
+            <td class="img"><img th:src="@{${top10[0].img}}" class="pic"></td>
+            <td class="title" th:text="${top10[0].title}"></td>
+            <td class="artist" th:text="${top10[0].artist}"></td>
+            <td class="play">
+                <form action="/" method="post">
+                    <input type="submit" class="play-button" name="top1_play" value="messi">
+                </form>
+            </td>
+            <td class="add">
+                <form action="/" method="post">
+                    <input type="submit" class="add-button" name="top1_add" value="">
+                </form>
+            </td>
+            <td>
+                <form action="/" method="get">
+                    <input type="submit" class="desc_btn" name="song_id" value="">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="fixed">
+    <div id="playerIframe"></div>
+    <div class="track_info">
+        <span><img src="../images/white.png" id="thumb"></span>
+    </div>
+    <div class="controller">
+        <span><p id="playing_info" style="text-align:center; font-size:13px; font-weight:bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">재생중인 노래가 없습니다</p></span>
+        <span id="current-time">0:00</span>&nbsp;/&nbsp;<span id="duration">0:00</span><br>
+        <input type="range" id="progress-bar" value="0" style="width:100%;"/>
+        <div class="icon">
+            <i id="replay" class="material-icons" style="font-size:45px; float:left;">replay</i>
+            <i id="play_toggle" class="material-icons" style="font-size:45px; ">pause_circle_filled</i>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
