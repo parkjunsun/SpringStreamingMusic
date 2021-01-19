@@ -1,11 +1,9 @@
 <html  xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header::userHead">
-    <link rel="stylesheet" th:href="@{/css/home.css}">
-</head>
+<head th:replace="fragments/header::userHead"></head>
 <body>
-<header>
-    <h1>Streaming music for Free</h1>
-</header>
+<div th:replace="fragments/top::header"></div>
+<body>
+
 <div class="container d-flex justify-content-center">
     <div style="width:700px; margin-top: 30px;">
         <form class="form-horizontal" th:action="@{/register}" method="post">
@@ -15,7 +13,6 @@
                     <input type="text" class="form-control input-large" name="username" id="username" placeholder="username" required>
                 </div>
             </div>
-
             <div class="form-group">
                 <label for="password" class="col-sm-2 control-label">비밀번호</label>
                 <div class="col-sm-10">
@@ -34,6 +31,12 @@
                     <input type="text" class="form-control input-large" name="age" id="age" placeholder="나이" required>
                 </div>
             </div>
+<!--            <div class="form-group">-->
+<!--                <label for="role" class="col-sm-2 control-label">권한</label>-->
+<!--                <div class="col-sm-10">-->
+<!--                    <input type="text" class="form-control input-large" name="role" id="role" placeholder="권한" required>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="form-group">
                 <div class="col-sm-offset-1 col-sm-10">
                     <button type="Submit" class="btn btn-dark btn-lg">가입하기</button>

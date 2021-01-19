@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.swing.text.html.parser.Entity;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,10 +19,10 @@ public class MemberRepository {
     }
 
     public Member findByUserName(String username) {
-        Member member = em.createQuery("select m From Member m where m.username = :username", Member.class)
+        List<Member> members = em.createQuery("select m From Member m where m.username = :username", Member.class)
                 .setParameter("username", username)
-                .getSingleResult();
+                .getResultList();
 
-        return member;
+        return members.get(0);
     }
 }

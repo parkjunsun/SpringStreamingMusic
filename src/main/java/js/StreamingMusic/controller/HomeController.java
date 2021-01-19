@@ -22,7 +22,6 @@ public class HomeController {
 
     private final GetTop10 songs;
 
-
     @RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
     public String home(Model model, HttpServletRequest request) throws Exception{
         if (request.getMethod().equals("GET")) {
