@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script th:src="@{/js/jquery-2.1.3.min.js}"></script>
+<!--    <script th:src="@{/js/jquery-2.1.3.min.js}"></script>-->
     <link rel="stylesheet" th:href="@{/css/base.css}" />
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,30 +17,240 @@
     <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <script th:inline="javascript">
+
     /* <![CDATA[ */
-    var message = /*[[${titleName}]]*/
+    var videoIds = /*[[${videoIds}]]*/
+    var top10 = /*[[${top10}]]*/
+    var index = /*[[${index}]]*/
     /* ]]> */
-    if (message != null) { alert(message);}
+
+
+    var errorCnt = 0;
+
+    var current = new Date();
+    var future = new Date();
+    future.setTime(future.getTime() + 3600000);
+    future.setMinutes(0);
+    future.setSeconds(0);
+
+    var timeout = (future.getTime() - current.getTime());
+    setTimeout(function() { window.location.reload(true); }, timeout);
+
+
+    let today = new Date();
+
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    month = String(month);
+
+    let day = today.getDate();
+    day = String(day);
+
+    let hours = today.getHours();
+    hours = String(hours);
+
+    if (month.length == 1) {
+        month = '0' + month;
+    }
+
+    if (day.length == 1) {
+        day = '0' + day;
+    }
+
+    if (hours.length == 1) {
+        hours = '0' + hours;
+    }
+
+
+    window.onload = function() {
+         document.getElementById("date").innerHTML = year + '.' + month + '.' + day + " " + hours + ':00'
+    }
+
+
+    if (videoIds != null) {
+        videoid = videoIds[0]
+        videoid2 = videoIds[1]
+        videoid3 = videoIds[2]
+    } else {
+        videoid = null
+        videoid2 = null
+        videoid3 = null
+    }
+
+    if (index != null) {
+        index = Number(index);
+    } else {
+        index = null;
+    }
+
+
+
+    $(document).ready(function() {
+
+        $('#progress-bar').on('mouseup touched', function (e) {
+            var newTime = player.getDuration() * (e.target.value / 100);
+            player.seekTo(newTime);
+        });
+
+        $('#mute-toggle').on('click',function() {
+            var mute_toggle = $(this);
+
+            if(player.isMuted()){
+                player.unMute();
+                mute_toggle.text('volume_up');
+            }
+            else {
+                player.mute();
+                mute_toggle.text('volume_off')
+            }
+        });
+
+        $('#replay').on('click', function() {
+            player.seekTo(0);
+        });
+
+    });
+
+
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player, time_update_interval = 0;
+
+    function onYouTubeIframeAPIReady () {
+        player = new YT.Player('playerIframe', {
+            height: '0',
+            width: '0',
+            videoId: '',
+            playerVars: {
+                rel: 0
+            },
+            events: {
+                'onReady': initialize,
+                'onStateChange': onStateChange,
+                'onError': onPlayerError
+            }
+        });
+
+        var youTubePlayerVolumeItemId = 'YouTube-player-volume';
+    }
+
+
+    function initialize(event) {
+        var p = event.target;
+        player.loadVideoById(videoid, 0, "large");
+        document.getElementById("playing_info").innerHTML = top10[index].title +" <i>by</i>&nbsp;&nbsp;" + top10[index].artist;
+        document.getElementById("thumb").src = top10[index].img
+
+        updateTimerDisplay();
+        updateProgressBar();
+
+        clearInterval(time_update_interval);
+
+        time_update_interval = setInterval(function () {
+            updateTimerDisplay();
+            updateProgressBar();
+        }, 1000);
+    }
+
+    function onStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING){
+            errorCnt = 0;
+        }
+        play_stop(event.data, event.target);
+
+        var volume = Math.round(event.target.getVolume());
+        var volumeItem = document.getElementById(youTubePlayerVolumeItemId);
+
+        if (volumeItem && (Math.round(volumeItem.value) != volume)) {
+            volumeItem.value = volume;
+        }
+    }
+
+    function play_stop(state,pl){
+        $(document).ready(function(){
+            $('#play_toggle').on('click',function() {
+                var play_toggle = $(this);
+
+                if(state == YT.PlayerState.PLAYING){
+                    pl.pauseVideo();
+                    play_toggle.text('play_circle_filled');
+                } else {
+                    pl.playVideo();
+                    play_toggle.text('pause_circle_filled')
+                }
+            });
+        });
+    }
+
+
+    function onPlayerError(event){
+        errorCnt = errorCnt + 1;
+        var errorCheck = Number(event.data);
+
+        if (errorCheck == 150 || errorCheck == 100){
+            if (errorCnt == 1) {
+                player.loadVideoById(videoid2, 0, "large");
+            } else if (errorCnt == 2){
+                player.loadVideoById(videoid3, 0, "large");
+            }
+        }
+
+    }
+
+    function youTubePlayerActive() {
+        return player && player.hasOwnProperty('getPlayerState');
+    }
+
+    function updateTimerDisplay() {
+        $('#current-time').text(formatTime(player.getCurrentTime()));
+        $('#duration').text(formatTime(player.getDuration()));
+    }
+
+    function updateProgressBar() {
+        $('#progress-bar').val((player.getCurrentTime() / player.getDuration()) * 100);
+    }
+
+
+    function youTubePlayerVolumeChange(volume) {
+        if (youTubePlayerActive()) {
+            player.setVolume(volume);
+        }
+    }
+
+
+    function formatTime(time) {
+        time = Math.round(time);
+
+        var minutes = Math.floor(time / 60),
+            seconds = time - minutes * 60;
+
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        return minutes + ":" + seconds;
+    }
 </script>
 <body>
-<div th:replace="fragments/top::header"></div>
+<div th:replace="fragments/top::header"></div><br><br>
 <div id = "wrapper">
     <span style="font-weight:bold; font-size:25px; padding-bottom:20px;" >실시간 차트</span><br><br>
     <div id="time_div"><p id="date" style="color:gray;"></p></div>
     <table>
-        <tr class="list1">
-            <td class="rank">1</td>
-            <td class="img"><img th:src="@{${top10[0].img}}" class="pic"></td>
-            <td class="title" th:text="${top10[0].title}"></td>
-            <td class="artist" th:text="${top10[0].artist}"></td>
+        <tr class="list1" th:each="song: ${top10}">
+            <td class="rank" th:text="${songStat.count}"></td>
+            <td class="img"><img th:src="@{${song.img}}" class="pic"></td>
+            <td class="title" th:text="${song.title}"></td>
+            <td class="artist" th:text="${song.artist}"></td>
             <td class="play">
                 <form action="/" method="post">
-                    <input type="submit" class="play-button" name="top1_play" value="messi">
+                    <input type="submit" class="play-button" name="play" th:value="${song.title} + ';' + ${song.artist} + ';' +${songStat.index}">
                 </form>
             </td>
             <td class="add">
                 <form action="/" method="post">
-                    <input type="submit" class="add-button" name="top1_add" value="">
+                    <input type="submit" class="add-button" name="add" value="">
                 </form>
             </td>
             <td>
@@ -50,7 +260,9 @@
             </td>
         </tr>
     </table>
-</div>
+</div><br><br><br><br><br><br><br><br><br><br>
+<div th:replace="fragments/footer::footer"></div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <div id="fixed">
     <div id="playerIframe"></div>

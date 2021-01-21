@@ -10,6 +10,7 @@
     <nav class="navbar navbar-dark sticky-top bg-dark ">
         <div class="container">
             <a class="text-light" href="#"><h4>StreamgingMusic Free</h4></a>
+            <h4 class="text-light" sec:authorize="isAuthenticated()" th:text="|${name}님 안녕하세요!|"></h4>
             <ul class="nav justify-content-end">
                 <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link text-light" th:href="@{/login}">로그인</a></li>
                 <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link text-light" th:href="@{/register}">회원가입</a></li>
