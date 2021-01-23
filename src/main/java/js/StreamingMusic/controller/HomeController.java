@@ -1,6 +1,7 @@
 package js.StreamingMusic.controller;
 
 import js.StreamingMusic.security.MemberContext;
+import js.StreamingMusic.service.crawling.GetHomeNewAlbums;
 import js.StreamingMusic.service.crawling.GetTop10;
 import js.StreamingMusic.service.data.DataApi;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ import java.util.List;
 public class HomeController {
 
     private final GetTop10 songs;
+    private final GetHomeNewAlbums getHomeNewAlbums;
     private final DataApi dataApi;
 
     @RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
@@ -39,9 +41,18 @@ public class HomeController {
                 model.addAttribute("name", name);
             }
             model.addAttribute("top10", songs.getTop10());
+            model.addAttribute("albums", getHomeNewAlbums.getHomeNewAlbumPg1());
         }
         else if (request.getMethod().equals("POST")) {
-            model.addAttribute("top10", songs.getTop10());
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            Object principal = auth.getPrincipal();
+            String name = "";
+            if (principal != null && principal instanceof MemberContext) {
+                name = ((MemberContext) principal).getUsername();
+                model.addAttribute("name", name);
+            }
+
+
             String param = request.getParameter("play");
             String[] data = param.split(";");
             String title = data[0];
@@ -51,8 +62,10 @@ public class HomeController {
 
             List<String> videoIds = dataApi.getVideoId(title, artist);
             model.addAttribute("videoIds", videoIds);
-
             model.addAttribute("index", index);
+
+            model.addAttribute("top10", songs.getTop10());
+            model.addAttribute("albums", getHomeNewAlbums.getHomeNewAlbumPg1());
 
             }
 

@@ -28,7 +28,7 @@ input[type=text]:focus {
     cursor: pointer;
 }
 
-#wrapper {
+.wrapper {
     border: 5pt none #fff;
     width: 1250px;
     margin: 0 auto;
@@ -97,27 +97,7 @@ input[type=text]:focus {
     text-align: center;
 }
 
-
-.float-unit:hover .image {
-    filter:brightness(0.2);
-}
-
-
-.float-unit:hover .img-button {filter:brightness(0.2);}
-.float-unit:hover .img-button2 {filter:brightness(0.2);}
-.float-unit:hover .img-button3 {filter:brightness(0.2);}
-.float-unit:hover .img-button4 {filter:brightness(0.2);}
-.float-unit:hover .img-button5 {filter:brightness(0.2);}
-.float-unit:hover .img-button6 {filter:brightness(0.2);}
-.float-unit:hover .img-button7 {filter:brightness(0.2);}
-.float-unit:hover .img-button8 {filter:brightness(0.2);}
-.float-unit:hover .img-button9 {filter:brightness(0.2);}
-.float-unit:hover .img-button10 {filter:brightness(0.2);}
-.float-unit:hover .img-button11 {filter:brightness(0.2);}
-.float-unit:hover .img-button12 {filter:brightness(0.2);}
-
-
-
+.float-unit:hover {filter:brightness(0.5);}
 
 
 .float-unit:hover .upper {
@@ -127,7 +107,6 @@ input[type=text]:focus {
 .float-unit:hover .middle {
     opacity: 1;
 }
-
 
 .upper {
     position: absolute;
@@ -140,19 +119,18 @@ input[type=text]:focus {
 }
 
 
-
-
 .text1 {
     font-size: 15px;
     text-align:center;
     font-weight: bold;
+    color:white;
 }
 
 
 .text2 {
     font-size: 12px;
     text-align: center;
-    color: gray;
+    color: white;
     font-weight: bold;
 }
 
@@ -498,15 +476,3 @@ input[name=album_id]{
 }
 
 
-input.img-button { background: url("{{info[0].img}}") no-repeat; }
-input.img-button2 { background: url("{{info[1].img}}") no-repeat; }
-input.img-button3 { background: url("{{info[2].img}}") no-repeat; }
-input.img-button4 { background: url("{{info[3].img}}") no-repeat; }
-input.img-button5 { background: url("{{info[4].img}}") no-repeat; }
-input.img-button6 { background: url("{{info[5].img}}") no-repeat; }
-input.img-button7 { background: url("{{info[6].img}}") no-repeat; }
-input.img-button8 { background: url("{{info[7].img}}") no-repeat; }
-input.img-button9 { background: url("{{info[8].img}}") no-repeat; }
-input.img-button10 { background: url("{{info[9].img}}") no-repeat; }
-input.img-button11 { background: url("{{info[10].img}}") no-repeat; }
-input.img-button12 { background: url("{{info[11].img}}") no-repeat; }

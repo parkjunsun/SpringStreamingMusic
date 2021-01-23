@@ -84,8 +84,43 @@
     }
 
 
-
     $(document).ready(function() {
+
+        url1 = "http://localhost:8080/ajax/firstmenu";
+        url2 = "http://localhost:8080/ajax/secondmenu";
+        url3 = "http://localhost:8080/ajax/thirdmenu";
+        url4 = "http://localhost:8080/ajax/fourthmenu";
+        url5 = "http://localhost:8080/ajax/fifthmenu";
+
+        $('#val').on('click', function(){
+            $.ajax({url: url1, async: false, success:function(result){
+                $("#content").hide().html(result).fadeIn('slow');
+            }});
+        });
+
+        $('#val2').on('click', function(){
+            $.ajax({url: url2, async: false, success:function(result){
+                $("#content").hide().html(result).fadeIn('slow');
+            }});
+        });
+
+        $('#val3').on('click', function(){
+            $.ajax({url: url3, async: false, success:function(result){
+                $("#content").hide().html(result).fadeIn('slow');
+            }});
+        });
+
+        $('#val4').on('click', function(){
+            $.ajax({url: url4, async: false, success:function(result){
+                $("#content").hide().html(result).fadeIn('slow');
+            }});
+        });
+
+        $('#val5').on('click', function(){
+            $.ajax({url: url5, async: false, success:function(result){
+                $("#content").hide().html(result).fadeIn('slow');
+            }});
+        });
 
         $('#progress-bar').on('mouseup touched', function (e) {
             var newTime = player.getDuration() * (e.target.value / 100);
@@ -110,7 +145,6 @@
         });
 
     });
-
 
 
     var tag = document.createElement('script');
@@ -234,7 +268,43 @@
 </script>
 <body>
 <div th:replace="fragments/top::header"></div><br><br>
-<div id = "wrapper">
+<div class="wrapper">
+    <span style="font-weight:bold; font-size:25px">최신음악</span>
+    <div id="btn_div">
+        <i id="val" class="material-icons">filter_1</i>
+        <i id="val2" class="material-icons">filter_2</i>
+        <i id="val3" class="material-icons">filter_3</i>
+        <i id="val4" class="material-icons">filter_4</i>
+        <i id="val5" class="material-icons">filter_5</i>
+    </div>
+</div>
+<div id="content">
+    <div class="float-frame">
+        <div class="float-unit" th:each="num : ${#numbers.sequence(0,5)}">
+            <form action="/" method="get">
+                <input type="submit" name="album_id" th:value="${albums[num].album_id}" th:style="'background:url(' + @{${albums[num].img}} + '); background-size: 190px 180px; no-repeat;'">
+            </form>
+            <div class="upper" th:text="${albums[num].artist}"></div>
+            <div class="middle">
+                <p class="text1" th:text="${albums[num].artist}"></p>
+                <p class="text2" th:text="${albums[num].title}"></p>
+            </div>
+        </div>
+    </div>
+    <div class="float-frame">
+        <div class="float-unit" th:each="num : ${#numbers.sequence(6,11)}">
+            <form action="/" method="get">
+                <input type="submit" name="album_id" th:value="${albums[num].album_id}" th:style="'background:url(' + @{${albums[num].img}} + '); background-size: 190px 180px; no-repeat;'">
+            </form>
+            <div class="upper" th:text="${albums[num].artist}"></div>
+            <div class="middle">
+                <p class="text1" th:text="${albums[num].artist}"></p>
+                <p class="text2" th:text="${albums[num].title}"></p>
+            </div>
+        </div>
+    </div>
+</div><br><br><br>
+<div class = "wrapper">
     <span style="font-weight:bold; font-size:25px; padding-bottom:20px;" >실시간 차트</span><br><br>
     <div id="time_div"><p id="date" style="color:gray;"></p></div>
     <table>
@@ -262,8 +332,7 @@
     </table>
 </div><br><br><br><br><br><br><br><br><br><br>
 <div th:replace="fragments/footer::footer"></div>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
+<br><br><br><br><br><br><br>
 <div id="fixed">
     <div id="playerIframe"></div>
     <div class="track_info">
