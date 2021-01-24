@@ -171,6 +171,21 @@ header a.a3{
     color: white;
 }
 
+.wrapper {
+    width: 1250px;
+    margin: 0 auto;
+    padding-left:20px;
+    padding-bottom:10px;
+}
+
+
+#content {
+    width: 1250px;
+    margin: 0 auto;
+    height: 700px;
+}
+
+
 
 .footer {
     text-align: center;

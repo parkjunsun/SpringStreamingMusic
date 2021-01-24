@@ -1,0 +1,75 @@
+.left {
+                width: 400px;
+                height: 350px;
+                float:left;
+                margin-right: 30px;
+            }
+
+
+            .right {
+                width: 800px;
+                height: 350px;
+                float: left;
+            }
+
+
+	        .line {
+	            line-height:2.0;
+	        }
+
+
+	        .category {
+                display: inline-block;
+                width: 120px;
+                font-size: 18px;
+                color: gray;
+	        }
+
+
+            table {
+                border-top: 3px solid gray;
+                border-collapse: collapse;
+                padding: 10px;
+                width: 100%;
+            }
+
+
+            tr,td {
+                border-bottom: 1px solid #B0C4DE;
+                padding: 20px;
+            }
+
+            .num {
+                            padding-right: 20px;
+                            font: italic bold 15px arial, sans-serif;
+                            color: #444;
+                        }
+
+
+
+                        .title {
+                            font-weight: bold;
+                            font-size: 15px
+                        }
+
+                        .artist{
+                           font-weight: lighter;
+                            color: gray;
+                        }
+
+                        .shorting{
+                           width: 650px;
+            	       white-space: nowrap;
+                           overflow: hidden;
+                           text-overflow: ellipsis;
+                        }
+
+input.desc_btn {
+    background: url("../images/desc.png") no-repeat;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+}

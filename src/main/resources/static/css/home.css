@@ -28,13 +28,7 @@ input[type=text]:focus {
     cursor: pointer;
 }
 
-.wrapper {
-    border: 5pt none #fff;
-    width: 1250px;
-    margin: 0 auto;
-    padding-left: 20px;
-    padding-bottom: 10px;
-}
+
 
 #btn_div {
     float:right;
@@ -53,11 +47,7 @@ input[type=text]:focus {
 }
 
 
-#content {
-    border: 5pt  none #fff;
-    width: 1250px;
-    margin: 0 auto;
-}
+
 
 .float-frame {
     background: #fff;

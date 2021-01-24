@@ -1,0 +1,33 @@
+.left {
+                width: 400px;
+                height: 350px;
+                float:left;
+                margin-right: 30px;
+            }
+
+            .right {
+                width: 800px;
+                height: 350px;
+                float: left;
+            }
+
+	        .line {
+	            line-height:2.0;
+	        }
+
+	        .category {
+                display: inline-block;
+                width: 120px;
+                font-size: 18px;
+                color: gray;
+	        }
+
+input.add_btn {
+    background: url("../images/add2.PNG") no-repeat;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+}

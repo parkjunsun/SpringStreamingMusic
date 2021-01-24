@@ -1,0 +1,72 @@
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--    <script th:src="@{/js/jquery-2.1.3.min.js}"></script>-->
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/tomorrow.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/detailsong.css}">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/sweetalert.min.js}"></script>
+
+</head>
+<body>
+<div th:replace="fragments/top::header"></div><br><br>
+<div class="wrapper">
+    <div id="content">
+        <h1>노래정보</h1><br><hr><br><br>
+        <h3 th:text="${info.artist}"></h3><br><br>
+        <div class="left">
+            <img th:src="@{${info.img}}" style="width:400px; height:350px;">
+        </div>
+        <div class="right">
+            <h3 th:text="${info.title}"></h3><br>
+            <p class="line">
+                <span class="category">Artist</span>
+                <span class="info" th:text="${info.artist}"></span>
+            </p>
+            <p class="line">
+                <span class="category">AlbumName</span>
+                <span class="info" th:text="${info.album}"></span>
+            </p>
+            <p class="line">
+                <span class="category">Genre</span>
+                <span class="info" th:text="${info.genre}"></span>
+            </p>
+            <p class="line">
+                <span class="category">Duration</span>
+                <span class="info" th:text="${info.duration}"></span>
+            </p>
+            <th:block th:if="${info.songwriter}">
+                <p class="line">
+                    <span class="category">Songwriter</span>
+                    <span class="info" th:text="info.songwriter"></span>
+                </p>
+            </th:block>
+            <th:block th:if="${info.composer}">
+                <p class="line">
+                    <span class="category">Composer</span>
+                    <span class="info" th:text="info.composer"></span>
+                </p>
+            </th:block><br><br>
+            <form action="/" method="post">
+                <input type="submit" class="add_btn" name="get_song" th:value="${info.title} + ';' + ${info.artist} + ';'">
+            </form>
+        </div>
+    </div><hr><br><br>
+    <h3>가사</h3><br>
+    <h4 th:text="|${info.title} - ${info.duration}|"></h4><br><br>
+    <pre>
+        <p th:text="${info.lyrics}"></p>
+    </pre>
+</div><br><br><br><br><br><br><br><br>
+<div th:replace="fragments/footer::footer"></div>
+</body>
+</html>

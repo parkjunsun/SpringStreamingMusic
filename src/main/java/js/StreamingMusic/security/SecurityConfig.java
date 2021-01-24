@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register","/login*", "/ajax", "/ajax/**").permitAll()
+                .antMatchers("/", "/register","/login*", "/ajax", "/ajax/**", "/detail", "/detail/**").permitAll()
                 .antMatchers("/playlist").hasRole("USER")
                 .anyRequest().authenticated()
 
