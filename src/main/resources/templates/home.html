@@ -13,10 +13,12 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/sweetalert.min.js}"></script>
+<!--    <script type="text/javascript" src="../js/sweetalert.min.js}"></script>-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <script th:inline="javascript">
+
 
     /* <![CDATA[ */
     var videoIds = /*[[${videoIds}]]*/
@@ -267,6 +269,21 @@
     }
 </script>
 <body>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    var errorMessage = /*[[${errorMsg}]]*/
+    var successMessage = /*[[${successMsg}]]*/
+    /* ]]> */
+
+    if (errorMessage != null) {
+        swal("Error", errorMessage, "error");
+    } else if (successMessage != null) {
+        swal("Success", successMessage, "success");
+    }
+
+
+
+</script>
 <div th:replace="fragments/top::header"></div><br><br>
 <div class="wrapper">
     <span style="font-weight:bold; font-size:25px">최신음악</span>
@@ -319,8 +336,8 @@
                 </form>
             </td>
             <td class="add">
-                <form action="/" method="post">
-                    <input type="submit" class="add-button" name="add" value="">
+                <form action="/playlist" method="post">
+                    <input type="submit" class="add-button" name="add" th:value="${song.title} + ';' + ${song.artist}">
                 </form>
             </td>
             <td>

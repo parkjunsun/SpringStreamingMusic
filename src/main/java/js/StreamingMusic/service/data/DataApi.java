@@ -5,6 +5,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -87,6 +91,54 @@ public class DataApi {
         }
 
         return videoIds;
+    }
 
+    public String getImg(String title, String artist) throws IOException {
+
+        if (title.contains("&")) {
+            title = title.replace("&", "");
+        }
+
+        if (artist.contains("&")) {
+            artist = artist.replace("&", "");
+        }
+
+        String url = "https://www.genie.co.kr/search/searchMain?query=" + artist + " " + title + "&pagesize=1";
+
+        Document doc = Jsoup.connect(url).get();
+        Elements td = doc.select("tr.list > td");
+        Element img_info = td.get(2);
+        Element img_src = img_info.selectFirst("img");
+        String img = img_src.attr("src");
+
+        return img;
+    }
+
+    public List<String> getDetail(String title, String artist) throws IOException {
+
+        List<String> details = new ArrayList<>();
+
+        if (title.contains("&")) {
+            title = title.replace("&", "");
+        }
+
+        if (artist.contains("&")) {
+            artist = artist.replace("&", "");
+        }
+
+        String url = "https://www.genie.co.kr/search/searchMain?query=" + artist + " " + title + "&pagesize=1";
+        Document d1 = Jsoup.connect(url).get();
+        String songid = d1.selectFirst("tr.list").attr("songid");
+        String song_url = "https://www.genie.co.kr/detail/songInfo?xgnm=" + songid;
+
+        Document d2 = Jsoup.connect(song_url).get();
+        Elements info = d2.select("ul.info-data > li");
+        String genre = info.get(2).selectFirst("span.value").text();
+        String duration = info.get(3).selectFirst("span.value").text();
+
+        details.add(genre);
+        details.add(duration);
+
+        return details;
     }
 }
