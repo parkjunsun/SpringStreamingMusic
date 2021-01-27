@@ -1,5 +1,6 @@
 package js.StreamingMusic.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,7 @@ public class Song {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
+//    @JsonBackReference
     private Member member;
 
     public void setMember(Member member) {

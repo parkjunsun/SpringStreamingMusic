@@ -2,6 +2,7 @@ package js.StreamingMusic.controller;
 
 import js.StreamingMusic.domain.Member;
 import js.StreamingMusic.domain.Song;
+import js.StreamingMusic.domain.SongDto;
 import js.StreamingMusic.exception.AppError;
 import js.StreamingMusic.exception.DuplicateSongException;
 import js.StreamingMusic.security.MemberContext;
@@ -15,6 +16,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,14 +35,10 @@ public class PlaylistController {
     @GetMapping("/playlist")
     public String showPlaylist(Model model, @AuthenticationPrincipal MemberContext member) {
 
-        if (member != null) {
-            String username = member.getUsername();
-            model.addAttribute("name", username);
-        }
-
-        List<Song> songs = songService.findAllSongsByName(member.getUsername());
+        String username = member.getUsername();
+        model.addAttribute("name", username);
+        List<SongDto> songs = songService.findAllSongsByName(username);   //컨트롤러에서는 엔티티를 절대 직접 반환하지 말자. dto로 받아야한다 entity를 직접보내면 json 생성 라이브러리 문제로 무한루프에 빠진다
         model.addAttribute("songs", songs);
-
         return "playlist";
     }
 
@@ -84,7 +82,7 @@ public class PlaylistController {
             song.setMember(m);
 
             try {
-                songService.addSong(song);
+                songService.addSong(song, username);
             } catch (DuplicateSongException e) {
                 redirectAttributes.addFlashAttribute("errorMsg", e.getMessage());
                 return "redirect:/";

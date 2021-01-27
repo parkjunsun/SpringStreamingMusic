@@ -28,7 +28,7 @@ public class CustomMemberDetailsService implements UserDetailsService {
         }
 
         List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+        roles.add(new SimpleGrantedAuthority(member.getRole()));
 
         MemberContext memberContext = new MemberContext(member, roles);
 

@@ -29,7 +29,7 @@ public class MemberController {
         member.setPassword(passwordEncoder.encode(memberForm.getPassword()));
         member.setEmail(memberForm.getEmail());
         member.setAge(memberForm.getAge());
-//        member.setRole(memberForm.getRole());
+        member.setRole(memberForm.getRole());
 
         memberService.join(member);
 

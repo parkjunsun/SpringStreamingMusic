@@ -1,5 +1,6 @@
 package js.StreamingMusic.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,10 +19,10 @@ public class Member {
     private String password;
     private String email;
     private String age;
+    private String role;
 
     @OneToMany(mappedBy = "member")
+//    @JsonManagedReference
     private List<Song> songs = new ArrayList<>();
-
-
 
 }

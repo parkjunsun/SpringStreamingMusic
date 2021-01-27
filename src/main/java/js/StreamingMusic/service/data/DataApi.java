@@ -79,7 +79,7 @@ public class DataApi {
             JSONObject info2 = (JSONObject) items.get(1);
             JSONObject id2 = (JSONObject) info2.get("id");
             JSONObject info3 = (JSONObject) items.get(2);
-            JSONObject id3 = (JSONObject) info2.get("id");
+            JSONObject id3 = (JSONObject) info3.get("id");
 
             String videoId1 = (String) id1.get("videoId");
             String videoId2 = (String) id2.get("videoId");

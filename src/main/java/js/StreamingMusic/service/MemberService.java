@@ -13,6 +13,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+
     @Transactional
     public void join(Member member) {
         memberRepository.save(member);

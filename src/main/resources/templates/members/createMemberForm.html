@@ -2,7 +2,7 @@
 <head th:replace="fragments/header::userHead"></head>
 <body>
 <div th:replace="fragments/top::header"></div>
-<body>
+
 
 <div class="container d-flex justify-content-center">
     <div style="width:700px; margin-top: 30px;">
@@ -31,6 +31,7 @@
                     <input type="text" class="form-control input-large" name="age" id="age" placeholder="나이" required>
                 </div>
             </div>
+            <input type="hidden" name="role" id="role" value="ROLE_USER">
 <!--            <div class="form-group">-->
 <!--                <label for="role" class="col-sm-2 control-label">권한</label>-->
 <!--                <div class="col-sm-10">-->
