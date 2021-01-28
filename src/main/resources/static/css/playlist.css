@@ -59,7 +59,7 @@
             }
 
             input.img-button {
-                background: url("http://192.168.111.150:5000/static/img/delete.png") no-repeat;
+                background: url("../images/delete.png") no-repeat;
                 border: none;
                 width: 32px;
                 height: 32px;
@@ -147,7 +147,7 @@
 
 	    .shorting{
                width: 300px;
-	       white-space: nowrap;
+	           white-space: nowrap;
                overflow: hidden;
                text-overflow: ellipsis;
             }
