@@ -15,6 +15,18 @@
     <link rel="stylesheet" th:href="@{/css/search.css}">
 </head>
 <body>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    var errorMessage = /*[[${errorMsg}]]*/
+    var successMessage = /*[[${successMsg}]]*/
+    /* ]]> */
+
+    if (errorMessage != null) {
+        swal("Error", errorMessage, "error");
+    } else if (successMessage != null) {
+        swal("Success", successMessage, "success");
+    }
+</script>
 <div th:replace="fragments/top::header"></div><br><br>
 <div class="wrapper">
     <form action="/search" method="get">

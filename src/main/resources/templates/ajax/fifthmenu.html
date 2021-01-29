@@ -1,6 +1,6 @@
 <div class="float-frame">
     <div class="float-unit" th:each="num : ${#numbers.sequence(0,5)}">
-        <form action="/" method="get">
+        <form action="/detail/albuminfo" method="get">
             <input type="submit" name="album_id" th:value="${albums[num].album_id}" th:style="'background:url(' + @{${albums[num].img}} + '); background-size: 190px 180px; no-repeat;'">
         </form>
         <div class="upper" th:text="${albums[num].artist}"></div>
@@ -12,7 +12,7 @@
 </div>
 <div class="float-frame">
     <div class="float-unit" th:each="num : ${#numbers.sequence(6,11)}">
-        <form action="/" method="get">
+        <form action="/detail/albuminfo" method="get">
             <input type="submit" name="album_id" th:value="${albums[num].album_id}" th:style="'background:url(' + @{${albums[num].img}} + '); background-size: 190px 180px; no-repeat;'">
         </form>
         <div class="upper" th:text="${albums[num].artist}"></div>

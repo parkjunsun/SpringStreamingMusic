@@ -1,17 +1,19 @@
 input[type=text] {
-                border: 1px solid skyblue;
-                float: left;
-                padding: 7px;
-                width: 23%;
-            }
+    border: 1px solid skyblue;
+    float:left;
+    padding: 7px;
+    width:30%;
+}
 
-            input[type=text]:hover {
-                background: aliceblue;
-            }
 
-            input[type=text]:focus {
-                font-size: 120%;
-            }
+input[type=text]:hover {
+    background:aliceblue;
+}
+
+
+input[type=text]:focus {
+    font-size: 120%;
+ }
 
 
             input[type=checkbox] {
@@ -24,14 +26,14 @@ input[type=text] {
             }
 
             #btn_search {
-                width: 5%;
+                width 7%;
                 background: #2196F3;
                 padding: 7px;
-                color: white;
+                color:white;
                 float: left;
-                font-size: 19px;
+                font-size: 25px;
                 border: 1px solid skyblue;
-                border-left: none;
+                border-left:none;
                 cursor: pointer;
             }
 
