@@ -229,13 +229,14 @@
         p.cuePlaylist(id_lst);
         updateTimerDisplay();
         updateProgressBar();
-
         clearInterval(time_update_interval);
 
         time_update_interval = setInterval(function () {
                 updateTimerDisplay();
                 updateProgressBar();
         }, 1000);
+
+
     }
 
     function getRandomId() {
@@ -357,6 +358,10 @@
         $('#duration').text(formatTime(player.getDuration()));
     }
 
+    function initProgressBar(){
+        $('#progress-bar').val(0);
+    }
+
     function updateProgressBar(){
         $('#progress-bar').val((player.getCurrentTime() / player.getDuration()) * 100);
     }
@@ -396,7 +401,8 @@
                 if (arr.length){
                     idx = getRandomId();
                     document.getElementById(index).innerHTML = "";
-                    document.getElementsByClassName(index)[0].style.color = "black";
+                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
+                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
                     player.playVideoAt(idx);
                 }
                 else if (!arr.length){
@@ -406,7 +412,8 @@
                     shuffle();
                     idx = getRandomId();
                     document.getElementById(index).innerHTML = "";
-                    document.getElementsByClassName(index)[0].style.color = "black";
+                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
+                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
                     player.playVideoAt(idx);
                 }
 
@@ -417,7 +424,8 @@
                     idx = -1
                 }
                 document.getElementById(index).innerHTML = "";
-                document.getElementsByClassName(index)[0].style.color = "black";
+                document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
+                document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
                 player.playVideoAt(idx + 1);
             }
 
@@ -535,7 +543,8 @@
 
         document.getElementById('play').innerHTML = 'pause_circle_outline';
         document.getElementById(index).innerHTML = "";
-        document.getElementsByClassName(index)[0].style.color = "black";
+        document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
+        document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
     }
 
     function formatTime(time){
@@ -558,7 +567,8 @@
                 if (arr.length){
                     idx = getRandomId();
                     document.getElementById(index).innerHTML = "";
-                    document.getElementsByClassName(index)[0].style.color = "black";
+                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
+                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
                     player.playVideoAt(idx);
                 }
                 else if (!arr.length){
@@ -568,7 +578,8 @@
                     shuffle();
                     idx = getRandomId();
                     document.getElementById(index).innerHTML = "";
-                    document.getElementsByClassName(index)[0].style.color = "black";
+                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
+                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
                     player.playVideoAt(idx);
                 }
 
@@ -579,7 +590,8 @@
                     idx = -1
                 }
                 document.getElementById(index).innerHTML = "";
-                document.getElementsByClassName(index)[0].style.color = "black";
+                document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
+                document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
                 player.playVideoAt(idx + 1);
             }
         }
@@ -637,6 +649,15 @@
     }
 </script>
 <body>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    var updateMessage = /*[[${updateMsg}]]*/
+    /* ]]> */
+
+    if (updateMessage != null) {
+        swal("Delete", updateMessage, "info");
+    }
+</script>
 <div class="action">
     <div id="playSongIframe"></div><br>
     <p>Logo</p>
@@ -646,7 +667,7 @@
         <img id="link" src="../images/white.png" style="width:60%;height:30%;" alt="sorry, can't loading album photo">
     </div>
     <br><br><br>
-    <input type="range" id="progress-bar" value="0"/>
+    <input type="range" id="progress-bar" value="0">
     &nbsp;&nbsp;&nbsp;&nbsp;<span id="current-time">0:00</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <span id="duration">0:00</span><br>
     <div id="controls">
@@ -669,7 +690,7 @@
 </div>
 <div class="playlist">
     <div id="dv">
-        <h4 style="color: #3A56B7">Playlist</h4><br>
+        <h5 style="color: #3A56B7" th:text="|${name}님의 플레이리스트|"></h5><br>
         <p id="count"></p>
     </div>
     <div class="container">
@@ -713,8 +734,8 @@
                 </td>
                 <td style="text-align:right; font-size:12px;" th:text="${song.duration}"></td>
                 <td style="text-align:right;">
-                    <form action="/" method="post">
-                        <input type="submit" class="img-button" name="info" id="data" value="">
+                    <form th:action="@{/playlist/{id}/delete (id=${song.id})}" method="post">
+                        <input type="submit" class="img-button" name="delete" id="data" value="${song.id}">
                     </form>
                 </td>
             </tr>

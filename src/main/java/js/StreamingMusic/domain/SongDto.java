@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class SongDto {
+    private Long id;
     private String title;
     private String artist;
     private String videoId;
@@ -14,7 +15,8 @@ public class SongDto {
     private String genre;
     private String duration;
 
-    public SongDto(String title, String artist, String videoId, String videoId2, String videoId3, String img, String genre, String duration) {
+    public SongDto(Long id, String title, String artist, String videoId, String videoId2, String videoId3, String img, String genre, String duration) {
+        this.id = id;
         this.title = title;
         this.artist = artist;
         this.videoId = videoId;

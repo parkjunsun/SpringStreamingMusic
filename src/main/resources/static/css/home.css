@@ -22,7 +22,7 @@ input[type=text]:focus {
     padding: 7px;
     color:white;
     float: left;
-    font-size: 20px;
+    font-size: 25px;
     border: 1px solid skyblue;
     border-left:none;
     cursor: pointer;

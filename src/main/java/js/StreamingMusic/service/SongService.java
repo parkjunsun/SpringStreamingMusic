@@ -19,9 +19,18 @@ public class SongService {
 
 
     @Transactional
-    public void addSong(Song song, String name) {
-        validateDuplicateSong(song, name);
+    public void addSong(Song song, String name, String title, String artist) {
+        validateDuplicateSong(song, name, title, artist);
         songRepository.save(song);
+    }
+
+    @Transactional
+    public void removeSong(Song song) {
+        songRepository.remove(song);
+    }
+
+    public Song findSong(Long songid) {
+        return songRepository.findOne(songid);
     }
 
 //    public List<Song> findAllSongsByName(String name) {
@@ -32,11 +41,9 @@ public class SongService {
         return songRepository.findAllByName(name);
     }
 
-    private void validateDuplicateSong(Song song, String name) {
-        List<Song> findSongsByTitle = songRepository.findAllByTitle(song.getTitle());
-        List<Song> findSongsByArtist = songRepository.findAllByArtist(song.getArtist());
-        List<SongDto> findSongByName = songRepository.findAllByName(name);
-        if (!findSongsByTitle.isEmpty() && !findSongsByArtist.isEmpty() && !findSongByName.isEmpty()) {
+    private void validateDuplicateSong(Song song, String name, String title, String artist) {
+        List<Song> duplicateSong = songRepository.findDuplicateSong(song, name, title, artist);
+        if (!duplicateSong.isEmpty()) {
             throw new DuplicateSongException("이미 존재하는 노래입니다");
         }
     }

@@ -3,27 +3,20 @@ package js.StreamingMusic.controller;
 import js.StreamingMusic.domain.Member;
 import js.StreamingMusic.domain.Song;
 import js.StreamingMusic.domain.SongDto;
-import js.StreamingMusic.exception.AppError;
 import js.StreamingMusic.exception.DuplicateSongException;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.MemberService;
 import js.StreamingMusic.service.SongService;
-import js.StreamingMusic.service.crawling.GetHomeNewAlbums;
-import js.StreamingMusic.service.crawling.GetTop10;
 import js.StreamingMusic.service.data.DataApi;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -46,7 +39,7 @@ public class PlaylistController {
 
     @PostMapping("/playlist")
     public String SavePlaylist(Model model, @AuthenticationPrincipal MemberContext member,
-                                            @RequestParam("add") List<String> param,
+                                            @RequestParam(value = "add", required = false) List<String> param,
                                             RedirectAttributes redirectAttributes) throws IOException, ParseException {
 
         String username = member.getUsername();
@@ -84,7 +77,7 @@ public class PlaylistController {
             song.setMember(m);
 
             try {
-                songService.addSong(song, username);
+                songService.addSong(song, username, title, artist);
             } catch (DuplicateSongException e) {
                 redirectAttributes.addFlashAttribute("errorMsg", e.getMessage());
                 return "redirect:/";
@@ -93,6 +86,17 @@ public class PlaylistController {
 
         redirectAttributes.addFlashAttribute("successMsg", "플레이리스트에 추가 되었습니다");
         return "redirect:/";
+    }
+
+    @PostMapping(value = "/playlist/{songId}/delete")
+    public String deleteSong(Model model, @AuthenticationPrincipal MemberContext m,
+                             @PathVariable("songId") Long songId,
+                             RedirectAttributes redirectAttributes) {
+
+        Song deleteSong = songService.findSong(songId);
+        songService.removeSong(deleteSong);
+        redirectAttributes.addFlashAttribute("updateMsg", "플레이리스트에서 삭제 되었습니다");
+        return "redirect:/playlist";
     }
 
 }

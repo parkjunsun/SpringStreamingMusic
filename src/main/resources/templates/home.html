@@ -1,7 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!--    <script th:src="@{/js/jquery-2.1.3.min.js}"></script>-->
     <link rel="stylesheet" th:href="@{/css/base.css}" />
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,7 +12,6 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}"></script>
-<!--    <script type="text/javascript" src="../js/sweetalert.min.js}"></script>-->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
@@ -280,12 +278,15 @@
     } else if (successMessage != null) {
         swal("Success", successMessage, "success");
     }
-
-
-
 </script>
 <div th:replace="fragments/top::header"></div><br><br>
 <div class="wrapper">
+    <form action="/search" method="get">
+        <input type="text" name="search" id="search" placeholder="Search...">
+        <button type="submit" id="btn_search">
+            <i class="fa fa-search"></i>
+        </button>
+    </form><br><br><br><br>
     <span style="font-weight:bold; font-size:25px">최신음악</span>
     <div id="btn_div">
         <i id="val" class="material-icons">filter_1</i>
@@ -319,6 +320,9 @@
                 <p class="text2" th:text="${albums[num].title}"></p>
             </div>
         </div>
+    </div><br>
+    <div class="wrapper">
+        <a href="/new/songs" style="float:right; font-size:20px">최신노래 차트-></a>
     </div>
 </div>
 <div class = "wrapper">
@@ -346,7 +350,8 @@
                 </form>
             </td>
         </tr>
-    </table>
+    </table><br>
+    <a href="/chart/top200" style="float:right; font-size:20px">TOP 200차트-></a>
 </div><br><br><br><br><br><br><br><br><br><br>
 <div th:replace="fragments/footer::footer"></div>
 <br><br><br><br><br><br><br>
