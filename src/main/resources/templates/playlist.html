@@ -111,42 +111,49 @@
     });
 
     window.onload = function() {
-        var g_index = 0;
-        var genre_color = ["#FFA98F", "#CD853F", "#FF5675", "#6495ED", "#4AB34A", "#00A5FF", "#008C8C"];
-        for (var key in ordered){
-            var genre_div = document.getElementsByClassName("progress-bar")[g_index];
-            var genre_span = document.getElementsByClassName("genre_per")[g_index];
-            var genre_name = document.getElementsByClassName("genre_name")[g_index];
+        if (id_lst.length == 0) {
+            document.getElementsByClassName("progress-bar").style.display = none;
+            document.getElementsByClassName("genre_per").style.display = none;
+            document.getElementsByClassName("genre_name").style.display = none;
+        }
+        else {
+            var g_index = 0;
+            var genre_color = ["#FFA98F", "#CD853F", "#FF5675", "#6495ED", "#4AB34A", "#00A5FF", "#008C8C"];
+            for (var key in ordered){
+                var genre_div = document.getElementsByClassName("progress-bar")[g_index];
+                var genre_span = document.getElementsByClassName("genre_per")[g_index];
+                var genre_name = document.getElementsByClassName("genre_name")[g_index];
 
-            genre_div.style.width = Math.round(ordered[key][1]) + '%';
-            genre_div.style.backgroundColor = genre_color[g_index];
-            genre_div.innerHTML = Math.round(ordered[key][1]) + '%';
-            var genre_type = ordered[key][0];
-            if (genre_type == "발라드") {
-                genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '발라드', name = name)}}'")
-            }
-            else if (genre_type == "댄스"){
-                genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '댄스', name = name)}}'")
-            }
-            else if (genre_type == "락"){
-                genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '락', name = name)}}'")
-            }
-            else if (genre_type == "힙합"){
-                genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '힙합', name = name)}}'")
-            }
-            else if (genre_type == "일렉트로니카"){
-                genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '일렉트로니카', name = name)}}'")
-            }
-            else if (genre_type == "인디"){
-                genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '인디', name = name)}}'")
-            }
-            else if (genre_type == "트로트"){
-                genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '트로트', name = name)}}'")
-            }
+                genre_div.style.width = Math.round(ordered[key][1]) + '%';
+                genre_div.style.backgroundColor = genre_color[g_index];
+                genre_div.innerHTML = Math.round(ordered[key][1]) + '%';
+                var genre_type = ordered[key][0];
+                if (genre_type == "발라드") {
+                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '발라드', name = name)}}'")
+                }
+                else if (genre_type == "댄스"){
+                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '댄스', name = name)}}'")
+                }
+                else if (genre_type == "락"){
+                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '락', name = name)}}'")
+                }
+                else if (genre_type == "힙합"){
+                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '힙합', name = name)}}'")
+                }
+                else if (genre_type == "일렉트로니카"){
+                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '일렉트로니카', name = name)}}'")
+                }
+                else if (genre_type == "인디"){
+                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '인디', name = name)}}'")
+                }
+                else if (genre_type == "트로트"){
+                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '트로트', name = name)}}'")
+                }
 
-            genre_span.style.backgroundColor = genre_color[g_index];
-            genre_name.innerHTML = ordered[key][0];
-            g_index += 1;
+                genre_span.style.backgroundColor = genre_color[g_index];
+                genre_name.innerHTML = ordered[key][0];
+                g_index += 1;
+            }
         }
     }
 

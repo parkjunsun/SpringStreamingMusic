@@ -27,7 +27,6 @@ public class SongRepository {
         return em.find(Song.class, songid);
     }
 
-
     public List<SongDto> findAllByName(String name) {
         String jpql = "select new js.StreamingMusic.domain.SongDto(s.id, s.title, s.artist, s.videoId, s.videoId2, s.videoId3, s.img, s.genre, s.duration) From Song s join s.member m where m.username like :name";
         List<SongDto> data = em.createQuery(jpql, SongDto.class).setParameter("name", name).getResultList();

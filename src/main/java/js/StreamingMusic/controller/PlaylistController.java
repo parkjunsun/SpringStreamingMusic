@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
@@ -40,10 +41,15 @@ public class PlaylistController {
     @PostMapping("/playlist")
     public String SavePlaylist(Model model, @AuthenticationPrincipal MemberContext member,
                                             @RequestParam(value = "add", required = false) List<String> param,
-                                            RedirectAttributes redirectAttributes) throws IOException, ParseException {
-
+                                            RedirectAttributes redirectAttributes,
+                                            HttpServletRequest request) throws IOException, ParseException {
         String username = member.getUsername();
         Member m = memberService.findByUsername(username);
+
+        if (param == null) {
+            redirectAttributes.addFlashAttribute("errorMsg", "곡을 선택해주세요");
+            return "redirect:" + request.getHeader("Referer");
+        }
 
         if (param.size() == 1) {
             String[] params = param.get(0).split(";");
@@ -73,19 +79,53 @@ public class PlaylistController {
             song.setVideoId3(videoId3);
             song.setGenre(genre);
             song.setDuration(duration);
-
             song.setMember(m);
 
-            try {
+            songService.addSong(song, username, title, artist);
+
+
+        } else {
+            for (String p : param) {
+                String[] params = p.split(";");
+                String title = params[0];
+                String artist = params[1];
+
+                List<String> videoIds = dataApi.getVideoId(title, artist);
+                String img_src = dataApi.getImg(title, artist);
+                List<String> details = dataApi.getDetail(title, artist);
+
+                String videoId = videoIds.get(0);
+                String videoId2 = videoIds.get(1);
+                String videoId3 = videoIds.get(2);
+
+                String img = "https:" + img_src;
+                String genre = details.get(0);
+                String duration = details.get(1);
+
+                Song song = new Song();
+                song.setTitle(title);
+                song.setArtist(artist);
+                song.setImg(img);
+                song.setVideoId(videoId);
+                song.setVideoId2(videoId2);
+                song.setVideoId3(videoId3);
+                song.setGenre(genre);
+                song.setDuration(duration);
+                song.setMember(m);
+
                 songService.addSong(song, username, title, artist);
-            } catch (DuplicateSongException e) {
-                redirectAttributes.addFlashAttribute("errorMsg", e.getMessage());
-                return "redirect:/";
             }
         }
 
         redirectAttributes.addFlashAttribute("successMsg", "플레이리스트에 추가 되었습니다");
-        return "redirect:/";
+        return "redirect:" + request.getHeader("Referer");
+    }
+
+
+    @ExceptionHandler
+    public String duplicateSongExceptionHandler(DuplicateSongException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        redirectAttributes.addFlashAttribute("errorMsg", e.getMessage());
+        return "redirect:" + request.getHeader("Referer");
     }
 
     @PostMapping(value = "/playlist/{songId}/delete")
