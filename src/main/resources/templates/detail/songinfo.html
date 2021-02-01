@@ -18,9 +18,21 @@
 
 </head>
 <body>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    var errorMessage = /*[[${errorMsg}]]*/
+    var successMessage = /*[[${successMsg}]]*/
+    /* ]]> */
+
+    if (errorMessage != null) {
+        swal("Error", errorMessage, "error");
+    } else if (successMessage != null) {
+        swal("Success", successMessage, "success");
+    }
+</script>
 <div th:replace="fragments/top::header"></div><br><br>
 <div class="wrapper">
-    <div id="content">
+    <div id="contents">
         <h1>노래정보</h1><br><hr><br><br>
         <h3 th:text="${info.artist}"></h3><br><br>
         <div class="left">
@@ -44,20 +56,20 @@
                 <span class="category">Duration</span>
                 <span class="info" th:text="${info.duration}"></span>
             </p>
-            <th:block th:if="${info.songwriter}">
+            <th:block th:if="${info.songwriter != ''}">
                 <p class="line">
                     <span class="category">Songwriter</span>
-                    <span class="info" th:text="info.songwriter"></span>
+                    <span class="info" th:text="${info.songwriter}"></span>
                 </p>
             </th:block>
-            <th:block th:if="${info.composer}">
+            <th:block th:if="${info.composer != ''}">
                 <p class="line">
                     <span class="category">Composer</span>
-                    <span class="info" th:text="info.composer"></span>
+                    <span class="info" th:text="${info.composer}"></span>
                 </p>
             </th:block><br><br>
-            <form action="/" method="post">
-                <input type="submit" class="add_btn" name="get_song" th:value="${info.title} + ';' + ${info.artist} + ';'">
+            <form action="/playlist" method="post">
+                <input type="submit" class="add_btn" name="add" th:value="${info.title} + ';' + ${info.artist}">
             </form>
         </div>
     </div><hr><br><br>

@@ -73,3 +73,18 @@ input.desc_btn {
     font-size: 0;
     line-height: 0;
 }
+
+
+.wrapper {
+                width: 1250px;
+                margin: 0 auto;
+                padding-bottom: 10px;
+            }
+
+
+            #contents {
+                border: 5pt none #3f51b5;
+                width: 1250px;
+                height: 850px;
+                margin:0 auto;
+            }

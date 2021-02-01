@@ -4,7 +4,7 @@
     <header>
         <h1>Streaming music for Free</h1>
         <div class="vertical-menu">
-            <a href="/playlist" sec:authorize="isAnonymous()">플레이리스트</a>
+<!--            <a href="/playlist" sec:authorize="isAnonymous()">플레이리스트</a>-->
             <a href="/playlist" sec:authorize="isAuthenticated()" onClick="window.open(this.href, '','width=900,height=700'); return false;">플레이리스트</a>
         </div>
     </header>

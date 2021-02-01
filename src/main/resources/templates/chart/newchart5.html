@@ -12,7 +12,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" th:href="@{/css/search.css}">
+    <link rel="stylesheet" th:href="@{/css/chart.css}">
+
+    <style>
+        #btn4 {
+                border-radius: 5px;
+                border:2px solid #1E90FF;
+                color: #1E90FF;
+                display:inline;
+            }
+
+        #btn1, #btn2, #btn3, #btn4 {
+            border-radius: 5px;
+            border:2px solid #A9A9A9;
+            color: black;
+            display:inline;
+        }
+
+    </style>
 
     <script th:inline="javascript">
         /* <![CDATA[ */
@@ -116,7 +133,7 @@
             player.loadVideoById(videoid, 0, "large");
             document.getElementById("playing_info").innerHTML = songs[index].title + " <i>by</i>&nbsp;&nbsp;" + songs[index].artist;
             document.getElementById("thumb").src = songs[index].img
-
+            document.getElementsByClassName("rank")[index].scrollIntoView();
 
             updateTimerDisplay();
             updateProgressBar();
@@ -190,16 +207,11 @@
         }
 
 
-
-
         function youTubePlayerVolumeChange(volume) {
             if (youTubePlayerActive()) {
                 player.setVolume(volume);
             }
         }
-
-
-
 
         function formatTime(time) {
             time = Math.round(time);
@@ -210,8 +222,6 @@
             seconds = seconds < 10 ? '0' + seconds : seconds;
             return minutes + ":" + seconds;
         }
-
-
     </script>
 </head>
 <body>
@@ -230,43 +240,37 @@
 <div th:replace="fragments/top::header"></div><br><br>
 <div class="wrapper">
     <form action="/search" method="get">
-        <input type="text" name="keyword" id="search" placeholder="Search...">
-        <button type="submit" id="btn_search">
-            <i class="fa fa-search"></i>
-        </button>
+        <input type="text" name="keyword" value="" placeholder="Search...">
+        <button id="btn_search" type="submit"><i class="fa fa-search"></i></button>
     </form>
 </div><br><br><br><br>
 <div id="contents">
-    <h2 style="text-align:center;">검색 결과</h2><br>
+    <h2 style="text-align:center;">실시간 Top 200 차트</h2><br>
     <p id="date" style="text-align:right; margin-right:30px; color:gray;"></p><br><br>
     <table>
         <tr class="util">
             <td class="util"><input type="checkbox" id="allClick"></td>
             <td class="util">
                 <form action="/playlist" method="post" id="form1">
-                    <button type="submit" id="add_btn" style="cursor:pointer;">
-                        <i class="fas fa-folder-plus" style="font-size:30px;"></i> 담기
-                    </button>
+                    <button type="submit" id="add_btn" style="cursor:pointer;"><i class="fas fa-folder-plus" style="font-size:30px;"></i> 담기</button>
                 </form>
             </td>
         </tr>
     </table>
     <table id="table">
         <tr id="tr" th:each="song : ${songs}">
-            <td class="td chkbox">
-                <input type="checkbox" style="padding:0px 0px 0px 5px;" name="add" th:value="${song.title} + ';' + ${song.artist}" form="form1">
-            </td>
-            <td class="td rank" th:text="${songStat.count}"></td>
-            <td class="td image" >
-                <img th:src="@{${song.img}}" alt="error" style="width:50px; height:50px;">
+            <td class="td chkbox"><input type="checkbox" style="padding:0px 0px 0px 5px;" name="add" th:value="${song.title} + ';' + ${song.artist}" form="form1"></td>
+            <td class="td rank" th:text="${song.index}"></td>
+            <td class="td image">
+                <img th:src="@{${song.img}}" alt="error" style="width:50px;height:50px;">
             </td>
             <td class="td info">
                 <span class="shorting" th:text="|TITLE: ${song.title}|"></span><br>
                 <span class="shorting" th:text="|ARTIST: ${song.artist}|"></span>
             </td>
             <td class="icony">
-                <form action="/search" method="post">
-                    <input type="submit" class="play_btn" name="play" th:value="${song.title} + ';' + ${song.artist} + ';' + ${songStat.index} + ';' + ${keyword}">
+                <form th:action="@{/chart/new/{pg} (pg=${pgNum})} " method="post">
+                    <input type="submit" class="play_btn" name="play" th:value="${song.title} + ';' + ${song.artist} + ';' + ${songStat.index}">
                 </form>
             </td>
             <td class="icony">
@@ -281,13 +285,22 @@
             </td>
         </tr>
     </table>
+</div><br><br><br>
+<div id="btn_div">
+    <div id="btn_group">
+        <a href="/chart/new/1" id="btn1">1 ~ 30위</a>
+        <a href="/chart/new/2" id="btn2">31 ~ 60위</a>
+        <a href="/chart/new/3" id="btn3">61 ~ 90위</a>
+        <a href="/chart/new/4" id="btn4">91 ~ 120위</a>
+        <a href="/chart/new/4" id="btn5">121 ~ 150위</a>
+    </div>
 </div><br><br><br><br><br><br><br><br><br><br>
 <div th:replace="fragments/footer::footer"></div>
 <br><br><br><br><br><br><br>
 <div id="fixed">
     <div id="playerIframe"></div>
     <div class="track_info">
-        <span><img src="../images/white.png" id="thumb"></span>
+        <span><img src="/images/white.png" id="thumb"></span>
     </div>
     <div class="controller">
         <span><p id="playing_info" style="text-align:center; font-size:13px; font-weight:bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">재생중인 노래가 없습니다</p></span>
@@ -299,6 +312,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

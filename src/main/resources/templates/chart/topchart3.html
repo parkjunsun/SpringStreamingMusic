@@ -14,6 +14,22 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/chart.css}">
 
+    <style>
+        #btn3 {
+            border-radius: 5px;
+            border:2px solid #1E90FF;
+            color: #1E90FF;
+            display:inline;
+        }
+
+        #btn1, #btn2, #btn4 {
+            border-radius: 5px;
+            border:2px solid #A9A9A9;
+            color: black;
+            display:inline;
+        }
+    </style>
+
     <script th:inline="javascript">
         /* <![CDATA[ */
         var videoIds = /*[[${videoIds}]]*/
@@ -116,7 +132,7 @@
             player.loadVideoById(videoid, 0, "large");
             document.getElementById("playing_info").innerHTML = songs[index].title + " <i>by</i>&nbsp;&nbsp;" + songs[index].artist;
             document.getElementById("thumb").src = songs[index].img
-
+            document.getElementsByClassName("rank")[index].scrollIntoView();
 
             updateTimerDisplay();
             updateProgressBar();
@@ -243,7 +259,7 @@
     <table id="table">
         <tr id="tr" th:each="song : ${songs}">
             <td class="td chkbox"><input type="checkbox" style="padding:0px 0px 0px 5px;" name="add" th:value="${song.title} + ';' + ${song.artist}" form="form1"></td>
-            <td class="td rank" th:text="${songStat.count}"></td>
+            <td class="td rank" th:text="${song.index}"></td>
             <td class="td image">
                 <img th:src="@{${song.img}}" alt="error" style="width:50px;height:50px;">
             </td>

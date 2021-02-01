@@ -1,7 +1,7 @@
-package js.StreamingMusic.controller;
+package js.StreamingMusic.controller.chart;
 
 import js.StreamingMusic.security.MemberContext;
-import js.StreamingMusic.service.crawling.GetTop200;
+import js.StreamingMusic.service.crawling.GetNewestSongs;
 import js.StreamingMusic.service.data.DataApi;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
@@ -19,29 +19,32 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class ChartController {
+public class NewChartController {
 
-    private final GetTop200 getTop200;
+    private final GetNewestSongs getNewestSongs;
     private final DataApi dataApi;
 
-    @GetMapping("/chart/top200/{pgNum}")
-    public String showTop200(Model model, @PathVariable("pgNum") String pgNum, @AuthenticationPrincipal MemberContext memberContext) throws IOException {
+    @GetMapping("/chart/new/{pgNum}")
+    public String showNewSongs(Model model, @PathVariable("pgNum") String pgNum,
+                               @AuthenticationPrincipal MemberContext memberContext) throws IOException {
+
         if(memberContext != null) {
             String username = memberContext.getUsername();
             model.addAttribute("name", username);
         }
 
-        List<HashMap<String, String>> songs = getTop200.getSongs(pgNum);
+        List<HashMap<String, String>> songs = getNewestSongs.getSongs(pgNum);
         model.addAttribute("songs", songs);
         model.addAttribute("pgNum", pgNum);
 
-        return "topchart" + pgNum;
+        return "chart/newchart" + pgNum;
     }
 
-    @PostMapping("/chart/top200/{pgNum}")
-    public String playTop200(Model model, @PathVariable("pgNum") String pgNum,
-                             @AuthenticationPrincipal MemberContext memberContext,
-                             @RequestParam(value = "play") String param) throws IOException, ParseException {
+    @PostMapping("/chart/new/{pgNum}")
+    public String playNewSong(Model model, @PathVariable("pgNum") String pgNum,
+                              @AuthenticationPrincipal MemberContext memberContext,
+                              @RequestParam(value = "play") String param) throws IOException, ParseException {
+
         if(memberContext != null) {
             String username = memberContext.getUsername();
             model.addAttribute("name", username);
@@ -56,9 +59,11 @@ public class ChartController {
         model.addAttribute("videoIds", videoIds);
         model.addAttribute("index", index);
 
-        List<HashMap<String, String>> songs = getTop200.getSongs(pgNum);
+        List<HashMap<String, String>> songs = getNewestSongs.getSongs(pgNum);
+
         model.addAttribute("songs", songs);
 
-        return "topchart" + pgNum;
+        return "chart/newchart" + pgNum;
     }
+
 }

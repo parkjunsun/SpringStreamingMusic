@@ -618,30 +618,29 @@
     }
 
 
+    var start_pos = 0
+    var copy = data.slice();
+    var tmp = data.slice();
+    var reorder_lst = []
+
     $(function() {
-        var start_pos = 0
-        var copy = data.slice();
-        var tmp_copy = data.slice();
-        var reorder_lst = []
         $("#sortable").sortable({
             start: function(event, ui){
                 start_pos = ui.item.index();
             },
             stop: function(event, ui){
-
                 var update_pos = ui.item.index();
 
                 copy.splice(start_pos, 1);
-                copy.splice(update_pos, 0, tmp_copy[start_pos]);
-
-                var obj = JSON.stringify(copy);
+                copy.splice(update_pos, 0, tmp[start_pos]);
 
                 $(document).ready(function(){
                         $('#reorder').fadeIn('slow');
                 });
 
-                document.getElementById('reorders').value = obj;
-
+                var relocatedData = JSON.stringify(copy);
+                document.getElementById('relocation').value = relocatedData;
+                tmp = copy.slice();
             }
         });
     });
@@ -688,8 +687,8 @@
     <div id="reorder" style="display:none">
         <span style="float:left; color:black; font-size:13px;">배치완료</span>
         <span style="float:right; color:black; font-size:12px;">이전으로</span><br>
-        <form action="/" method="post">
-            <input type="submit" name="reorders" id="reorders" value=""/>
+        <form action="/playlist/relocation" method="post">
+            <input type="submit" name="relocation" id="relocation" value=""/>
         </form>
         <input type="button" id="cancel" onclick="hide();"/>
     </div>

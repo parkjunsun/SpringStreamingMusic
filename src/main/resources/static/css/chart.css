@@ -123,33 +123,6 @@ input[type=text] {
                 text-decoration: none;
             }
 
-            #btn1 {
-                border-radius: 5px;
-                border:2px solid #1E90FF;
-                color: #1E90FF;
-                display:inline;
-            }
-
-            #btn2 {
-                border-radius: 5px;
-                border:2px solid #A9A9A9;
-                color: black;
-                display:inline;
-            }
-
-            #btn3 {
-                border-radius: 5px;
-                border:2px solid #A9A9A9;
-                color:black;
-                display:inline;
-            }
-
-            #btn4 {
-                border-radius: 5px;
-                border:2px solid #A9A9A9;
-                color:black;
-                display:inline;
-            }
 
             #add_btn {
                 border-radius: 5px;

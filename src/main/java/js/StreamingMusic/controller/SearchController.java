@@ -33,7 +33,7 @@ public class SearchController {
 
     @GetMapping("/search")
     public String showSearchSongs(Model model, @AuthenticationPrincipal MemberContext memberContext,
-                                  @RequestParam(value = "search", required = false) String keyword,
+                                  @RequestParam(value = "keyword", required = false) String keyword,
                                   RedirectAttributes redirectAttributes,
                                   HttpServletRequest request) throws IOException {
         if(memberContext != null) {

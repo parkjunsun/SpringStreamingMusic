@@ -71,6 +71,8 @@ public class GetDetailSongInfo {
             detailSongData.put("genre", genre);
             detailSongData.put("duration", duration);
             detailSongData.put("lyrics", lyrics);
+            detailSongData.put("songwriter", "");
+            detailSongData.put("composer", "");
         }
 
         return detailSongData;

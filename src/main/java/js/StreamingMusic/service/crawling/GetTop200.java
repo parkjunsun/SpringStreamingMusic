@@ -18,6 +18,7 @@ import java.util.*;
 public class GetTop200 {
 
     public List<HashMap<String, String>> getSongs(String page) throws IOException {
+        int cnt = 1;
         List<HashMap<String, String>> songs = new ArrayList<>();
 
         Date d = new Date();
@@ -49,7 +50,16 @@ public class GetTop200 {
             map.put("img", img);
             map.put("song_id", song_id);
 
+            if (page.equals("2")) {
+                map.put("index", Integer.toString(cnt+50));
+            } else if (page.equals("3")) {
+                map.put("index", Integer.toString(cnt+100));
+            } else if (page.equals("4")) {
+                map.put("index", Integer.toString(cnt+150));
+            }
+
             songs.add(map);
+            cnt += 1;
 
         }
 
