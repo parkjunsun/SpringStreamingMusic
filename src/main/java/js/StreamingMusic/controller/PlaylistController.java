@@ -169,7 +169,12 @@ public class PlaylistController {
         model.addAttribute("name", memberContext.getUsername());
 
         return "playlist";
+    }
 
+    @GetMapping("/playlist/category")
+    @ResponseBody
+    public String showByGenre(Model model, @AuthenticationPrincipal MemberContext memberContext, @RequestParam("genre") String genre) {
+        return genre;
     }
 
 }

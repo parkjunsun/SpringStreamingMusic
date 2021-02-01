@@ -23,6 +23,13 @@
 
     /* <![CDATA[ */
     var data = /*[[${songs}]]*/
+    var ballardUrl = /*[[@{/playlist/category(genre = 'ballard')}]]*/
+    var dancedUrl = /*[[@{/playlist/category(genre = 'dance')}]]*/
+    var hiphopUrl = /*[[@{/playlist/category(genre = 'hiphop')}]]*/
+    var rockUrl = /*[[@{/playlist/category(genre = 'rock')}]]*/
+    var elecUrl = /*[[@{/playlist/category(genre = 'elec')}]]*/
+    var indeUrl = /*[[@{/playlist/category(genre = 'inde')}]]*/
+    var trotUrl = /*[[@{/playlist/category(genre = 'trot')}]]*/
     /* ]]> */
 
     var errorCnt = 0;
@@ -129,25 +136,25 @@
                 genre_div.innerHTML = Math.round(ordered[key][1]) + '%';
                 var genre_type = ordered[key][0];
                 if (genre_type == "발라드") {
-                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '발라드', name = name)}}'")
+                    genre_div.setAttribute("onclick","location.href=ballardUrl")
                 }
                 else if (genre_type == "댄스"){
-                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '댄스', name = name)}}'")
+                    genre_div.setAttribute("onclick","location.href=danceUrl")
                 }
                 else if (genre_type == "락"){
-                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '락', name = name)}}'")
+                    genre_div.setAttribute("onclick","location.href=rockUrl")
                 }
                 else if (genre_type == "힙합"){
-                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '힙합', name = name)}}'")
+                    genre_div.setAttribute("onclick","location.href=hiphopUrl")
                 }
                 else if (genre_type == "일렉트로니카"){
-                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '일렉트로니카', name = name)}}'")
+                    genre_div.setAttribute("onclick","location.href=elecUrl")
                 }
                 else if (genre_type == "인디"){
-                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '인디', name = name)}}'")
+                    genre_div.setAttribute("onclick","location.href=indeUrl")
                 }
                 else if (genre_type == "트로트"){
-                    genre_div.setAttribute("onclick","location.href='{{url_for('playlist_genre', genre = '트로트', name = name)}}'")
+                    genre_div.setAttribute("onclick","location.href=trotUrl")
                 }
 
                 genre_span.style.backgroundColor = genre_color[g_index];
