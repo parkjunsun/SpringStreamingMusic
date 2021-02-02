@@ -18,16 +18,8 @@
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
 </head>
 <script th:inline="javascript">
-
     /* <![CDATA[ */
     var data = /*[[${songs}]]*/
-    var ballardUrl = /*[[@{/playlist/category(genre = '발라드')}]]*/
-    var danceUrl = /*[[@{/playlist/category(genre = '댄스')}]]*/
-    var hiphopUrl = /*[[@{/playlist/category(genre = '힙합')}]]*/
-    var rockUrl = /*[[@{/playlist/category(genre = '락')}]]*/
-    var elecUrl = /*[[@{/playlist/category(genre = '일렉트로니카')}]]*/
-    var indeUrl = /*[[@{/playlist/category(genre = '인디뮤직')}]]*/
-    var trotUrl = /*[[@{/playlist/category(genre = '트로트')}]]*/
     /* ]]> */
 
     var errorCnt = 0;
@@ -59,108 +51,6 @@
 
 
     var totalCnt = id_lst.length;
-
-    for (var i in data){
-        if (data[i].genre.includes('발라드')){
-            ballardCnt += 1;
-        }
-        else if (data[i].genre.includes('댄스')){
-            danceCnt += 1;
-        }
-        else if (data[i].genre.includes('R&B')){
-            ballardCnt += 1;
-        }
-        else if (data[i].genre.includes('락')){
-            rockCnt += 1;
-        }
-        else if (data[i].genre.includes('힙합')){
-            hiphopCnt += 1;
-        }
-        else if (data[i].genre.includes('일렉')){
-            elecCnt += 1;
-        }
-        else if (data[i].genre.includes('인디')){
-            indeCnt += 1;
-        }
-        else if (data[i].genre.includes('블루스')){
-            ballardCnt += 1;
-        }
-        else if (data[i].genre.includes('트롯')){
-            trotCnt += 1;
-        }
-    }
-
-    genreDict['발라드'] = ballardCnt / totalCnt * 100;
-    genreDict['댄스'] = danceCnt / totalCnt * 100;
-
-    genreDict['락'] = rockCnt / totalCnt * 100;
-    genreDict['힙합'] = hiphopCnt / totalCnt * 100;
-    genreDict['일렉트로니카'] = elecCnt / totalCnt * 100;
-    genreDict['인디'] = indeCnt / totalCnt * 100;
-
-    genreDict['트로트'] = trotCnt / totalCnt * 100;
-
-    for (var key in genreDict){
-        if (genreDict[key] == 0){
-            delete genreDict[key];
-        }
-    }
-
-    for (var genre in genreDict){
-        ordered.push([genre, genreDict[genre]]);
-    }
-
-
-    ordered.sort(function(a,b) {
-        return b[1] - a[1];
-    });
-
-    window.onload = function() {
-        if (id_lst.length == 0) {
-            document.getElementsByClassName("progress-bar").style.display = none;
-            document.getElementsByClassName("genre_per").style.display = none;
-            document.getElementsByClassName("genre_name").style.display = none;
-        }
-        else {
-            var g_index = 0;
-            var genre_color = ["#FFA98F", "#CD853F", "#FF5675", "#6495ED", "#4AB34A", "#00A5FF", "#008C8C"];
-            for (var key in ordered){
-                var genre_div = document.getElementsByClassName("progress-bar")[g_index];
-                var genre_span = document.getElementsByClassName("genre_per")[g_index];
-                var genre_name = document.getElementsByClassName("genre_name")[g_index];
-
-                genre_div.style.width = Math.round(ordered[key][1]) + '%';
-                genre_div.style.backgroundColor = genre_color[g_index];
-                genre_div.innerHTML = Math.round(ordered[key][1]) + '%';
-                var genre_type = ordered[key][0];
-                if (genre_type == "발라드") {
-                    genre_div.setAttribute("onclick","location.href=ballardUrl")
-                }
-                else if (genre_type == "댄스"){
-                    genre_div.setAttribute("onclick","location.href=danceUrl")
-                }
-                else if (genre_type == "락"){
-                    genre_div.setAttribute("onclick","location.href=rockUrl")
-                }
-                else if (genre_type == "힙합"){
-                    genre_div.setAttribute("onclick","location.href=hiphopUrl")
-                }
-                else if (genre_type == "일렉트로니카"){
-                    genre_div.setAttribute("onclick","location.href=elecUrl")
-                }
-                else if (genre_type == "인디"){
-                    genre_div.setAttribute("onclick","location.href=indeUrl")
-                }
-                else if (genre_type == "트로트"){
-                    genre_div.setAttribute("onclick","location.href=trotUrl")
-                }
-
-                genre_span.style.backgroundColor = genre_color[g_index];
-                genre_name.innerHTML = ordered[key][0];
-                g_index += 1;
-            }
-        }
-    }
 
     flag = 0;
     repeat_flag = 0;
@@ -701,54 +591,33 @@
 <div class="playlist">
     <div id="dv">
         <h5 style="color: #3A56B7" th:text="|${name}님의 플레이리스트|"></h5><br>
+        <span style="font-size:20px; color: #3A56B7" th:text="|장르: ${genrename}|"></span>
+        <span style="float:right"><a href="/playlist">전체리스트</a> </span><br><br>
         <p id="count"></p>
     </div>
-    <div class="container">
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-        </div>
-        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
-        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
-        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
-        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
-        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
-        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
-        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
-        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
-        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
-    </div><br>
     <div id="search_box">
         <span class="icon"><i class="fa fa-search"></i></span>
         <input id="search" type="text" name="keyword" value="" placeholder="Search..."/>
     </div><br><br><br>
     <table>
         <tbody id="sortable">
-            <tr th:each="song : ${songs}">
-                <td>
-                    <div th:class="${songStat.index}">
-                        <i th:id="${songStat.index}" class="material-icons" style="font-size:20px"></i>
-                        <button class="playbutton" onclick="buttonplay(this)" th:value="${song.title} + ';' + ${song.artist}">
-                            <span class="shorting">[[${song.title}]]</span><br>
-                            <span class="shorting">[[${song.artist}]]</span>
-                        </button>
-                    </div>
-                </td>
-                <td style="text-align:right; font-size:12px;" th:text="${song.duration}"></td>
-                <td style="text-align:right;">
-                    <form th:action="@{/playlist/{id}/delete (id=${song.id})}" method="post">
-                        <input type="submit" class="img-button" name="delete" id="data" value="${song.id}">
-                    </form>
-                </td>
-            </tr>
+        <tr th:each="song : ${songs}">
+            <td>
+                <div th:class="${songStat.index}">
+                    <i th:id="${songStat.index}" class="material-icons" style="font-size:20px"></i>
+                    <button class="playbutton" onclick="buttonplay(this)" th:value="${song.title} + ';' + ${song.artist}">
+                        <span class="shorting">[[${song.title}]]</span><br>
+                        <span class="shorting">[[${song.artist}]]</span>
+                    </button>
+                </div>
+            </td>
+            <td style="text-align:right; font-size:12px;" th:text="${song.duration}"></td>
+            <td style="text-align:right;">
+                <form th:action="@{/playlist/{id}/delete (id=${song.id})}" method="post">
+                    <input type="submit" class="img-button" name="delete" id="data" value="${song.id}">
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
     <div id="notice">

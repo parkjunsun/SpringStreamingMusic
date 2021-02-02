@@ -48,4 +48,8 @@ public class SongService {
         }
     }
 
+    public List<SongDto> findAllSongsByCategory(String name, String genre) {
+        return songRepository.findAllByCategory(name, genre);
+    }
+
 }

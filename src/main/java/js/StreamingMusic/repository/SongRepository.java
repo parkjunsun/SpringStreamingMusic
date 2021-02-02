@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,12 +28,45 @@ public class SongRepository {
         return em.find(Song.class, songid);
     }
 
+
+
+
     public List<SongDto> findAllByName(String name) {
-        String jpql = "select new js.StreamingMusic.domain.SongDto(s.id, s.title, s.artist, s.videoId, s.videoId2, s.videoId3, s.img, s.genre, s.duration) From Song s join s.member m where m.username like :name";
+        String jpql = "select new js.StreamingMusic.domain.SongDto(s.id, s.title, s.artist, s.videoId, s.videoId2, s.videoId3, s.img, s.genre, s.duration) " +
+                      "From Song s join s.member m " +
+                      "where m.username like :name";
         List<SongDto> data = em.createQuery(jpql, SongDto.class).setParameter("name", name).getResultList();
 
         return data;
     }
+
+
+
+    public List<SongDto> findAllByCategory(String name, String genre) {
+        String jpql = "select new js.StreamingMusic.domain.SongDto(s.id, s.title, s.artist, s.videoId, s.videoId2, s.videoId3, s.img, s.genre, s.duration) ";
+        if (genre.equals("가요 / 발라드;가요 / 블루스/포크;가요 / R&B/소울")){
+            String[] columns = genre.split(";");
+            String ballard = columns[0];
+            String blues = columns[1];
+            String rnb = columns[2];
+            String condition = "From Song s join s.member m " +
+                               "where m.username like :name " +
+                               "and s.genre IN :genreList";
+            return em.createQuery(jpql+condition, SongDto.class)
+                    .setParameter("name", name)
+                    .setParameter("genreList", Arrays.asList(ballard, blues, rnb))
+                    .getResultList();
+        } else {
+            String condition = "From Song s join s.member m " +
+                    "where m.username like :name " +
+                    "and s.genre like :genre";
+            return em.createQuery(jpql+condition, SongDto.class).setParameter("name", name).setParameter("genre", genre).getResultList();
+        }
+
+    }
+
+
+
 
     public List<Song> findAllByTitle(String title) {
         return em.createQuery("select s From Song s where s.title = :title", Song.class)
@@ -54,5 +88,7 @@ public class SongRepository {
                 .setParameter("artist", artist)
                 .getResultList();
     }
+
+
 
 }

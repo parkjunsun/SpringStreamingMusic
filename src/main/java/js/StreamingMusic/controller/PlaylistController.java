@@ -134,47 +134,36 @@ public class PlaylistController {
     }
 
     @PostMapping(value = "/playlist/{songId}/delete")
-    public String deleteSong(Model model, @PathVariable("songId") Long songId, RedirectAttributes redirectAttributes) {
+    public String deleteSong(Model model, @PathVariable("songId") Long songId, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
         Song deleteSong = songService.findSong(songId);
         songService.removeSong(deleteSong);
         redirectAttributes.addFlashAttribute("updateMsg", "플레이리스트에서 삭제 되었습니다");
-        return "redirect:/playlist";
+        return "redirect:" + request.getHeader("Referer");
     }
 
     @PostMapping(value = "/playlist/relocation")
     public String reorderSong(Model model, @RequestParam(value = "relocation") String jsonStr, @AuthenticationPrincipal MemberContext memberContext) throws ParseException {
 
-        List<HashMap<String, String>> relocationSongs = new ArrayList<>();
+        List<HashMap<String, String>> songs = dataApi.parsingAndRelocate(jsonStr);
 
-        JSONParser parser = new JSONParser();
-        JSONArray jsonArray = (JSONArray) parser.parse(jsonStr);
-        for (int i = 0; i < jsonArray.size(); i++) {
-            HashMap<String, String> map = new HashMap<>();
-
-            map.put("id", ((JSONObject)jsonArray.get(i)).get("id").toString());
-            map.put("title", ((JSONObject)jsonArray.get(i)).get("title").toString());
-            map.put("artist", ((JSONObject)jsonArray.get(i)).get("artist").toString());
-            map.put("videoId", ((JSONObject)jsonArray.get(i)).get("videoId").toString());
-            map.put("videoId2", ((JSONObject)jsonArray.get(i)).get("videoId2").toString());
-            map.put("videoId3", ((JSONObject)jsonArray.get(i)).get("videoId3").toString());
-            map.put("img", ((JSONObject)jsonArray.get(i)).get("img").toString());
-            map.put("genre", ((JSONObject)jsonArray.get(i)).get("genre").toString());
-            map.put("duration", ((JSONObject)jsonArray.get(i)).get("duration").toString());
-
-            relocationSongs.add(map);
-        }
-
-        model.addAttribute("songs", relocationSongs);
+        model.addAttribute("songs", songs);
         model.addAttribute("name", memberContext.getUsername());
 
         return "playlist";
     }
 
     @GetMapping("/playlist/category")
-    @ResponseBody
     public String showByGenre(Model model, @AuthenticationPrincipal MemberContext memberContext, @RequestParam("genre") String genre) {
-        return genre;
+        String refactoringGenreName = dataApi.refactoringName(genre);
+        String username = memberContext.getUsername();
+
+        List<SongDto> songs = songService.findAllSongsByCategory(username, refactoringGenreName);
+        model.addAttribute("songs", songs);
+        model.addAttribute("name", username);
+        model.addAttribute("genrename", genre);
+
+        return "genreplaylist";
     }
 
 }

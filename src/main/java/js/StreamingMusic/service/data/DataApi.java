@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -140,5 +141,50 @@ public class DataApi {
         details.add(duration);
 
         return details;
+    }
+
+    public List<HashMap<String, String>> parsingAndRelocate(String jsonStr) throws ParseException {
+        List<HashMap<String, String>> relocationSongs = new ArrayList<>();
+
+        JSONParser parser = new JSONParser();
+        JSONArray jsonArray = (JSONArray) parser.parse(jsonStr);
+        for (int i = 0; i < jsonArray.size(); i++) {
+            HashMap<String, String> map = new HashMap<>();
+
+            map.put("id", ((JSONObject)jsonArray.get(i)).get("id").toString());
+            map.put("title", ((JSONObject)jsonArray.get(i)).get("title").toString());
+            map.put("artist", ((JSONObject)jsonArray.get(i)).get("artist").toString());
+            map.put("videoId", ((JSONObject)jsonArray.get(i)).get("videoId").toString());
+            map.put("videoId2", ((JSONObject)jsonArray.get(i)).get("videoId2").toString());
+            map.put("videoId3", ((JSONObject)jsonArray.get(i)).get("videoId3").toString());
+            map.put("img", ((JSONObject)jsonArray.get(i)).get("img").toString());
+            map.put("genre", ((JSONObject)jsonArray.get(i)).get("genre").toString());
+            map.put("duration", ((JSONObject)jsonArray.get(i)).get("duration").toString());
+
+            relocationSongs.add(map);
+        }
+
+        return relocationSongs;
+    }
+
+
+    public String refactoringName(String genre) {
+
+        String queryColumn = "";
+
+        if (genre.equals("발라드")) {
+            String column1 = "가요 / 발라드;";
+            String column2 = "가요 / 블루스/포크;";
+            String column3 = "가요 / R&B/소울";
+            queryColumn = column1 + column2 + column3;
+        }
+        else if (genre.equals("댄스")) { queryColumn = "가요 / 댄스"; }
+        else if (genre.equals("락")) { queryColumn = "가요 / 락";}
+        else if (genre.equals("힙합")) { queryColumn = "가요 / 랩/힙합"; }
+        else if (genre.equals("일렉트로니카")) {queryColumn = "가요 / 일렉트로니카";}
+        else if (genre.equals("인디뮤직")) {queryColumn = "가요 / 인디";}
+        else if (genre.equals("트로트")) {queryColumn = "가요 / 트로트";}
+
+        return queryColumn;
     }
 }
