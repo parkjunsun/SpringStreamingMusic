@@ -282,8 +282,8 @@
 <div th:replace="fragments/top::header"></div><br><br>
 <div class="wrapper">
     <form action="/search" method="get">
-        <input type="text" name="keyword" id="search" placeholder="Search...">
-        <button type="submit" id="btn_search">
+        <input type="text" class="search1"name="keyword" id="search" placeholder="Search...">
+        <button type="submit" class="btn_search">
             <i class="fa fa-search"></i>
         </button>
     </form><br><br><br><br>
@@ -352,7 +352,15 @@
         </tr>
     </table><br>
     <a href="/chart/top200/1" style="float:right; font-size:20px">TOP 200차트-></a>
-</div><br><br><br><br><br><br><br><br><br><br>
+</div><br><br><br><br><br><br><br><br><hr><br><br>
+<div class="wrapper" style="text-align:center">
+    <h2 style="color:red">Youtube에 등록된 노래를 플레이리스트로~~~</h2><br>
+    <form class="example" action="/youtube" method="post" style="margin:auto; max-width:600px">
+            <input type="text" class="textbox" name="add" placeholder="Youtube VideoID를 입력해주세요...">
+            <button type="submit" class="searchbtn"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<br><br><br><br><br><br><br><br><br><br>
 <div th:replace="fragments/footer::footer"></div>
 <br><br><br><br><br><br><br>
 <div id="fixed">

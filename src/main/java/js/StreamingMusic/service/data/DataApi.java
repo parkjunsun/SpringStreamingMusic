@@ -1,6 +1,9 @@
 package js.StreamingMusic.service.data;
 
 import com.google.common.net.UrlEscapers;
+import js.StreamingMusic.exception.NotExistSearchResult;
+import org.joda.time.format.ISOPeriodFormat;
+import org.joda.time.format.PeriodFormatter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -137,8 +140,10 @@ public class DataApi {
         String genre = info.get(2).selectFirst("span.value").text();
         String duration = info.get(3).selectFirst("span.value").text();
 
+
         details.add(genre);
         details.add(duration);
+
 
         return details;
     }
@@ -184,7 +189,88 @@ public class DataApi {
         else if (genre.equals("일렉트로니카")) {queryColumn = "가요 / 일렉트로니카";}
         else if (genre.equals("인디뮤직")) {queryColumn = "가요 / 인디";}
         else if (genre.equals("트로트")) {queryColumn = "가요 / 트로트";}
+        else if (genre.equals("유튜브")) {queryColumn = "youtube";}
 
         return queryColumn;
+    }
+
+
+    public HashMap<String, String> getVideoInfo(String videoId) throws IOException, ParseException {
+
+        HashMap<String, String> data = new HashMap<>();
+
+        String urlStr = String.format("https://www.googleapis.com/youtube/v3/videos?id=%s&key=%s&part=contentDetails&part=snippet", videoId, api_key);
+        String encodedUrl = UrlEscapers.urlFragmentEscaper().escape(urlStr);
+        URL url = new URL(encodedUrl);
+
+        BufferedReader bf;
+        String line = "";
+        String result = "";
+
+        bf = new BufferedReader(new InputStreamReader(url.openStream()));
+
+        while((line = bf.readLine()) != null) {
+            result = result.concat(line);
+        }
+
+        JSONParser parser = new JSONParser();
+        JSONObject obj = (JSONObject) parser.parse(result);
+
+        JSONObject pageInfo = (JSONObject) obj.get("pageInfo");
+        Long totalResults = (Long) pageInfo.get("totalResults");
+
+        if (totalResults == 0) {
+            throw new NotExistSearchResult("검색 결과가 없습니다");
+        }
+
+
+        JSONArray items = (JSONArray) obj.get("items");
+        JSONObject info = (JSONObject) items.get(0);
+
+        JSONObject snippet = (JSONObject) info.get("snippet");
+        JSONObject contentDetails = (JSONObject) info.get("contentDetails");
+
+        JSONObject thumbnails = (JSONObject) snippet.get("thumbnails");
+        JSONObject high = (JSONObject) thumbnails.get("high");
+
+        String img = (String) high.get("url");
+        String title = (String) snippet.get("title");
+        String time = (String) contentDetails.get("duration");
+
+        PeriodFormatter formatter = ISOPeriodFormat.standard();
+        String hours = Integer.toString(formatter.parsePeriod(time).getHours());
+        String minutes = Integer.toString(formatter.parsePeriod(time).getMinutes());
+        String seconds = Integer.toString(formatter.parsePeriod(time).getSeconds());
+        String duration = "";
+
+        if (hours.equals("0")) {
+            if (minutes.length() == 1) {
+                minutes = "0" + minutes;
+            }
+
+            if (seconds.length() == 1) {
+                seconds = "0" + seconds;
+            }
+
+            duration = String.format("%s:%s", minutes, seconds);
+        } else {
+
+            if (minutes.length() == 1) {
+                minutes = "0" + minutes;
+            }
+
+            if (seconds.length() == 1) {
+                seconds = "0" + seconds;
+            }
+
+            duration = String.format("%s:%s:%s", hours, minutes, seconds);
+        }
+
+
+        data.put("title", title);
+        data.put("img", img);
+        data.put("duration", duration);
+
+        return data;
     }
 }

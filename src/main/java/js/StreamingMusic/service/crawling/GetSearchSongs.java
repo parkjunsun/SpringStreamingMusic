@@ -27,13 +27,14 @@ public class GetSearchSongs {
                 return songs;
             }
             String songid = tr.attr("songid");
-            String title = info.selectFirst("a").attr("title").strip();
+//            String title = info.selectFirst("a").attr("title").strip();
             String artist = info.selectFirst("a.artist").text().strip();
 
             Elements td = tr.select("td");
             Element data = td.get(2);
             Element img_src = data.selectFirst("img");
             String img = "https:" + img_src.attr("src");
+            String title = img_src.attr("alt");
 
             HashMap<String, String> map = new HashMap<>();
             map.put("title", title);

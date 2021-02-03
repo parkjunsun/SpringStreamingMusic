@@ -28,6 +28,7 @@
     var elecUrl = /*[[@{/playlist/category(genre = '일렉트로니카')}]]*/
     var indeUrl = /*[[@{/playlist/category(genre = '인디뮤직')}]]*/
     var trotUrl = /*[[@{/playlist/category(genre = '트로트')}]]*/
+    var ytUrl = /*[[@{/playlist/category(genre = '유튜브')}]]*/
     /* ]]> */
 
     var errorCnt = 0;
@@ -48,6 +49,8 @@
     var indeCnt = 0;
     var bluesCnt = 0;
     var trotCnt = 0;
+    var ytCnt = 0;
+
 
     for (var i in data) {
         id_lst.push(data[i].videoId);
@@ -88,6 +91,9 @@
         else if (data[i].genre.includes('트롯')){
             trotCnt += 1;
         }
+        else if (data[i].genre.includes("youtube")) {
+            ytCnt += 1;
+        }
     }
 
     genreDict['발라드'] = ballardCnt / totalCnt * 100;
@@ -99,6 +105,7 @@
     genreDict['인디'] = indeCnt / totalCnt * 100;
 
     genreDict['트로트'] = trotCnt / totalCnt * 100;
+    genreDict['유튜브'] = ytCnt / totalCnt * 100;
 
     for (var key in genreDict){
         if (genreDict[key] == 0){
@@ -123,7 +130,7 @@
         }
         else {
             var g_index = 0;
-            var genre_color = ["#FFA98F", "#CD853F", "#FF5675", "#6495ED", "#4AB34A", "#00A5FF", "#008C8C"];
+            var genre_color = ["#FFA98F", "#CD853F", "#FF5675", "#6495ED", "#4AB34A", "#00A5FF", "#008C8C", "#ff0000"];
             for (var key in ordered){
                 var genre_div = document.getElementsByClassName("progress-bar")[g_index];
                 var genre_span = document.getElementsByClassName("genre_per")[g_index];
@@ -153,6 +160,8 @@
                 }
                 else if (genre_type == "트로트"){
                     genre_div.setAttribute("onclick","location.href=trotUrl")
+                } else if (genre_type == "유튜브"){
+                    genre_div.setAttribute("onclick","location.href=ytUrl")
                 }
 
                 genre_span.style.backgroundColor = genre_color[g_index];
@@ -339,7 +348,8 @@
         }
         else if (state == YT.PlayerState.ENDED) {
             document.getElementById(index).innerHTML = "";
-            document.getElementsByClassName(index)[0].style.color = "black";
+            document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
+            document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
         }
     }
 
@@ -713,8 +723,9 @@
             <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
             <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
             <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
-            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>
+<!--            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>-->
+<!--            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>-->
+<!--            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="cursor:pointer;"></div>-->
         </div>
         <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
         <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
@@ -724,7 +735,8 @@
         <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
         <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
         <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
-        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>
+<!--        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>-->
+<!--        <span class="genre_per"></span>&nbsp;<span class="genre_name"></span>-->
     </div><br>
     <div id="search_box">
         <span class="icon"><i class="fa fa-search"></i></span>
@@ -737,8 +749,10 @@
                     <div th:class="${songStat.index}">
                         <i th:id="${songStat.index}" class="material-icons" style="font-size:20px"></i>
                         <button class="playbutton" onclick="buttonplay(this)" th:value="${song.title} + ';' + ${song.artist}">
-                            <span class="shorting">[[${song.title}]]</span><br>
-                            <span class="shorting">[[${song.artist}]]</span>
+                            <span class="shorting" th:text="${song.title}"></span>
+<!--                            <span class="shorting" th:text="${song.artist}"></span>-->
+                            <span class="shorting" th:if="${song.artist.equals('youtube')}" th:style="'color:red'" th:text="${song.artist}"></span>
+                            <span class="shorting" th:unless="${song.artist.equals('youtube')}" th:text="${song.artist}"></span>
                         </button>
                     </div>
                 </td>

@@ -1,34 +1,63 @@
-input[type=text] {
+input.search1 {
     border: 1px solid skyblue;
     float:left;
     padding: 7px;
-    width:30%;
+    width:40%;
 }
 
 
-input[type=text]:hover {
+input.search1:hover {
     background:aliceblue;
 }
 
 
-input[type=text]:focus {
+input.search1:focus {
     font-size: 120%;
  }
 
 
-#btn_search {
+.btn_search {
     width 7%;
     background: #2196F3;
     padding: 7px;
+    float:left;
     color:white;
-    float: left;
     font-size: 25px;
     border: 1px solid skyblue;
     border-left:none;
     cursor: pointer;
 }
 
+form.example input.textbox {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
 
+}
+
+form.example .searchbtn {
+  float: left;
+  width: 10%;
+  padding: 10px;
+  background: red;
+  color: white;
+  font-size: 25px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
 #btn_div {
     float:right;
