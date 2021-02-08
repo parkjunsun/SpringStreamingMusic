@@ -75,6 +75,8 @@ public class PlaylistController {
             String genre = details.get(0);
             String duration = details.get(1);
 
+            m.addSong(param.size());
+
             Song song = new Song();
             song.setTitle(title);
             song.setArtist(artist);
@@ -90,6 +92,9 @@ public class PlaylistController {
 
 
         } else {
+
+            m.addSong(param.size());
+
             for (String p : param) {
                 String[] params = p.split(";");
                 String title = params[0];
@@ -106,6 +111,8 @@ public class PlaylistController {
                 String img = "https:" + img_src;
                 String genre = details.get(0);
                 String duration = details.get(1);
+
+
 
                 Song song = new Song();
                 song.setTitle(title);
@@ -134,7 +141,13 @@ public class PlaylistController {
     }
 
     @PostMapping(value = "/playlist/{songId}/delete")
-    public String deleteSong(Model model, @PathVariable("songId") Long songId, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public String deleteSong(Model model, @PathVariable("songId") Long songId,
+                             @AuthenticationPrincipal MemberContext memberContext,
+                             RedirectAttributes redirectAttributes,
+                             HttpServletRequest request) {
+
+        Member member = memberService.findByUsername(memberContext.getUsername());
+        member.removeSong(1);
 
         Song deleteSong = songService.findSong(songId);
         songService.removeSong(deleteSong);

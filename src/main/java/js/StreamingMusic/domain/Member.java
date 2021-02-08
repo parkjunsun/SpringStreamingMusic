@@ -20,9 +20,17 @@ public class Member {
     private String email;
     private String age;
     private String role;
+    private int songQuantity;
 
     @OneToMany(mappedBy = "member")
-//    @JsonManagedReference
     private List<Song> songs = new ArrayList<>();
+
+    public void addSong(int quantity) {
+        this.songQuantity += quantity;
+    }
+
+    public void removeSong(int quantity) {
+        this.songQuantity -= quantity;
+    }
 
 }

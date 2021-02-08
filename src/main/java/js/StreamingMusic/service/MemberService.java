@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -16,11 +18,21 @@ public class MemberService {
 
     @Transactional
     public void join(Member member) {
+//        validateDuplicateMember(member);
         memberRepository.save(member);
     }
 
     public Member findByUsername(String username) {
         return memberRepository.findByUserName(username);
+    }
+
+    public boolean validateDuplicateMember(String username) {
+        List<Member> members = memberRepository.checkByUserName(username);
+        if (!members.isEmpty()) {
+            return true;
+        }
+
+        return false;
     }
 
 }
