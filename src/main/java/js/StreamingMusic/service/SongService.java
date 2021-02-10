@@ -41,12 +41,15 @@ public class SongService {
         return songRepository.findAllByName(name);
     }
 
+
+
     private void validateDuplicateSong(Song song, String name, String title, String artist) {
         List<Song> duplicateSong = songRepository.findDuplicateSong(song, name, title, artist);
         if (!duplicateSong.isEmpty()) {
             throw new DuplicateSongException("이미 존재하는 노래입니다");
         }
     }
+
 
     public List<SongDto> findAllSongsByCategory(String name, String genre) {
         return songRepository.findAllByCategory(name, genre);

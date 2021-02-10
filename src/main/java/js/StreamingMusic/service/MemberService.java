@@ -3,6 +3,7 @@ package js.StreamingMusic.service;
 import js.StreamingMusic.domain.Member;
 import js.StreamingMusic.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
 
 
     @Transactional
@@ -35,4 +37,11 @@ public class MemberService {
         return false;
     }
 
+    @Transactional
+    public void updateMember(String username, String password, String email, String age) {
+        Member findMember = memberRepository.findByUserName(username);
+        findMember.setPassword(password);
+        findMember.setEmail(email);
+        findMember.setAge(age);
+    }
 }

@@ -270,6 +270,17 @@
             errorCnt = 0;
         }
 
+        if (event.data == YT.PlayerState.ENDED) {
+            $(document).ready(function() {
+                $.ajax({
+                    url: "/test",
+                    type: "POST",
+                    data: {"title": data[event.target.getPlaylistIndex()].title,
+                           "artist": data[event.target.getPlaylistIndex()].artist},
+                });
+            });
+        }
+
         trigger(event.data, event.target);
         play_stop(event.data, event.target);
         video_state = event.data;

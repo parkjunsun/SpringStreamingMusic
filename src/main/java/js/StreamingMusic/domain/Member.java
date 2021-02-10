@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +22,13 @@ public class Member {
     private String age;
     private String role;
     private int songQuantity;
+    private String joinDate;
 
     @OneToMany(mappedBy = "member")
     private List<Song> songs = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Record> records = new ArrayList<>();
 
     public void addSong(int quantity) {
         this.songQuantity += quantity;

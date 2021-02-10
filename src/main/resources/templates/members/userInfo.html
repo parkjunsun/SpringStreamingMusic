@@ -26,7 +26,7 @@
           font-family: arial;
         }
 
-        .titlet {
+        .role {
           color: grey;
           font-size: 18px;
         }
@@ -37,7 +37,7 @@
           display: inline-block;
           padding: 8px;
           color: white;
-          background-color: #000;
+          background-color: #6bced4;
           text-align: center;
           cursor: pointer;
           width: 100%;
@@ -57,6 +57,7 @@
         div.main {
             width: 100%;
             height:600px;
+
         }
 
         div.action {
@@ -74,15 +75,27 @@
     </style>
 </head>
 <body>
-<div th:replace="fragments/top::header"></div><br><br>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    var errorMessage = /*[[${errorMsg}]]*/
+    var successMessage = /*[[${successMsg}]]*/
+    /* ]]> */
+
+    if (errorMessage != null) {
+        swal("Error", errorMessage, "error");
+    } else if (successMessage != null) {
+        swal("Success", successMessage, "success");
+    }
+</script>
+<div th:replace="fragments/top::header"></div><br><br><br><br><br><br><br>
 <div class="main">
     <div class="action">
         <div class="card">
             <img src="https://image.genie.co.kr/imageg/web/common/blank.gif/dims/resize/Q_80,0" alt="John" style="width:100%; height:150px">
-            <h1>John Doe</h1>
-            <p class="titlet">CEO & Founder, Example</p>
-            <p>Harvard University</p>
-            <p><button class="button">Contact</button></p>
+            <h1 th:text="|${name}님|"></h1>
+            <p class="role" th:text="${role}"></p>
+            <p th:text="|가입일: ${joinDate}|"></p>
+            <p><a class="button" th:href="@{/user/{name}/edit (name = ${name})}">회원정보 수정</a></p>
         </div>
     </div>
     <div class="playlist">
