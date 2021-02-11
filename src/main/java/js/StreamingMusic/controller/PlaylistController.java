@@ -74,6 +74,7 @@ public class PlaylistController {
 
             String genre = details.get(0);
             String duration = details.get(1);
+            String songid = details.get(2);
 
             m.addSong(param.size());
 
@@ -86,6 +87,7 @@ public class PlaylistController {
             song.setVideoId3(videoId3);
             song.setGenre(genre);
             song.setDuration(duration);
+            song.setSongid(songid);
             song.setMember(m);
 
             songService.addSong(song, username, title, artist);
@@ -111,6 +113,7 @@ public class PlaylistController {
                 String img = "https:" + img_src;
                 String genre = details.get(0);
                 String duration = details.get(1);
+                String songid = details.get(2);
 
 
 
@@ -123,6 +126,7 @@ public class PlaylistController {
                 song.setVideoId3(videoId3);
                 song.setGenre(genre);
                 song.setDuration(duration);
+                song.setSongid(songid);
                 song.setMember(m);
 
                 songService.addSong(song, username, title, artist);

@@ -15,6 +15,8 @@ public class Record {
 
     private String title;
     private String artist;
+    private String img;
+    private String songid;
 
     private int playCount;
 

@@ -27,4 +27,13 @@ public class RecordRepository {
                 .getResultList();
     }
 
+    public List<Record> findByUserName(String name) {
+        String jpql = "select r From Record r join r.member m where m.username like :name ORDER BY r.playCount DESC";
+        return em.createQuery(jpql, Record.class)
+                .setParameter("name", name)
+                .setFirstResult(0)
+                .setMaxResults(10)
+                .getResultList();
+    }
+
 }

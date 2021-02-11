@@ -14,8 +14,9 @@ public class SongDto {
     private String img;
     private String genre;
     private String duration;
+    private String songid;
 
-    public SongDto(Long id, String title, String artist, String videoId, String videoId2, String videoId3, String img, String genre, String duration) {
+    public SongDto(Long id, String title, String artist, String videoId, String videoId2, String videoId3, String img, String genre, String duration, String songid) {
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -25,6 +26,7 @@ public class SongDto {
         this.img = img;
         this.genre = genre;
         this.duration = duration;
+        this.songid = songid;
     }
 
 

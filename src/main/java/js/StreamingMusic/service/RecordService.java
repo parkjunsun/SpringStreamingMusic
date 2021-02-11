@@ -36,5 +36,9 @@ public class RecordService {
         record.addCount(1);
     }
 
+    public List<Record> findAll(String username) {
+        return recordRepository.findByUserName(username);
+    }
+
 
 }

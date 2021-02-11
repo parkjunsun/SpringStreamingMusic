@@ -2,8 +2,10 @@ package js.StreamingMusic.controller;
 
 import js.StreamingMusic.domain.Member;
 import js.StreamingMusic.domain.MemberForm;
+import js.StreamingMusic.domain.Record;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.MemberService;
+import js.StreamingMusic.service.RecordService;
 import js.StreamingMusic.validate.MemberFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,6 +30,7 @@ public class UserController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+    private final RecordService recordService;
 
 
     @GetMapping("/user/{username}")
@@ -37,6 +41,10 @@ public class UserController {
         model.addAttribute("count", member.getSongQuantity());
         model.addAttribute("role", member.getRole());
         model.addAttribute("joinDate", member.getJoinDate());
+
+        List<Record> records = recordService.findAll(username);
+        model.addAttribute("records", records);
+
         return "members/userInfo";
     }
 

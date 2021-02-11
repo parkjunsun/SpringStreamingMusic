@@ -32,7 +32,7 @@ public class SongRepository {
 
 
     public List<SongDto> findAllByName(String name) {
-        String jpql = "select new js.StreamingMusic.domain.SongDto(s.id, s.title, s.artist, s.videoId, s.videoId2, s.videoId3, s.img, s.genre, s.duration) " +
+        String jpql = "select new js.StreamingMusic.domain.SongDto(s.id, s.title, s.artist, s.videoId, s.videoId2, s.videoId3, s.img, s.genre, s.duration, s.songid) " +
                       "From Song s join s.member m " +
                       "where m.username like :name";
         List<SongDto> data = em.createQuery(jpql, SongDto.class).setParameter("name", name).getResultList();
@@ -43,7 +43,7 @@ public class SongRepository {
 
 
     public List<SongDto> findAllByCategory(String name, String genre) {
-        String jpql = "select new js.StreamingMusic.domain.SongDto(s.id, s.title, s.artist, s.videoId, s.videoId2, s.videoId3, s.img, s.genre, s.duration) ";
+        String jpql = "select new js.StreamingMusic.domain.SongDto(s.id, s.title, s.artist, s.videoId, s.videoId2, s.videoId3, s.img, s.genre, s.duration, s.songid) ";
         if (genre.equals("가요 / 발라드;가요 / 블루스/포크;가요 / R&B/소울")){
             String[] columns = genre.split(";");
             String ballard = columns[0];

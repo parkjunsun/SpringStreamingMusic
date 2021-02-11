@@ -107,15 +107,28 @@ public class DataApi {
             artist = artist.replace("&", "");
         }
 
-        String url = "https://www.genie.co.kr/search/searchMain?query=" + artist + " " + title + "&pagesize=1";
+        if (title.length() + artist.length() > 80) {
+            String url = "https://www.genie.co.kr/search/searchMain?query=" + title + "&pagesize=1";
+            Document doc = Jsoup.connect(url).get();
+            Elements td = doc.select("tr.list > td");
+            Element img_info = td.get(2);
+            Element img_src = img_info.selectFirst("img");
+            String img = img_src.attr("src");
 
-        Document doc = Jsoup.connect(url).get();
-        Elements td = doc.select("tr.list > td");
-        Element img_info = td.get(2);
-        Element img_src = img_info.selectFirst("img");
-        String img = img_src.attr("src");
+            return img;
 
-        return img;
+        } else {
+            String url = "https://www.genie.co.kr/search/searchMain?query=" + artist + " " + title + "&pagesize=1";
+
+            Document doc = Jsoup.connect(url).get();
+            Elements td = doc.select("tr.list > td");
+            Element img_info = td.get(2);
+            Element img_src = img_info.selectFirst("img");
+            String img = img_src.attr("src");
+
+            return img;
+        }
+
     }
 
     public List<String> getDetail(String title, String artist) throws IOException {
@@ -143,6 +156,7 @@ public class DataApi {
 
         details.add(genre);
         details.add(duration);
+        details.add(songid);
 
 
         return details;

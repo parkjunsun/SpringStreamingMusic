@@ -13,64 +13,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" th:href="@{/css/userinfo.css}">
     <style>
-        .card {
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-          max-width: 300px;
-          margin: auto;
-          text-align: center;
-          font-family: arial;
-        }
-
-        .role {
-          color: grey;
-          font-size: 18px;
-        }
-
-        .button {
-          border: none;
-          outline: 0;
-          display: inline-block;
-          padding: 8px;
-          color: white;
-          background-color: #6bced4;
-          text-align: center;
-          cursor: pointer;
-          width: 100%;
-          font-size: 18px;
-        }
-
-        .a {
-          text-decoration: none;
-          font-size: 22px;
-          color: black;
-        }
-
-        button:hover, a:hover {
-          opacity: 0.7;
-        }
-
-        div.main {
-            width: 100%;
-            height:600px;
-
-        }
-
-        div.action {
-            width: 40%;
-            float: left;
-            box-sizing: border-box;
-        }
-
-        div.playlist {
-            width: 60%;
-            float: right;
-            box-sizing: border-box;
-        }
 
     </style>
 </head>
@@ -87,9 +33,9 @@
         swal("Success", successMessage, "success");
     }
 </script>
-<div th:replace="fragments/top::header"></div><br><br><br><br><br><br><br>
+<div th:replace="fragments/top::header"></div><br><br><br>
 <div class="main">
-    <div class="action">
+    <div class="info">
         <div class="card">
             <img src="https://image.genie.co.kr/imageg/web/common/blank.gif/dims/resize/Q_80,0" alt="John" style="width:100%; height:150px">
             <h1 th:text="|${name}님|"></h1>
@@ -98,11 +44,62 @@
             <p><a class="button" th:href="@{/user/{name}/edit (name = ${name})}">회원정보 수정</a></p>
         </div>
     </div>
-    <div class="playlist">
-        <p>hi</p>
+    <div class="record">
+        <table>
+            <tr class="util">
+                <td class="util"><input type="checkbox" id="allClick"></td>
+                <td class="util">
+                    <form action="/playlist" method="post" id="form1">
+                        <button type="submit" id="add_btn" style="cursor:pointer;"><i class="fas fa-folder-plus" style="font-size:30px;"></i> 담기</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <table id="table">
+            <tbody>
+            <tr class="tr" th:each="record : ${records}">
+                <td class="td chkbox">
+                    <input type="checkbox" style="padding:0px 0px 0px 5px;" name="add" th:value="${record.title} + ';' + ${record.artist}" form="form1">
+                </td>
+                <td class="td rank" th:text="${recordStat.count}"></td>
+                <td class="td image">
+                    <img th:src="@{${record.img}}" alt="error" style="width:50px;height:50px;">
+                </td>
+                <td class="td info">
+                    <span class="shorting" th:text="|TITLE: ${record.title}|"></span><br>
+                    <span class="shorting" th:if="${record.artist.equals('youtube')}" th:style="'color:red'">
+                        <i class="fab fa-youtube" style="font-size: 13px"></i>
+                        [[${record.artist}]]
+                    </span>
+                    <span class="shorting" th:unless="${record.artist.equals('youtube')}" th:text="|ARTIST: ${record.artist}|"></span>
+                </td>
+                <td class="td count" th:text="|총 ${record.playCount}회|"></td>
+                <td class="icony">
+                    <th:block th th:if="${record.artist.equals('youtube')}">
+                        <span class="material-icons" title="youtube음원은 해당기능을 제공하지 않습니다">warning_amber</span>
+                    </th:block>
+                    <th:block th:unless="${record.artist.equals('youtube')}">
+                    <form action="/playlist" method="post">
+                        <input type="submit" class="plus_btn" name="add" th:value="${record.title} + ';' + ${record.artist}">
+                    </form>
+                    </th:block>
+                </td>
+                <td class="icony">
+                    <th:block th th:if="${record.artist.equals('youtube')}">
+                        <span class="material-icons" title="youtube음원은 해당기능을 제공하지 않습니다">warning_amber</span>
+                    </th:block>
+                    <th:block th:unless="${record.artist.equals('youtube')}">
+                    <form action="/detail/songinfo" method="get">
+                        <input type="submit" class="desc_btn" name="song_id" th:value="${record.songid}">
+                    </form>
+                    </th:block>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-
 <div th:replace="fragments/footer::footer"></div>
 </body>
 </html>

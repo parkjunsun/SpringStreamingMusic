@@ -21,6 +21,7 @@ public class Song {
     private String img;
     private String genre;
     private String duration;
+    private String songid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")

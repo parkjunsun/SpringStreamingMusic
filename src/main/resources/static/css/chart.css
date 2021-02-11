@@ -20,7 +20,6 @@ input[type=text] {
                 -webkit-transform: scale(2); /* Safari and Chrome */
                 -o-transform: scale(2); /* Opera */
                 padding: 10px;
-
             }
 
             #btn_search {
@@ -101,7 +100,6 @@ input[type=text] {
             .info {
                 font-family: 'Roboto Condensed', sans-serif;
             }
-
 
 
 
