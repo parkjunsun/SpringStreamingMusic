@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +22,7 @@ public class TestController {
     private final MemberService memberService;
 
     @PostMapping("/test")
+    @ResponseBody
     public String test(HttpServletRequest request, @AuthenticationPrincipal MemberContext memberContext) {
 
         String username = memberContext.getUsername();
@@ -35,14 +37,20 @@ public class TestController {
          * 만약 db에 없으면 객체를 생성하고 db에 추가한다.
          */
 
-        Record record = new Record();
-        record.setTitle(title);
-        record.setArtist(artist);
-        record.setMember(member);
+        if (recordService.findDuplicateRecord(username, title, artist)) {
+            Record record = new Record();
+            record.setTitle(title);
+            record.setArtist(artist);
+            record.setPlayCount(1);
+            record.setMember(member);
 
-        recordService.addRecord(record, username, title, artist);
+            recordService.addRecord(record);
+        } else {
+            recordService.addRecordCount(username, title, artist);
+        }
 
-        return "redirect:/";
+
+        return "success";
 
     }
 

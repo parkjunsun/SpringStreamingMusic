@@ -16,19 +16,25 @@ public class RecordService {
     private final RecordRepository recordRepository;
 
     @Transactional
-    public void addRecord(Record record, String username, String title, String artist) {
-        if (validDuplicateRecord(record, username, title, artist)) {
-            recordRepository.save(record);
-        }
+    public void addRecord(Record record) {
+        recordRepository.save(record);
     }
 
-    private boolean validDuplicateRecord(Record record, String username, String title, String artist) {
-        List<Record> duplicateRecord = recordRepository.findDuplicateRecord(record, username, title, artist);
+
+    public boolean findDuplicateRecord(String username, String title, String artist) {
+        List<Record> duplicateRecord = recordRepository.findDuplicateRecord(username, title, artist);
         if (!duplicateRecord.isEmpty()) {
-            record.addCount(1);
             return false;
         }
-
         return true;
     }
+
+
+    @Transactional
+    public void addRecordCount(String username, String title, String artist) {
+        Record record = recordRepository.findDuplicateRecord(username, title, artist).get(0);
+        record.addCount(1);
+    }
+
+
 }

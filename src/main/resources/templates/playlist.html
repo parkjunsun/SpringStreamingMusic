@@ -270,16 +270,7 @@
             errorCnt = 0;
         }
 
-        if (event.data == YT.PlayerState.ENDED) {
-            $(document).ready(function() {
-                $.ajax({
-                    url: "/test",
-                    type: "POST",
-                    data: {"title": data[event.target.getPlaylistIndex()].title,
-                           "artist": data[event.target.getPlaylistIndex()].artist},
-                });
-            });
-        }
+
 
         trigger(event.data, event.target);
         play_stop(event.data, event.target);
@@ -366,6 +357,15 @@
             } else {
                 document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
             }
+
+            $(document).ready(function() {
+                $.ajax({
+                    url: "/test",
+                    type: "POST",
+                    data: {"title": data[index].title,
+                           "artist": data[index].artist},
+                });
+            });
         }
     }
 
