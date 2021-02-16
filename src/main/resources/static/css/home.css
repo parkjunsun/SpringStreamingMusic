@@ -390,7 +390,7 @@ tr,td {
 }
 
 input.play-button {
-    background: url("../images/playadsa.PNG") no-repeat;
+    background: url("../images/play.png") no-repeat;
     border: none;
     width: 30px;
     height: 30px;
@@ -401,7 +401,7 @@ input.play-button {
 
 
 input.add-button {
-    background: url("../images/add2.PNG") no-repeat;
+    background: url("../images/plus.png") no-repeat;
     border: none;
     width: 30px;
     height: 30px;

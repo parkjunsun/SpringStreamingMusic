@@ -1,6 +1,7 @@
 package js.StreamingMusic.service;
 
 import js.StreamingMusic.domain.Record;
+import js.StreamingMusic.domain.RecordDto;
 import js.StreamingMusic.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,11 @@ public class RecordService {
 
     public List<Record> findAll(String username) {
         return recordRepository.findByUserName(username);
+    }
+
+
+    public List<RecordDto> findMostPlayCountByArtist(String name) {
+        return recordRepository.findMostArtist(name);
     }
 
 

@@ -16,6 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/userinfo.css}">
+    <script type="text/javascript" th:src="@{/js/userinfo.js}"></script>
     <style>
 
     </style>
@@ -45,6 +46,27 @@
         </div>
     </div>
     <div class="record">
+        <p>많이 들은 아티스트</p><br>
+        <table>
+            <tr class="tr" th:each="data : ${datum}">
+                <td class="td rank" th:text="${dataStat.count}"></td>
+                <th:block  th:unless="${data.artist.equals('youtube')}">
+                    <td class="td image">
+                        <img th:src="@{${data.img}}" alt="error" style="width:120px; height:120px">
+                    </td>
+                </th:block>
+                <th:block  th:if="${data.artist.equals('youtube')}">
+                    <td class="td image">
+                        <img th:src="@{/images/youtube.png}" alt="error" style="width:120px; height:120px">
+                    </td>
+                </th:block>
+                <td class="td info">
+                    <span class="shorting" th:text="${data.artist}"></span>
+                </td>
+                <td class="td count" th:text="|총 ${data.count}회|"></td>
+            </tr>
+        </table><br><br>
+        <p>많이 들은 곡</p><br>
         <table>
             <tr class="util">
                 <td class="util"><input type="checkbox" id="allClick"></td>
@@ -75,7 +97,7 @@
                 </td>
                 <td class="td count" th:text="|총 ${record.playCount}회|"></td>
                 <td class="icony">
-                    <th:block th th:if="${record.artist.equals('youtube')}">
+                    <th:block  th:if="${record.artist.equals('youtube')}">
                         <span class="material-icons" title="youtube음원은 해당기능을 제공하지 않습니다">warning_amber</span>
                     </th:block>
                     <th:block th:unless="${record.artist.equals('youtube')}">
@@ -85,7 +107,7 @@
                     </th:block>
                 </td>
                 <td class="icony">
-                    <th:block th th:if="${record.artist.equals('youtube')}">
+                    <th:block  th:if="${record.artist.equals('youtube')}">
                         <span class="material-icons" title="youtube음원은 해당기능을 제공하지 않습니다">warning_amber</span>
                     </th:block>
                     <th:block th:unless="${record.artist.equals('youtube')}">

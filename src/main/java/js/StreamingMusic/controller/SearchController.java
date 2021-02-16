@@ -78,7 +78,7 @@ public class SearchController {
         model.addAttribute("keyword", keyword);
 
         return "search";
-
+//        return "redirect:" + request.getHeader("Referer");
     }
 
 

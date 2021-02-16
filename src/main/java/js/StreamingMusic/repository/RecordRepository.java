@@ -1,11 +1,11 @@
 package js.StreamingMusic.repository;
 
 import js.StreamingMusic.domain.Record;
+import js.StreamingMusic.domain.RecordDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @Repository
@@ -34,6 +34,16 @@ public class RecordRepository {
                 .setFirstResult(0)
                 .setMaxResults(10)
                 .getResultList();
+    }
+
+    public List<RecordDto> findMostArtist(String name) {
+        String jpql = "select new js.StreamingMusic.domain.RecordDto(r.artist, sum(r.playCount) as cnt) From Record r join r.member m where m.username like :name GROUP BY r.artist ORDER BY cnt DESC";
+        return em.createQuery(jpql, RecordDto.class)
+                .setParameter("name", name)
+                .setFirstResult(0)
+                .setMaxResults(5)
+                .getResultList();
+
     }
 
 }

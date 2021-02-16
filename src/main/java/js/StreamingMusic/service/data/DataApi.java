@@ -131,6 +131,22 @@ public class DataApi {
 
     }
 
+
+    public String getImgByArtist(String artist) throws IOException {
+        if (artist.contains("&")) {
+            artist = artist.replace("&", "");
+        }
+
+        String url = "https://www.genie.co.kr/search/searchMain?query=" + artist;
+        Document doc = Jsoup.connect(url).get();
+        String src = doc.selectFirst("div.photo-zone > span.cover-img > a > img").attr("src");
+        String img = "https:" + src;
+
+        return img;
+
+    }
+
+
     public List<String> getDetail(String title, String artist) throws IOException {
 
         List<String> details = new ArrayList<>();

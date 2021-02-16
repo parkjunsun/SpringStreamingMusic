@@ -34,7 +34,7 @@ button:hover, a:hover { opacity: 0.7;}
 
 div.main {
     width: 100%;
-    height:600px;
+    height:1900px;
 }
 
 div.info {
@@ -53,16 +53,16 @@ div.record {
 #table {
     border-top: 3px solid gray;
     border-collapse: collapse;
-    padding: 10px;
+    padding: 15px;
     width:80%;
 }
 
 .tr, .td, .th {
     border-bottom: 1px solid #B0C4DE;
-    padding: 20px;
+    padding: 15px;
 }
 
-.util {padding: 20px;}
+.util {padding: 15px;}
 
 
 .chkbox {padding-right:10px;}
@@ -93,7 +93,7 @@ div.record {
 
 
 input.plus_btn{
-    background: url("../images/add2.PNG") no-repeat;
+    background: url("../images/plus.png") no-repeat;
     border: none;
     width: 30px;
     height: 30px;

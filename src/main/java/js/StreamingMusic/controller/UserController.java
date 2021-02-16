@@ -3,25 +3,27 @@ package js.StreamingMusic.controller;
 import js.StreamingMusic.domain.Member;
 import js.StreamingMusic.domain.MemberForm;
 import js.StreamingMusic.domain.Record;
+import js.StreamingMusic.domain.RecordDto;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.MemberService;
 import js.StreamingMusic.service.RecordService;
-import js.StreamingMusic.validate.MemberFormValidator;
+import js.StreamingMusic.service.data.DataApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -31,10 +33,13 @@ public class UserController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final RecordService recordService;
+    private final DataApi dataApi;
 
 
     @GetMapping("/user/{username}")
-    public String showUserInfo(Model model, @PathVariable("username") String username, @AuthenticationPrincipal MemberContext memberContext) {
+    public String showUserInfo(Model model, @PathVariable("username") String username, @AuthenticationPrincipal MemberContext memberContext) throws IOException {
+
+        List<HashMap<String, String>> datum = new ArrayList<>();
 
         Member member = memberService.findByUsername(username);
         model.addAttribute("name", member.getUsername());
@@ -43,7 +48,20 @@ public class UserController {
         model.addAttribute("joinDate", member.getJoinDate());
 
         List<Record> records = recordService.findAll(username);
+
+        List<RecordDto> playCountByArtist = recordService.findMostPlayCountByArtist(username);
+        for (RecordDto recordDto : playCountByArtist) {
+            HashMap<String, String> hashMap = new HashMap<>();
+            String img = dataApi.getImgByArtist(recordDto.getArtist());
+            hashMap.put("artist", recordDto.getArtist());
+            hashMap.put("img", img);
+            hashMap.put("count", Long.toString(recordDto.getCount()));
+
+            datum.add(hashMap);
+        }
+
         model.addAttribute("records", records);
+        model.addAttribute("datum", datum);
 
         return "members/userInfo";
     }

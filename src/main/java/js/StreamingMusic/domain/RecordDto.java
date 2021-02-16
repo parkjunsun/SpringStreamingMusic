@@ -7,10 +7,12 @@ import lombok.Setter;
 @Getter @Setter
 public class RecordDto {
 
-    private Long id;
-
-    private String title;
     private String artist;
+    private Long count;
 
-    private int count;
+
+    public RecordDto(String artist, Long count) {
+        this.artist = artist;
+        this.count = count;
+    }
 }
