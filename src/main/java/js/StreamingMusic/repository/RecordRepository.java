@@ -18,6 +18,7 @@ public class RecordRepository {
         em.persist(record);
     }
 
+
     public List<Record> findDuplicateRecord(String name, String title, String artist) {
         String jpql = "select r From Record r join r.member m where m.username like :name and r.title like :title and r.artist like :artist";
         return em.createQuery(jpql, Record.class)

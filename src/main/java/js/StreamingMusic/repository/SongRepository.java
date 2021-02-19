@@ -22,13 +22,12 @@ public class SongRepository {
         em.persist(song);
     }
 
+
     public void remove(Song song) {em.remove(song);}
 
     public Song findOne(Long songid) {
         return em.find(Song.class, songid);
     }
-
-
 
 
     public List<SongDto> findAllByName(String name) {

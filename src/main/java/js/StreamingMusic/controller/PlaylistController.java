@@ -94,7 +94,6 @@ public class PlaylistController {
 
 
         } else {
-
             m.addSong(param.size());
 
             for (String p : param) {
@@ -130,6 +129,7 @@ public class PlaylistController {
                 song.setMember(m);
 
                 songService.addSong(song, username, title, artist);
+
             }
         }
 

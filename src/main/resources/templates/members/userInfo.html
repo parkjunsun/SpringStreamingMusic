@@ -39,14 +39,14 @@
     <div class="info">
         <div class="card">
             <img src="https://image.genie.co.kr/imageg/web/common/blank.gif/dims/resize/Q_80,0" alt="John" style="width:100%; height:150px">
-            <h1 th:text="|${name}님|"></h1>
+            <h2 th:text="|${name}님|"></h2>
             <p class="role" th:text="${role}"></p>
             <p th:text="|가입일: ${joinDate}|"></p>
             <p><a class="button" th:href="@{/user/{name}/edit (name = ${name})}">회원정보 수정</a></p>
         </div>
     </div>
     <div class="record">
-        <p>많이 들은 아티스트</p><br>
+        <span style="font-size:20px"><b>많이 들은 아티스트</b>&nbsp;</span><span class="material-icons">face</span><br><br>
         <table>
             <tr class="tr" th:each="data : ${datum}">
                 <td class="td rank" th:text="${dataStat.count}"></td>
@@ -65,8 +65,8 @@
                 </td>
                 <td class="td count" th:text="|총 ${data.count}회|"></td>
             </tr>
-        </table><br><br>
-        <p>많이 들은 곡</p><br>
+        </table><br><br><br><br>
+        <span style="font-size:20px"><b>많이 들은 곡</b></span>&nbsp;<span class="material-icons">album</span><br><br>
         <table>
             <tr class="util">
                 <td class="util"><input type="checkbox" id="allClick"></td>
