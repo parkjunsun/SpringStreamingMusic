@@ -20,6 +20,8 @@ public class Board extends TimeEntity{
     @Column(columnDefinition = "TEXT", nullable = false)
     private String comment;
 
+    private String traceId;
+
     public void setMember(Member member) {
         this.member = member;
         member.getBoards().add(this);

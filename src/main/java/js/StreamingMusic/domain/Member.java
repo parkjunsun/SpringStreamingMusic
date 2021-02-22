@@ -22,6 +22,7 @@ public class Member {
     private String age;
     private String role;
     private int songQuantity;
+    private int boardQuantity;
     private String joinDate;
 
     @OneToMany(mappedBy = "member")
@@ -39,6 +40,14 @@ public class Member {
 
     public void removeSong(int quantity) {
         this.songQuantity -= quantity;
+    }
+
+    public void addBoard(int quantity) {
+        this.boardQuantity += quantity;
+    }
+
+    public void removeBoard(int quantity) {
+        this.boardQuantity -= quantity;
     }
 
 }

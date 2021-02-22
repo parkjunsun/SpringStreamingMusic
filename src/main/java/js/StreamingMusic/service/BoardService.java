@@ -1,6 +1,7 @@
 package js.StreamingMusic.service;
 
 import js.StreamingMusic.domain.Board;
+import js.StreamingMusic.exception.BoardInputEmptyException;
 import js.StreamingMusic.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,27 @@ public class BoardService {
 
     @Transactional
     public void savePost(Board board) {
+        validateBoardInputEmpty(board);
         boardRepository.save(board);
     }
 
-    public List<Board> getBoardList() {
-        return boardRepository.findAll();
+    @Transactional
+    public void removePost(Board board) {
+        boardRepository.remove(board);
+    }
+
+    public List<Board> getBoardList(String album_id) {
+        return boardRepository.findByAlbumId(album_id);
+    }
+
+    public Board getBoard(Long id) {
+        return boardRepository.findOne(id);
+    }
+
+    private void validateBoardInputEmpty(Board board) {
+        if (board.getComment().isEmpty()) {
+            throw new BoardInputEmptyException("댓글을 입력해 주세요");
+        }
     }
 
 }

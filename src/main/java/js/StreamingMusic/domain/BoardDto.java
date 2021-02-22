@@ -11,6 +11,7 @@ public class BoardDto {
     private Long id;
     private String writer;
     private String comment;
+    private String traceId;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 

@@ -2,6 +2,8 @@ package js.StreamingMusic.controller.detail;
 
 import js.StreamingMusic.domain.Board;
 import js.StreamingMusic.domain.BoardDto;
+import js.StreamingMusic.exception.BoardInputEmptyException;
+import js.StreamingMusic.exception.DuplicateSongException;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.BoardService;
 import js.StreamingMusic.service.crawling.GetDetailAlbumInfo;
@@ -10,9 +12,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,13 +44,14 @@ public class DetailAlbumController {
         List<HashMap<String, String>> songs = getDetailAlbumInfo.getSongs(album_id);
         List<BoardDto> result = new ArrayList<>();
 
-        List<Board> boardList = boardService.getBoardList();
+        List<Board> boardList = boardService.getBoardList(album_id);
         for (Board board : boardList) {
             BoardDto boardDto = new BoardDto();
             boardDto.setId(board.getId());
             boardDto.setComment(board.getComment());
             boardDto.setCreatedDate(board.getCreatedDate());
             boardDto.setWriter(board.getMember().getUsername());
+            boardDto.setTraceId(board.getTraceId());
 
             result.add(boardDto);
         }
@@ -54,8 +60,11 @@ public class DetailAlbumController {
         model.addAttribute("info", info);
         model.addAttribute("songs", songs);
         model.addAttribute("boardList", result);
+        model.addAttribute("album_id", album_id);
+        model.addAttribute("allCount", boardList.size());
 
         return "detail/albuminfo";
     }
+
 
 }

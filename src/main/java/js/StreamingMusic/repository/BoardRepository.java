@@ -17,10 +17,19 @@ public class BoardRepository {
         em.persist(board);
     }
 
-    public List<Board> findAll() {
-        String jpql = "select b from Board b join fetch b.member";
+    public List<Board> findByAlbumId(String albumId) {
+        String jpql = "select b from Board b join fetch b.member where b.traceId = :albumId";
         return em.createQuery(jpql, Board.class)
+                .setParameter("albumId", albumId)
                 .getResultList();
+    }
+
+    public Board findOne(Long id) {
+        return em.find(Board.class, id);
+    }
+
+    public void remove(Board board) {
+        em.remove(board);
     }
 
 }
