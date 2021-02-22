@@ -30,6 +30,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Record> records = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<Board> boards = new ArrayList<>();
+
     public void addSong(int quantity) {
         this.songQuantity += quantity;
     }

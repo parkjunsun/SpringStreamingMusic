@@ -1,68 +1,97 @@
 .left {
-                width: 400px;
-                height: 350px;
-                float:left;
-                margin-right: 30px;
-            }
+    width: 400px;
+    height: 350px;
+    float:left;
+    margin-right: 30px;
+}
 
 
-            .right {
-                width: 800px;
-                height: 350px;
-                float: left;
-            }
+.right {
+    width: 800px;
+    height: 350px;
+    float: left;
+}
 
 
-	        .line {
-	            line-height:2.0;
-	        }
+.line { line-height:2.0;}
 
 
-	        .category {
-                display: inline-block;
-                width: 120px;
-                font-size: 18px;
-                color: gray;
-	        }
+.category {
+    display: inline-block;
+    width: 120px;
+    font-size: 18px;
+    color: gray;
+}
 
 
-            table {
-                border-top: 3px solid gray;
-                border-collapse: collapse;
-                padding: 10px;
-                width: 100%;
-            }
+#upside {
+    border-top: 3px solid gray;
+    border-collapse:collapse;
+    padding: 10px;
+    width:100%;
+}
+
+#downside {
+     border-top: 3px solid gray;
+     border-collapse:collapse;
+     padding: 10px;
+}
 
 
-            tr,td {
-                border-bottom: 1px solid #B0C4DE;
-                padding: 20px;
-            }
-
-            .num {
-                            padding-right: 20px;
-                            font: italic bold 15px arial, sans-serif;
-                            color: #444;
-                        }
+tr,td {
+    border-bottom: 1px solid #B0C4DE;
+    padding: 20px;
+}
 
 
+.image{
+    width:70px;
+}
 
-                        .title {
-                            font-weight: bold;
-                            font-size: 15px
-                        }
+.scomment {
+    width: 1200px;
+}
 
-                        .artist{
-                           font-weight: lighter;
-                            color: gray;
-                        }
+.num {
+     padding-right: 20px;
+     font: italic bold 15px arial, sans-serif;
+     color: #444;
+     font-size: 25px;
+}
 
-                        .shorting{
-                           width: 650px;
-            	       white-space: nowrap;
-                           overflow: hidden;
-                           text-overflow: ellipsis;
-                        }
+.title {
+    font-weight: bold;
+    font-size: 15px
+}
+
+.artist{
+    font-weight: lighter;
+    color: gray;
+}
+
+.shorting{
+    width: 650px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.writer {
+    font-size:20px;
+    font-weight:bold;
+    line-height:1.8
+}
+
+.createDate {
+    color:gray;
+    font-size:15px;
+}
+
+.lining {
+    width:1200px;
+    word-break:break-all;
+}
 
 input.desc_btn {
     background: url("../images/desc.png") no-repeat;
@@ -76,15 +105,15 @@ input.desc_btn {
 
 
 .wrapper {
-                width: 1250px;
-                margin: 0 auto;
-                padding-bottom: 10px;
-            }
+    width: 1250px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
 
 
-            #contents {
-                border: 5pt none #3f51b5;
-                width: 1250px;
-                height: 850px;
-                margin:0 auto;
-            }
+#contents {
+    border: 5pt none #3f51b5;
+    width: 1250px;
+    height: 850px;
+    margin:0 auto;
+}

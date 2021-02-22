@@ -34,7 +34,7 @@
         </div>
     </div><hr><br><br>
     <h1>수록곡</h1><br>
-    <table>
+    <table id="upside">
         <tr th:each="song : ${songs}">
             <td class="num" th:text="${songStat.count}"></td>
             <td class="title"><p class="shorting" th:text="${song.title}"></p></td>
@@ -43,6 +43,22 @@
                 <form action="/detail/songinfo" method="get">
                     <input type="submit" class="desc_btn" name="song_id" th:value="${song.song_id}">
                 </form>
+            </td>
+        </tr>
+    </table><br><br><hr><br><br><br><br><br>
+    <form action="/post" method="post">
+        <textarea name="comment"></textarea>
+        <input type="submit" value="등록">
+    </form><br><br>
+    <table id="downside">
+        <tr th:each="board : ${boardList}">
+            <td class="image">
+                <img src="https://image.genie.co.kr/imageg/web/common/blank.gif/dims/resize/Q_80,0" alt="error" style="width:50px;height:50px;">
+            </td>
+            <td class="scomment">
+                <span class="writer" th:text="${board.writer}"></span>&nbsp;
+                <span class="createDate" th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span><br>
+                <span class="lining" th:text="${board.comment}"></span>
             </td>
         </tr>
     </table>

@@ -1,0 +1,190 @@
+
+            #table {
+                border-top: 3px solid gray;
+                border-collapse: collapse;
+                padding: 10px;
+                width:100%;
+            }
+
+            #tr, .td {
+                border-bottom: 1px solid #B0C4DE;
+                padding: 20px;
+            }
+
+            .util {
+                padding: 20px;
+            }
+
+
+            .chkbox {
+                padding-right:10px;
+            }
+
+
+            .rank {
+                padding-right: 20px;
+                font: italic bold 15px arial, sans-serif;
+                color: #444;
+                font-size: 25px;
+            }
+
+
+            .image {
+                padding-right:15px;
+            }
+
+
+            .info {
+                font-family: 'Roboto Condensed', sans-serif;
+            }
+
+
+
+            #btn_div {
+                text-align:center;
+            }
+
+            #btn_group a{
+                padding: 5px;
+                background-color: rgba(0,0,0,0);
+                font-size: 17px;
+                cursor: pointer;
+
+            }
+
+            #btn_group a:hover{
+                color:white;
+                background-color: skyblue;
+                text-decoration: none;
+            }
+
+
+            #add_btn {
+                border-radius: 5px;
+                border: 2px solid #A9A9A9;
+                color: black;
+                padding: 5px;
+                background-color: rgba(0,0,0,0);
+                font-size: 17px;
+            }
+
+            input.play_btn {
+                background: url("../images/play.png") no-repeat;
+                border: none;
+                width:30px;
+                height: 30px;
+                cursor:pointer;
+                font-size: 0;
+                line-height: 0;
+            }
+
+
+            input.plus_btn{
+                background: url("../images/plus.png") no-repeat;
+                border: none;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                font-size: 0;
+                line-height: 0;
+            }
+
+
+            input.desc_btn {
+                background: url("../images/desc.png") no-repeat;
+                border: none;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                font-size: 0;
+                line-height: 0;
+            }
+
+
+            #fixed{
+                position: fixed;
+                background-color: black;
+                height: 173px;
+                width: 100%;
+                bottom: 0;
+            }
+
+
+            #progress-bar {
+                position: relative;
+                width: 100%;
+                height: 20px;
+                cursor: pointer;
+            }
+
+
+            #YouTube-player-volume {
+                display: inline-block;
+                width: 7%;
+                cursor: pointer;
+            }
+
+
+            .track_info {
+                padding-top: 30px;
+                padding-left: 100px;
+                float: left;
+            }
+
+
+            .controller {
+                width: 35%;
+                padding-top: 40px;
+                padding-left: 0px;
+                padding-right: 0px;
+                margin: 0 auto;
+                color: white;
+            }
+
+
+            .icon {
+                text-align: center;
+            }
+
+            .icon #play_toggle {
+                text-align: center;
+                cursor: pointer;
+            }
+
+            #replay {
+                cursor: pointer;
+            }
+
+
+            /*.util {
+                padding-top: 80px;
+                padding-right: 200px;
+                text-align: center;
+                color: white;
+                cursor: pointer;
+            }*/
+
+
+
+            #thumb {
+                border: 3px solid gray;
+                border-radius: 20px;
+                -moz-border-radius: 20px;
+                -khtml-border-radius: 20px;
+                -webkit-border-radius: 20px;
+                width: 120px;
+                height: 120px;
+            }
+
+            .icony {
+                padding:10px;
+            }
+
+
+	    .shorting{
+               width: 650px;
+	           white-space: nowrap;
+               overflow: hidden;
+               text-overflow: ellipsis;
+               display: inline-block;
+            }
