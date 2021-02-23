@@ -1,4 +1,4 @@
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="@{/css/base.css}" />
@@ -45,7 +45,7 @@
             <p class="line"><span class="category">Release_date</span> <span class="info" th:text="${info.release_date}"></span></p>
         </div>
     </div><hr><br><br>
-    <h1>수록곡</h1><br>
+    <h2>수록곡</h2><br>
     <table id="upside">
         <tr th:each="song : ${songs}">
             <td class="num" th:text="${songStat.count}"></td>
@@ -58,14 +58,16 @@
             </td>
         </tr>
     </table><br><br><br><hr><br>
-    <h1 style="display:inline-block">댓글</h1>
+    <h2 style="display:inline-block">댓글</h2>
     <span>(총 </span><span th:text="${allCount}" style="color:red"></span><span>개)</span>
     <br><br>
-    <form action="/post" method="post">
-        <textarea name="comment"></textarea>
-        <input type="hidden" name="traceId" th:value="${album_id}">
-        <input type="submit" value="등록">
-    </form><br><br>
+    <div class="comment_div_box">
+        <form action="/post" method="post">
+            <textarea class="comment_box" name="comment" placeholder="댓글을 입력해주세요."></textarea>
+            <input type="hidden" name="traceId" th:value="${album_id}">
+            <input class="comment_btn" type="submit" value="댓글등록">
+        </form><br><br>
+    </div><br>
     <table id="downside">
         <tr th:each="board : ${boardList}">
             <th:block th:if="${album_id} == ${board.traceId}">
@@ -75,14 +77,24 @@
                 <td class="scomment">
                     <span class="writer" th:text="${board.writer}"></span>&nbsp;
                     <span class="createDate" th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>&nbsp;&nbsp;&nbsp;
-                    <form th:action="@{/post/{id}/delete (id=${board.id})}" method="post" style="display:inline-block">
-                        <input type="submit" name="delete" value="삭제">
-                    </form><br>
+                    <th:block th:if="${board.writer} == ${username}">
+                        <form th:action="@{/post/{id}/delete (id=${board.id})}" method="post" style="display:inline-block">
+                            <input type="submit" name="delete" value="삭제">
+                        </form>
+                    </th:block>
+                    <br>
                     <span class="lining" th:text="${board.comment}"></span>
                 </td>
             </th:block>
         </tr>
-    </table>
+    </table><br><br>
+    <div id="btn_div">
+        <div id="btn_group">
+            <span th:each="pageNum : ${pageList}">
+                <a th:class="onbtn" th:classappend="${pageNum} == ${curPage} ? offbtn" th:href="@{'/detail/albuminfo?album_id=' +${album_id} + '&page=' + ${pageNum}}" th:text="${pageNum}"></a>
+            </span>
+        </div>
+    </div>
 </div><br><br><br><br><br><br><br><br>
 <div th:replace="fragments/footer::footer"></div>
 </body>
