@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -109,5 +110,29 @@ public class UserController {
 
         redirectAttributes.addFlashAttribute("successMsg", "회원정보가 수정 되었습니다");
         return "redirect:/user/" + username;
+    }
+
+    @GetMapping("/user/{username}/myboard")
+    public String showMyBoard(Model model, @PathVariable("username") String username, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) {
+
+        List<BoardDto> boards = new ArrayList<>();
+        List<Board> result = boardService.findAllBoardByUserName(pageNum, username);
+        List<Integer> pageList = boardService.getMyPageList(pageNum, username);
+        for (Board board : result) {
+            BoardDto boardDto = new BoardDto();
+            boardDto.setId(board.getId());
+            boardDto.setWriter(username);
+            boardDto.setComment(board.getComment());
+            boardDto.setTraceId(board.getTraceId());
+            boardDto.setCreatedDate(board.getCreatedDate());
+
+            boards.add(boardDto);
+        }
+
+        model.addAttribute("boardList", boards);
+        model.addAttribute("pageList", pageList);
+        model.addAttribute("curPage", pageNum);
+        model.addAttribute("username", username);
+        return "members/userBoard";
     }
 }

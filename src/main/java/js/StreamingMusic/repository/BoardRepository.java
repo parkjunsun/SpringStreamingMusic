@@ -21,6 +21,10 @@ public class BoardRepository {
         em.remove(board);
     }
 
+    public Board findOne(Long id) {
+        return em.find(Board.class, id);
+    }
+
     public List<Board> findByAlbumId(Integer pageNum, String traceId, int pageCnt) {
         String jpql = "SELECT b FROM Board b JOIN FETCH b.member WHERE b.traceId = :traceId";
         return em.createQuery(jpql, Board.class)
@@ -30,9 +34,16 @@ public class BoardRepository {
                 .getResultList();
     }
 
-    public Board findOne(Long id) {
-        return em.find(Board.class, id);
+    public List<Board> findAllByUsername(Integer pageNum, String username, int pageCnt) {
+        String jpql = "SELECT b FROM Board b JOIN FETCH b.member m WHERE m.username = :username ORDER BY b.createdDate DESC";
+        return em.createQuery(jpql, Board.class)
+                .setFirstResult(pageCnt * (pageNum-1))
+                .setMaxResults(pageCnt)
+                .setParameter("username", username)
+                .getResultList();
     }
+
+
 
     public List<Board> findByUsername(String name) {
         String jpql = "SELECT b FROM Board b JOIN FETCH b.member m WHERE m.username = :username ORDER BY b.createdDate DESC";
@@ -52,4 +63,10 @@ public class BoardRepository {
     }
 
 
+    public Long myCount(String username) {
+        String jpql = "SELECT COUNT(b) FROM Board b JOIN b.member m WHERE m.username = :username";
+        return em.createQuery(jpql, Long.class)
+                .setParameter("username", username)
+                .getSingleResult();
+    }
 }

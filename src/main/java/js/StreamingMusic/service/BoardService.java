@@ -38,6 +38,11 @@ public class BoardService {
     }
 
 
+    public List<Board> findAllBoardByUserName(Integer pageNum, String username) {
+        return boardRepository.findAllByUsername(pageNum, username, PAGE_POST_COUNT);
+    }
+
+
     public Board findBoard(Long id) {
         return boardRepository.findOne(id);
     }
@@ -53,7 +58,6 @@ public class BoardService {
     public List<Board> findBoardByUserName(String name) {
         return boardRepository.findByUsername(name);
     }
-
 
 
     public List<Integer> getPageList(Integer curPageNum, String traceId) {
@@ -77,8 +81,34 @@ public class BoardService {
         return pageList;
     }
 
+    public List<Integer> getMyPageList(Integer curPageNum, String username) {
+        List<Integer> pageList = new ArrayList<>();
+        Double postsTotalCount = Double.valueOf(this.getMyBoardCount(username));
+
+        Integer totalLastPageNum = (int)(Math.ceil(postsTotalCount/PAGE_POST_COUNT));
+
+        Integer blockLastPageNum = (totalLastPageNum > curPageNum + BLOCK_PAGE_NUM_COUNT)
+                ? curPageNum + BLOCK_PAGE_NUM_COUNT
+                : totalLastPageNum;
+
+
+        if (totalLastPageNum > 10) {
+            for (int i = 0; i < 10; i++) pageList.add(i+1);
+        } else {
+            for (int i = 0; i < totalLastPageNum; i++) pageList.add(i+1);
+        }
+
+        return pageList;
+    }
+
     public Long getBoardCount(String traceId) {
         return boardRepository.count(traceId);
     }
+
+    private Long getMyBoardCount(String username) {
+        return boardRepository.myCount(username);
+    }
+
+
 
 }
