@@ -44,7 +44,7 @@ public class BoardController {
         Member m = memberService.findByUsername(member.getUsername());
         m.removeBoard(1);
 
-        Board board = boardService.getBoard(id);
+        Board board = boardService.findBoard(id);
         boardService.removePost(board);
 
         return "redirect:" + request.getHeader("Referer");

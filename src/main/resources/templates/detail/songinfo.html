@@ -99,7 +99,7 @@
                     <span class="createDate" th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>&nbsp;&nbsp;&nbsp;
                         <th:block th:if="${board.writer} == ${username}">
                             <form th:action="@{/post/{id}/delete (id=${board.id})}" method="post" style="display:inline-block">
-                                <input type="submit" name="delete" value="삭제">
+                                <input class="delete_btn" type="submit" name="delete" value="삭제">
                             </form>
                         </th:block>
                     <br>

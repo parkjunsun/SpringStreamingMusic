@@ -1,10 +1,8 @@
 package js.StreamingMusic.controller;
 
-import js.StreamingMusic.domain.Member;
-import js.StreamingMusic.domain.MemberForm;
-import js.StreamingMusic.domain.Record;
-import js.StreamingMusic.domain.RecordDto;
+import js.StreamingMusic.domain.*;
 import js.StreamingMusic.security.MemberContext;
+import js.StreamingMusic.service.BoardService;
 import js.StreamingMusic.service.MemberService;
 import js.StreamingMusic.service.RecordService;
 import js.StreamingMusic.service.data.DataApi;
@@ -33,6 +31,7 @@ public class UserController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final RecordService recordService;
+    private final BoardService boardService;
     private final DataApi dataApi;
 
 
@@ -46,9 +45,9 @@ public class UserController {
         model.addAttribute("count", member.getSongQuantity());
         model.addAttribute("role", member.getRole());
         model.addAttribute("joinDate", member.getJoinDate());
+        model.addAttribute("boardCount", member.getBoardQuantity());
 
         List<Record> records = recordService.findAll(username);
-
         List<RecordDto> playCountByArtist = recordService.findMostPlayCountByArtist(username);
         for (RecordDto recordDto : playCountByArtist) {
             HashMap<String, String> hashMap = new HashMap<>();
@@ -62,6 +61,22 @@ public class UserController {
 
         model.addAttribute("records", records);
         model.addAttribute("datum", datum);
+
+
+        List<Board> results = boardService.findBoardByUserName(username);
+        List<BoardDto> boards = new ArrayList<>();
+        for (Board result : results) {
+            BoardDto boardDto = new BoardDto();
+            boardDto.setId(result.getId());
+            boardDto.setWriter(username);
+            boardDto.setComment(result.getComment());
+            boardDto.setTraceId(result.getTraceId());
+            boardDto.setCreatedDate(result.getCreatedDate());
+
+            boards.add(boardDto);
+        }
+
+        model.addAttribute("boardList", boards);
 
         return "members/userInfo";
     }

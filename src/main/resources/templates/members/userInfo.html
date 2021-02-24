@@ -17,9 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/userinfo.css}">
     <script type="text/javascript" th:src="@{/js/userinfo.js}"></script>
-    <style>
-
-    </style>
 </head>
 <body>
 <script th:inline="javascript">
@@ -43,6 +40,19 @@
             <p class="role" th:text="${role}"></p>
             <p th:text="|가입일: ${joinDate}|"></p>
             <p><a class="button" th:href="@{/user/{name}/edit (name = ${name})}">회원정보 수정</a></p>
+        </div><br><br>
+        <div class="userinfo">
+            <span style="font-size:20px; font-weight:bold">최근 나의 리뷰 </span>
+            <span> (총 </span><span th:text="${boardCount}" style="color:red"></span><span>개)</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <hr class="hr">
+            <ul style="padding-left:18px;">
+                <li th:each="board : ${boardList}">
+                    <a class="info_comment" th:if="${#strings.startsWith(board.traceId, '8')}" th:href="@{'/detail/albuminfo?album_id=' + ${board.traceId}}" th:text="${board.comment}"></a>
+                    <a class="info_comment" th:if="${#strings.startsWith(board.traceId, '9')}" th:href="@{'/detail/songinfo?song_id=' + ${board.traceId}}" th:text="${board.comment}"></a>
+                    <span class="info_date" th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+                </li>
+            </ul>
+            <span style="font-size:13px; color:gray; float:left">최근 5개까지만 보여집니다.</span>
         </div>
     </div>
     <div class="record">

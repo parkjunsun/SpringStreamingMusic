@@ -17,8 +17,12 @@ public class BoardRepository {
         em.persist(board);
     }
 
+    public void remove(Board board) {
+        em.remove(board);
+    }
+
     public List<Board> findByAlbumId(Integer pageNum, String traceId, int pageCnt) {
-        String jpql = "select b from Board b join fetch b.member where b.traceId = :traceId";
+        String jpql = "SELECT b FROM Board b JOIN FETCH b.member WHERE b.traceId = :traceId";
         return em.createQuery(jpql, Board.class)
                 .setFirstResult(pageCnt * (pageNum-1))
                 .setMaxResults(pageCnt)
@@ -30,15 +34,22 @@ public class BoardRepository {
         return em.find(Board.class, id);
     }
 
-    public void remove(Board board) {
-        em.remove(board);
+    public List<Board> findByUsername(String name) {
+        String jpql = "SELECT b FROM Board b JOIN FETCH b.member m WHERE m.username = :username ORDER BY b.createdDate DESC";
+        return em.createQuery(jpql, Board.class)
+                .setParameter("username", name)
+                .setFirstResult(0)
+                .setMaxResults(5)
+                .getResultList();
     }
 
+
     public Long count(String traceId) {
-        return em.createQuery("select COUNT(b) FROM Board b WHERE b.traceId = :traceId", Long.class)
+        return em.createQuery("SELECT COUNT(b) FROM Board b WHERE b.traceId = :traceId", Long.class)
                 .setParameter("traceId", traceId)
                 .getSingleResult();
 
     }
+
 
 }

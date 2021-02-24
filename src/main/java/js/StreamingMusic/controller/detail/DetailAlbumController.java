@@ -37,7 +37,7 @@ public class DetailAlbumController {
         HashMap<String, String> info = getDetailAlbumInfo.getData(album_id);
         List<HashMap<String, String>> songs = getDetailAlbumInfo.getSongs(album_id);
 
-        List<Board> boardList = boardService.getBoardList(pageNum, album_id);
+        List<Board> boardList = boardService.findBoardList(pageNum, album_id);
         List<Integer> pageList = boardService.getPageList(pageNum, album_id);
         Long boardCount = boardService.getBoardCount(album_id);
         List<BoardDto> result = new ArrayList<>();

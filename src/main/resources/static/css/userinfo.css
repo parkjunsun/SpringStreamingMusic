@@ -138,3 +138,25 @@ input[type=checkbox] {
     -o-transform: scale(2); /* Opera */
     padding: 10px;
 }
+
+
+.userinfo {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.hr {border:thin solid gray;}
+
+.info_comment {
+    float:left;
+    color: black;
+    width: 400px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info_date {
+    float: right;
+    color:gray;
+}

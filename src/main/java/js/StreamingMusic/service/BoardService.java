@@ -31,19 +31,30 @@ public class BoardService {
         boardRepository.remove(board);
     }
 
-    public List<Board> getBoardList(Integer pageNum, String traceId) {
+
+
+    public List<Board> findBoardList(Integer pageNum, String traceId) {
         return boardRepository.findByAlbumId(pageNum, traceId, PAGE_POST_COUNT);
     }
 
-    public Board getBoard(Long id) {
+
+    public Board findBoard(Long id) {
         return boardRepository.findOne(id);
     }
+
 
     private void validateBoardInputEmpty(Board board) {
         if (board.getComment().isEmpty()) {
             throw new BoardInputEmptyException("댓글을 입력해 주세요");
         }
     }
+
+
+    public List<Board> findBoardByUserName(String name) {
+        return boardRepository.findByUsername(name);
+    }
+
+
 
     public List<Integer> getPageList(Integer curPageNum, String traceId) {
         List<Integer> pageList = new ArrayList<>();
