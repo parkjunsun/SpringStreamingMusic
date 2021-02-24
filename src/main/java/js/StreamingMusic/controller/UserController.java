@@ -113,7 +113,10 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}/myboard")
-    public String showMyBoard(Model model, @PathVariable("username") String username, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) {
+    public String showMyBoard(Model model, @PathVariable("username") String username,
+                              @RequestParam(value = "page", defaultValue = "1") Integer pageNum) {
+
+
 
         List<BoardDto> boards = new ArrayList<>();
         List<Board> result = boardService.findAllBoardByUserName(pageNum, username);
@@ -132,7 +135,7 @@ public class UserController {
         model.addAttribute("boardList", boards);
         model.addAttribute("pageList", pageList);
         model.addAttribute("curPage", pageNum);
-        model.addAttribute("username", username);
+        model.addAttribute("name", username);
         return "members/userBoard";
     }
 }

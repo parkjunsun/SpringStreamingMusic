@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="@{/css/base.css}" />
@@ -137,14 +137,14 @@
     <h2>나의 리뷰</h2><br><br>
     <table>
         <tr th:each="board : ${boardList}">
-            <th:block th:if="${username} == ${board.writer}">
+            <th:block th:if="${name} == ${board.writer}">
                 <td class="image">
                     <img src="https://image.genie.co.kr/imageg/web/common/blank.gif/dims/resize/Q_80,0" alt="error" style="width:50px;height:50px;">
                 </td>
                 <td class="scomment">
                     <span class="writer" th:text="${board.writer}"></span>&nbsp;
                     <span class="createDate" th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>&nbsp;&nbsp;&nbsp;
-                    <th:block th:if="${board.writer} == ${username}">
+                    <th:block th:if="${board.writer} == ${name}">
                         <form th:action="@{/post/{id}/delete (id=${board.id})}" method="post" style="display:inline-block">
                             <input class="delete_btn" type="submit" name="delete" value="삭제">
                         </form>
@@ -158,7 +158,7 @@
     <div id="btn_div">
         <div id="btn_group">
             <span th:each="pageNum : ${pageList}">
-                <a th:class="onbtn" th:classappend="${pageNum} == ${curPage} ? offbtn" th:href="@{'/user/' + ${username} +'/myboard?&page=' + ${pageNum}}" th:text="${pageNum}"></a>
+                <a th:class="onbtn" th:classappend="${pageNum} == ${curPage} ? offbtn" th:href="@{'/user/' + ${name} +'/myboard?&page=' + ${pageNum}}" th:text="${pageNum}"></a>
             </span>
         </div>
     </div>
