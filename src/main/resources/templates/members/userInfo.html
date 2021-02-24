@@ -44,7 +44,8 @@
         <div class="userinfo">
             <span style="font-size:20px; font-weight:bold">최근 나의 리뷰 </span>
             <span> (총 </span><span th:text="${boardCount}" style="color:red"></span><span>개)</span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a style="float:right;" th:href="@{/user/{username}/myboard (username=${name})}">더 보기</a>
+            <span class="material-icons" style="float:right; padding-top: 8px; color:gray">add</span>
+            <a style="float:right; padding-top: 8px; color:gray" th:href="@{/user/{username}/myboard (username=${name})}">더보기</a>
             <hr class="hr">
             <ul style="padding-left:18px;">
                 <li th:each="board : ${boardList}">
@@ -58,12 +59,12 @@
     </div>
     <div class="record">
         <span style="font-size:20px"><b>많이 들은 아티스트</b>&nbsp;</span><span class="material-icons">face</span><br><br>
-        <table>
+        <table style="width:100%">
             <tr class="tr" th:each="data : ${datum}">
                 <td class="td rank" th:text="${dataStat.count}"></td>
                 <th:block  th:unless="${data.artist.equals('youtube')}">
                     <td class="td image">
-                        <img th:src="@{${data.img}}" alt="error" style="width:120px; height:120px">
+                        <img th:src="@{${data.img}}" alt="error" style="width:100px; height:100px">
                     </td>
                 </th:block>
                 <th:block  th:if="${data.artist.equals('youtube')}">

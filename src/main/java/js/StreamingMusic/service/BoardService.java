@@ -105,7 +105,7 @@ public class BoardService {
         return boardRepository.count(traceId);
     }
 
-    private Long getMyBoardCount(String username) {
+    public Long getMyBoardCount(String username) {
         return boardRepository.myCount(username);
     }
 

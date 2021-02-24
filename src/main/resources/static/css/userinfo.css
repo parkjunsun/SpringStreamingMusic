@@ -33,28 +33,31 @@
 button:hover, a:hover { opacity: 0.7;}
 
 div.main {
-    width: 100%;
+    width: 1600px;
     height:2000px;
+    margin: 0 auto;
 }
 
 div.info {
-    width: 40%;
+    width: 750px;
     float: left;
     box-sizing: border-box;
+    padding-right:50px;
 }
 
 div.record {
-    width: 60%;
+    width: 850px;
     float: right;
     box-sizing: border-box;
     margin: 0 auto;
+    padding-left: 100px;
 }
 
 #table {
     border-top: 3px solid gray;
     border-collapse: collapse;
     padding: 15px;
-    width:80%;
+    width:100%;
 }
 
 .tr, .td, .th {
@@ -160,3 +163,5 @@ input[type=checkbox] {
     float: right;
     color:gray;
 }
+
+

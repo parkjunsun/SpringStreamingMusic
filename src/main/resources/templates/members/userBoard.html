@@ -15,126 +15,15 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-    <style>
-        table {
-            border-top: 3px solid gray;
-            border-collapse: collapse;
-            padding: 10px;
-            width:100%;
-        }
-
-        tr, td {
-            border-bottom: 1px solid #B0C4DE;
-            padding: 20px;
-        }
-
-        .image{
-    width:70px;
-}
-
-    .scomment {
-        width: 1200px;
-    }
-
-    .num {
-         padding-right: 20px;
-         font: italic bold 15px arial, sans-serif;
-         color: #444;
-         font-size: 25px;
-    }
-
-
-    .shorting{
-        width: 650px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-
-    .writer {
-        font-size:20px;
-        font-weight:bold;
-        line-height:1.8
-    }
-
-    .createDate {
-        color:gray;
-        font-size:15px;
-    }
-
-    .lining {
-        width:1200px;
-        word-break:break-all;
-    }
-
-    #btn_div {text-align:center;}
-
-    #btn_group a{
-        padding: 5px;
-        background-color: rgba(0,0,0,0);
-        font-size: 17px;
-        cursor: pointer;
-    }
-
-
-        .onbtn {
-            border-radius: 5px;
-            border:2px solid #A9A9A9;
-            color: black;
-            display:inline;
-         }
-
-         .offbtn {
-            border-radius: 5px;
-            border:2px solid #1E90FF;
-            color: #1E90FF;
-            display:inline;
-        }
-        .comment_div_box {
-            width: 100%;
-            height: 100px;
-            border: 2px solid #e3e3e3;
-            background-color: #fdfdfd;
-            text-align:center;
-            padding:10px;
-        }
-
-        .comment_box {
-            float:left;
-            width: 90%;
-            height: 80px;
-        }
-
-        .comment_btn {
-            width:100px;
-            height:80px;
-            background-color: #f8585b;
-            border: none;
-            color:#fff;
-            padding: 15px 0;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 15px;
-            cursor: pointer;
-        }
-
-        .delete_btn {
-            border: 1px solid #e3e3e3;
-            color: #999;
-            background-color: #fff;
-            padding: 3px;
-            font_size: 15px;
-       }
-
-       .delete_btn:hover { border: 2px solid gray;}
-    </style>
+    <link rel="stylesheet" th:href="@{/css/userBoard.css}">
 </head>
 <body>
 <div th:replace="fragments/top::header"></div><br><br><br>
 <div class="wrapper">
-    <h2>나의 리뷰</h2><br><br>
+    <h2 style="display:inline-block">나의 리뷰</h2>
+    <span> (총 </span><span th:text="${allCount}" style="color:red"></span><span>개)</span>
+    <span class="warn">최근 200개까지만 보여집니다.</span>
+    <br><br>
     <table>
         <tr th:each="board : ${boardList}">
             <th:block th:if="${name} == ${board.writer}">
@@ -150,9 +39,17 @@
                         </form>
                     </th:block>
                     <br>
-                    <span class="lining" th:text="${board.comment}"></span>
+                    <a class="lining" th:if="${#strings.startsWith(board.traceId, '8')}" th:href="@{/detail/albuminfo?album_id={traceId} (traceId=${board.traceId})}" th:text="${board.comment}"></a>
+                    <a class="lining" th:if="${#strings.startsWith(board.traceId, '9')}" th:href="@{/detail/songinfo?song_id={traceId} (traceId=${board.traceId})}" th:text="${board.comment}"></a>
                 </td>
             </th:block>
+            <td class="title_img">
+                <img th:src="@{${board.img}}" style="width:50px; height:50px;">
+            </td>
+            <td>
+                <span class="title_text" th:text="${board.title}"></span><br>
+                <span class="artist_text" th:text="${board.artist}"></span>
+            </td>
         </tr>
     </table><br><br>
     <div id="btn_div">

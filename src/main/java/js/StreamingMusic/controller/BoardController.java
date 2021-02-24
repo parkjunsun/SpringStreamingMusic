@@ -34,6 +34,9 @@ public class BoardController {
         Board board = new Board();
         board.setComment(boardDto.getComment());
         board.setTraceId(boardDto.getTraceId());
+        board.setTitle(boardDto.getTitle());
+        board.setArtist(boardDto.getArtist());
+        board.setImg(boardDto.getImg());
         board.setMember(m);
 
         boardService.savePost(board);

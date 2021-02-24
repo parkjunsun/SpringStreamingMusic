@@ -5,6 +5,8 @@ import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.BoardService;
 import js.StreamingMusic.service.MemberService;
 import js.StreamingMusic.service.RecordService;
+import js.StreamingMusic.service.crawling.GetDetailAlbumInfo;
+import js.StreamingMusic.service.crawling.GetDetailSongInfo;
 import js.StreamingMusic.service.data.DataApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,6 +36,8 @@ public class UserController {
     private final RecordService recordService;
     private final BoardService boardService;
     private final DataApi dataApi;
+    private final GetDetailAlbumInfo getDetailAlbumInfo;
+    private final GetDetailSongInfo getDetailSongInfo;
 
 
     @GetMapping("/user/{username}")
@@ -117,7 +121,6 @@ public class UserController {
                               @RequestParam(value = "page", defaultValue = "1") Integer pageNum) {
 
 
-
         List<BoardDto> boards = new ArrayList<>();
         List<Board> result = boardService.findAllBoardByUserName(pageNum, username);
         List<Integer> pageList = boardService.getMyPageList(pageNum, username);
@@ -128,14 +131,20 @@ public class UserController {
             boardDto.setComment(board.getComment());
             boardDto.setTraceId(board.getTraceId());
             boardDto.setCreatedDate(board.getCreatedDate());
+            boardDto.setTitle(board.getTitle());
+            boardDto.setArtist(board.getArtist());
+            boardDto.setImg(board.getImg());
 
             boards.add(boardDto);
         }
+
+        Long myBoardCount = boardService.getMyBoardCount(username);
 
         model.addAttribute("boardList", boards);
         model.addAttribute("pageList", pageList);
         model.addAttribute("curPage", pageNum);
         model.addAttribute("name", username);
+        model.addAttribute("allCount", myBoardCount);
         return "members/userBoard";
     }
 }

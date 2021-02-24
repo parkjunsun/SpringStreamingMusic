@@ -85,6 +85,9 @@
         <form action="/post" method="post">
             <textarea class="comment_box" name="comment" placeholder="댓글을 입력해주세요."></textarea>
             <input type="hidden" name="traceId" th:value="${song_id}">
+            <input type="hidden" name="title" th:value="${info.title}">
+            <input type="hidden" name="artist" th:value="${info.artist}">
+            <input type="hidden" name="img" th:value="${info.img}">
             <input class="comment_btn" type="submit" value="댓글등록">
         </form><br><br>
     </div><br>

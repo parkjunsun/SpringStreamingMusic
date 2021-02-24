@@ -19,8 +19,11 @@ public class Board extends TimeEntity{
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String comment;
-
     private String traceId;
+
+    private String title;
+    private String artist;
+    private String img;
 
     public void setMember(Member member) {
         this.member = member;

@@ -15,4 +15,8 @@ public class BoardDto {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
+    private String title;
+    private String artist;
+    private String img;
+
 }
