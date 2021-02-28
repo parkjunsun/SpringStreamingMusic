@@ -220,6 +220,7 @@ public class DataApi {
         else if (genre.equals("인디뮤직")) {queryColumn = "가요 / 인디";}
         else if (genre.equals("트로트")) {queryColumn = "가요 / 트로트";}
         else if (genre.equals("유튜브")) {queryColumn = "youtube";}
+        else if (genre.equals("기타")) {queryColumn = "기타";}
 
         return queryColumn;
     }

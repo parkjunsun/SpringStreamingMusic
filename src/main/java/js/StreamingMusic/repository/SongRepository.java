@@ -55,6 +55,26 @@ public class SongRepository {
                     .setParameter("name", name)
                     .setParameter("genreList", Arrays.asList(ballard, blues, rnb))
                     .getResultList();
+        } else if (genre.equals("기타")) {
+            String ballardColumns = "가요 / 발라드";
+            String bluesColumns = "가요 / 블루스/포크 ";
+            String rnbColumns = "가요 / R&B/소울";
+            String danceColumns = "가요 / 댄스";
+            String rockColumns = "가요 / 락";
+            String hiphopColumns = "가요 / 랩/힙합";
+            String elecColumns = "가요 / 일렉트로니카";
+            String indeColumns = "가요 / 인디";
+            String trotColumns = "가요 / 트로트";
+            String ytColumns = "youtube";
+
+            String condition = "From Song s join s.member m " +
+                               "where m.username like :name " +
+                               "and s.genre NOT IN :genreList";
+
+            return em.createQuery(jpql+condition, SongDto.class)
+                    .setParameter("name", name)
+                    .setParameter("genreList", Arrays.asList(ballardColumns, bluesColumns, rnbColumns, danceColumns, rockColumns, hiphopColumns, elecColumns, indeColumns, trotColumns, ytColumns))
+                    .getResultList();
         } else {
             String condition = "From Song s join s.member m " +
                     "where m.username like :name " +

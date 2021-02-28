@@ -1,4 +1,4 @@
-var errorCnt = 0;
+    var errorCnt = 0;
     var id_lst = [];
     var arr = []
     var num = 0;
@@ -17,6 +17,7 @@ var errorCnt = 0;
     var bluesCnt = 0;
     var trotCnt = 0;
     var ytCnt = 0;
+    var etcCnt = 0;
 
 
     for (var i in data) {
@@ -63,6 +64,9 @@ var errorCnt = 0;
         }
     }
 
+    genreAllCnt = ballardCnt + danceCnt + rockCnt + hiphopCnt + elecCnt + indeCnt + trotCnt + ytCnt;
+    etcCnt = totalCnt - genreAllCnt;
+
     genreDict['발라드'] = ballardCnt / totalCnt * 100;
     genreDict['댄스'] = danceCnt / totalCnt * 100;
 
@@ -73,6 +77,7 @@ var errorCnt = 0;
 
     genreDict['트로트'] = trotCnt / totalCnt * 100;
     genreDict['유튜브'] = ytCnt / totalCnt * 100;
+    genreDict['기타'] = etcCnt / totalCnt * 100;
 
     for (var key in genreDict){
         if (genreDict[key] == 0){
@@ -97,7 +102,7 @@ var errorCnt = 0;
         }
         else {
             var g_index = 0;
-            var genre_color = ["#FFA98F", "#CD853F", "#FF5675", "#6495ED", "#4AB34A", "#00A5FF", "#008C8C", "#ff0000"];
+            var genre_color = ["#FFA98F", "#CD853F", "#FF5675", "#6495ED", "#4AB34A", "#00A5FF", "#008C8C", "#ff0000", "#2f4f4f"];
             for (var key in ordered){
                 var genre_div = document.getElementsByClassName("progress-bar")[g_index];
                 var genre_span = document.getElementsByClassName("genre_per")[g_index];
@@ -129,6 +134,8 @@ var errorCnt = 0;
                     genre_div.setAttribute("onclick","location.href=trotUrl")
                 } else if (genre_type == "유튜브"){
                     genre_div.setAttribute("onclick","location.href=ytUrl")
+                } else if (genre_type == "기타") {
+                    genre_div.setAttribute("onclick", "location.href=etcUrl")
                 }
 
                 genre_span.style.backgroundColor = genre_color[g_index];
