@@ -88,6 +88,7 @@
             <input type="hidden" name="title" th:value="${info.title}">
             <input type="hidden" name="artist" th:value="${info.artist}">
             <input type="hidden" name="img" th:value="${info.img}">
+            <input type="hidden" name="type" th:value="song">
             <input class="comment_btn" type="submit" value="댓글등록">
         </form><br><br>
     </div><br>
@@ -101,6 +102,7 @@
                     <span class="writer" th:text="${board.writer}"></span>&nbsp;
                     <span class="createDate" th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>&nbsp;&nbsp;&nbsp;
                         <th:block th:if="${board.writer} == ${username}">
+                            <a class="update_btn" th:href="@{/post/{id}/update (id=${board.id})}" style="display:inline-block">수정</a>
                             <form th:action="@{/post/{id}/delete (id=${board.id})}" method="post" style="display:inline-block">
                                 <input class="delete_btn" type="submit" name="delete" value="삭제">
                             </form>

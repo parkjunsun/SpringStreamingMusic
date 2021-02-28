@@ -10,6 +10,7 @@ import js.StreamingMusic.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,7 @@ public class BoardController {
         board.setTitle(boardDto.getTitle());
         board.setArtist(boardDto.getArtist());
         board.setImg(boardDto.getImg());
+        board.setType(boardDto.getType());
         board.setMember(m);
 
         boardService.savePost(board);
@@ -53,6 +55,35 @@ public class BoardController {
 
         return "redirect:" + request.getHeader("Referer");
     }
+
+
+    @GetMapping("/post/{id}/update")
+    public String updateBoardForm(@PathVariable Long id, @AuthenticationPrincipal MemberContext member, Model model) {
+        Board board = boardService.findBoard(id);
+        BoardDto boardForm = new BoardDto();
+        boardForm.setId(board.getId());
+        boardForm.setWriter(member.getUsername());
+        boardForm.setComment(board.getComment());
+        boardForm.setTraceId(board.getTraceId());
+        boardForm.setType(board.getType());
+
+        model.addAttribute("form", boardForm);
+
+        return "detail/updateBoardForm";
+    }
+
+
+    @PostMapping("/post/{id}/update")
+    public String updateBoard(BoardDto boardDto, @PathVariable Long id, @AuthenticationPrincipal MemberContext member, HttpServletRequest request) {
+        boardService.updateBoard(id, boardDto.getComment());
+
+        if (boardDto.getType().equals("album")){
+            return "redirect:/detail/albuminfo?album_id=" + boardDto.getTraceId();
+        } else {
+            return "redirect:/detail/songinfo?song_id=" + boardDto.getTraceId();
+        }
+    }
+
 
     @ExceptionHandler
     public String BoardInputEmptyExceptionHandler(BoardInputEmptyException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {

@@ -180,7 +180,7 @@ input.desc_btn {
             font_size: 15px;
         }
 
-        #modal_open_btn {
+        .update_btn {
             border: 1px solid #e3e3e3;
             color: #999;
             background-color: #fff;
@@ -189,3 +189,8 @@ input.desc_btn {
         }
 
         .delete_btn:hover { border: 2px solid gray;}
+        .update_btn:hover {
+            border: 2px solid gray;
+            color: #999;
+            text-decoration: none;
+        }

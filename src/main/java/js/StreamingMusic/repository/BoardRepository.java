@@ -26,13 +26,23 @@ public class BoardRepository {
     }
 
     public List<Board> findByAlbumId(Integer pageNum, String traceId, int pageCnt) {
-        String jpql = "SELECT b FROM Board b JOIN FETCH b.member WHERE b.traceId = :traceId";
+        String jpql = "SELECT b FROM Board b JOIN FETCH b.member WHERE b.type = 'album' AND b.traceId = :traceId ORDER BY b.createdDate DESC";
         return em.createQuery(jpql, Board.class)
                 .setFirstResult(pageCnt * (pageNum-1))
                 .setMaxResults(pageCnt)
                 .setParameter("traceId", traceId)
                 .getResultList();
     }
+
+    public List<Board> findBySongId(Integer pageNum, String traceId, int pageCnt) {
+        String jpql = "SELECT b FROM Board b JOIN FETCH b.member WHERE b.type = 'song' AND b.traceId = :traceId ORDER BY b.createdDate DESC";
+        return em.createQuery(jpql, Board.class)
+                .setFirstResult(pageCnt * (pageNum-1))
+                .setMaxResults(pageCnt)
+                .setParameter("traceId", traceId)
+                .getResultList();
+    }
+
 
     public List<Board> findAllByUsername(Integer pageNum, String username, int pageCnt) {
         String jpql = "SELECT b FROM Board b JOIN FETCH b.member m WHERE m.username = :username ORDER BY b.createdDate DESC";
@@ -42,7 +52,6 @@ public class BoardRepository {
                 .setParameter("username", username)
                 .getResultList();
     }
-
 
 
     public List<Board> findByUsername(String name) {

@@ -24,6 +24,7 @@ public class Board extends TimeEntity{
     private String title;
     private String artist;
     private String img;
+    private String type;
 
     public void setMember(Member member) {
         this.member = member;

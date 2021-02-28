@@ -33,8 +33,13 @@ public class BoardService {
 
 
 
-    public List<Board> findBoardList(Integer pageNum, String traceId) {
+    public List<Board> findAlbumBoardList(Integer pageNum, String traceId) {
         return boardRepository.findByAlbumId(pageNum, traceId, PAGE_POST_COUNT);
+    }
+
+
+    public List<Board> findSongBoardList(Integer pageNum, String traceId) {
+        return boardRepository.findBySongId(pageNum, traceId, PAGE_POST_COUNT);
     }
 
 
@@ -53,7 +58,6 @@ public class BoardService {
             throw new BoardInputEmptyException("댓글을 입력해 주세요");
         }
     }
-
 
     public List<Board> findBoardByUserName(String name) {
         return boardRepository.findByUsername(name);
@@ -100,6 +104,13 @@ public class BoardService {
 
         return pageList;
     }
+
+    @Transactional
+    public void updateBoard(Long id, String comment) {
+        Board board = boardRepository.findOne(id);
+        board.setComment(comment);
+    }
+
 
     public Long getBoardCount(String traceId) {
         return boardRepository.count(traceId);

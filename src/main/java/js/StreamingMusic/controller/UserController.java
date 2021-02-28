@@ -77,6 +77,7 @@ public class UserController {
             boardDto.setComment(result.getComment());
             boardDto.setTraceId(result.getTraceId());
             boardDto.setCreatedDate(result.getCreatedDate());
+            boardDto.setType(result.getType());
 
             boards.add(boardDto);
         }
@@ -134,6 +135,7 @@ public class UserController {
             boardDto.setTitle(board.getTitle());
             boardDto.setArtist(board.getArtist());
             boardDto.setImg(board.getImg());
+            boardDto.setType(board.getType());
 
             boards.add(boardDto);
         }

@@ -18,5 +18,6 @@ public class BoardDto {
     private String title;
     private String artist;
     private String img;
+    private String type;
 
 }

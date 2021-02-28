@@ -34,13 +34,14 @@
                     <span class="writer" th:text="${board.writer}"></span>&nbsp;
                     <span class="createDate" th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>&nbsp;&nbsp;&nbsp;
                     <th:block th:if="${board.writer} == ${name}">
+                        <a class="update_btn" th:href="@{/post/{id}/update (id=${board.id})}" style="display:inline-block">수정</a>
                         <form th:action="@{/post/{id}/delete (id=${board.id})}" method="post" style="display:inline-block">
                             <input class="delete_btn" type="submit" name="delete" value="삭제">
                         </form>
                     </th:block>
                     <br>
-                    <a class="lining" th:if="${#strings.startsWith(board.traceId, '8')}" th:href="@{/detail/albuminfo?album_id={traceId} (traceId=${board.traceId})}" th:text="${board.comment}"></a>
-                    <a class="lining" th:if="${#strings.startsWith(board.traceId, '9')}" th:href="@{/detail/songinfo?song_id={traceId} (traceId=${board.traceId})}" th:text="${board.comment}"></a>
+                    <a class="lining" th:if="${#strings.equals(board.type, 'album')}" th:href="@{/detail/albuminfo?album_id={traceId} (traceId=${board.traceId})}" th:text="${board.comment}"></a>
+                    <a class="lining" th:if="${#strings.equals(board.type, 'song')}" th:href="@{/detail/songinfo?song_id={traceId} (traceId=${board.traceId})}" th:text="${board.comment}"></a>
                 </td>
             </th:block>
             <td class="title_img">

@@ -108,7 +108,20 @@ table {
             font_size: 15px;
        }
 
+       .update_btn {
+            border: 1px solid #e3e3e3;
+            color: #999;
+            background-color: #fff;
+            padding: 3px;
+            font_size: 15px;
+       }
+
        .delete_btn:hover { border: 2px solid gray;}
+       .update_btn:hover {
+            border: 2px solid gray;
+            color: #999;
+            text-decoration: none;
+       }
 
        .warn {
             font-size:13px;

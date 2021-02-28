@@ -62,6 +62,7 @@ public class YoutubeController {
         song.setDuration(duration);
         song.setMember(member);
 
+        member.addSong(1);
         songService.addSong(song, username, title, song.getArtist());
 
         redirectAttributes.addFlashAttribute("successMsg", "플레이리스트에 추가 되었습니다.");

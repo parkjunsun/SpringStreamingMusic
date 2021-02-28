@@ -37,7 +37,7 @@ public class DetailSongController {
         HashMap<String, String> info = getDetailSongInfo.getData(song_id);
         model.addAttribute("info", info);
 
-        List<Board> boardList = boardService.findBoardList(pageNum, song_id);
+        List<Board> boardList = boardService.findSongBoardList(pageNum, song_id);
         List<Integer> pageList = boardService.getPageList(pageNum, song_id);
         Long boardCount = boardService.getBoardCount(song_id);
         List<BoardDto> result = new ArrayList<>();
