@@ -134,7 +134,7 @@ public class DataApi {
 
     public String getImgByArtist(String artist) throws IOException {
         if (artist.contains("&")) {
-            artist = artist.replace("&", "");
+            artist = artist.split("&")[0];
         }
 
         String url = "https://www.genie.co.kr/search/searchMain?query=" + artist;
