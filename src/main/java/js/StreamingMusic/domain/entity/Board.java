@@ -1,5 +1,6 @@
-package js.StreamingMusic.domain;
+package js.StreamingMusic.domain.entity;
 
+import js.StreamingMusic.domain.TimeEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-public class Board extends TimeEntity{
+public class Board extends TimeEntity {
 
     @Id @GeneratedValue
     private Long id;

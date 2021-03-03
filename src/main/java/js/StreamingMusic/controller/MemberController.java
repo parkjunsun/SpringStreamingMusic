@@ -1,7 +1,7 @@
 package js.StreamingMusic.controller;
 
-import js.StreamingMusic.domain.Member;
-import js.StreamingMusic.domain.MemberForm;
+import js.StreamingMusic.domain.entity.Member;
+import js.StreamingMusic.domain.dto.MemberForm;
 import js.StreamingMusic.service.MemberService;
 import js.StreamingMusic.validate.MemberFormValidator;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

@@ -1,7 +1,7 @@
 package js.StreamingMusic.controller.detail;
 
-import js.StreamingMusic.domain.Board;
-import js.StreamingMusic.domain.BoardDto;
+import js.StreamingMusic.domain.entity.Board;
+import js.StreamingMusic.domain.dto.BoardDto;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.BoardService;
 import js.StreamingMusic.service.crawling.GetDetailAlbumInfo;

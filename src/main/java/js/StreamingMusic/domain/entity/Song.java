@@ -1,6 +1,5 @@
-package js.StreamingMusic.domain;
+package js.StreamingMusic.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 

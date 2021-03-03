@@ -5,38 +5,39 @@
 <!--<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>-->
 
 <head th:replace="fragments/header::userHead"></head>
-<script>
-    function formLogin(e) {
+<!--<script>-->
+<!--    function formLogin(e) {-->
 
-        var username = $("input[name='username']").val().trim();
-        var password = $("input[name='password']").val().trim();
-        var data = {"username" : username, "password" : password};
+<!--        var username = $("input[name='username']").val().trim();-->
+<!--        var password = $("input[name='password']").val().trim();-->
+<!--        var data = {"username" : username, "password" : password};-->
 
-        // var csrfHeader = $('meta[name="_csrf_header"]').attr('content')
-        // var csrfToken = $('meta[name="_csrf"]').attr('content')
+<!--        // var csrfHeader = $('meta[name="_csrf_header"]').attr('content')-->
+<!--        // var csrfToken = $('meta[name="_csrf"]').attr('content')-->
 
-        $.ajax({
-            type: "post",
-            url: "/api/login",
-            data: JSON.stringify(data),
-            dataType: "json",
-            beforeSend : function(xhr){
-                // xhr.setRequestHeader(csrfHeader, csrfToken);
-                xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-                xhr.setRequestHeader("Content-type","application/json");
-            },
-            success: function (data) {
-                console.log(data);
-                window.location = '/';
+<!--        $.ajax({-->
+<!--            type: "post",-->
+<!--            url: "/api/login",-->
+<!--            data: JSON.stringify(data),-->
+<!--            dataType: "json",-->
+<!--            beforeSend : function(xhr){-->
+<!--                // xhr.setRequestHeader(csrfHeader, csrfToken);-->
+<!--                xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");-->
+<!--                xhr.setRequestHeader("Content-type","application/json");-->
+<!--            },-->
+<!--            success: function (data) {-->
+<!--                console.log(data);-->
+<!--                window.location = '/';-->
 
-            },
-            error : function(xhr, status, error) {
-                console.log(error);
-                window.location = '/login?error=true&exception=' + xhr.responseText;
-            }
-        });
-    }
-</script>
+<!--            },-->
+<!--            error : function(xhr, status, error) {-->
+<!--                console.log(error);-->
+<!--                window.location = '/login?error=true&exception=' + xhr.responseText;-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+
 <body>
 <div th:replace="fragments/top::header"></div><br><br><br><br><br>
 <div class="container text-center">

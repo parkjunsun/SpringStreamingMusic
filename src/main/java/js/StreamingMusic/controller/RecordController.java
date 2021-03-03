@@ -1,7 +1,7 @@
 package js.StreamingMusic.controller;
 
-import js.StreamingMusic.domain.Member;
-import js.StreamingMusic.domain.Record;
+import js.StreamingMusic.domain.entity.Member;
+import js.StreamingMusic.domain.entity.Record;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.MemberService;
 import js.StreamingMusic.service.RecordService;

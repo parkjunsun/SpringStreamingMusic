@@ -1,7 +1,7 @@
 package js.StreamingMusic.service;
 
-import js.StreamingMusic.domain.Record;
-import js.StreamingMusic.domain.RecordDto;
+import js.StreamingMusic.domain.entity.Record;
+import js.StreamingMusic.domain.dto.RecordDto;
 import js.StreamingMusic.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

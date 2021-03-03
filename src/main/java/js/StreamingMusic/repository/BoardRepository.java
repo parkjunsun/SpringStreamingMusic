@@ -1,6 +1,6 @@
 package js.StreamingMusic.repository;
 
-import js.StreamingMusic.domain.Board;
+import js.StreamingMusic.domain.entity.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

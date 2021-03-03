@@ -1,8 +1,8 @@
 package js.StreamingMusic.controller;
 
-import js.StreamingMusic.domain.Board;
-import js.StreamingMusic.domain.BoardDto;
-import js.StreamingMusic.domain.Member;
+import js.StreamingMusic.domain.entity.Board;
+import js.StreamingMusic.domain.dto.BoardDto;
+import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.exception.BoardInputEmptyException;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.BoardService;

@@ -1,11 +1,10 @@
 package js.StreamingMusic.repository;
 
-import js.StreamingMusic.domain.Member;
+import js.StreamingMusic.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @Repository
@@ -16,6 +15,14 @@ public class MemberRepository {
 
     public void save(Member member) {
         em.persist(member);
+    }
+
+    public void remove(Member member) {
+        em.remove(member);
+    }
+
+    public Member findOne(Long id) {
+        return em.find(Member.class, id);
     }
 
     public Member findByUserName(String username) {
@@ -44,4 +51,11 @@ public class MemberRepository {
                 .getResultList();
         return members;
     }
+
+    public List<Member> findAll() {
+        return em.createQuery("SELECT m FROM Member m", Member.class)
+                .getResultList();
+    }
+
+
 }

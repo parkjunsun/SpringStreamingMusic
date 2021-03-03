@@ -1,14 +1,13 @@
 package js.StreamingMusic.listener;
 
 
-import js.StreamingMusic.domain.Member;
+import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

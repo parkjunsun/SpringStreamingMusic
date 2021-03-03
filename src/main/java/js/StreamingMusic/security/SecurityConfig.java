@@ -14,6 +14,10 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 
 @Configuration
@@ -24,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
+    private final DataSource dataSource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -50,8 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/register","/login*", "/ajax", "/ajax/**", "/detail", "/detail/**", "/search", "/chart", "/chart/**").permitAll()
                 .antMatchers("/playlist","/youtube").hasRole("USER")
+                .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
-
         .and()
                 .formLogin()
                 .loginPage("/login")
@@ -61,10 +66,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(failureHandler)
                 .permitAll()
         .and()
-                .csrf().disable();
-
-
-
-
+                .csrf().disable()
+//        .rememberMe()
+//                .userDetailsService(userDetailsService)
+//                .tokenValiditySeconds(3600)
+//                .alwaysRemember(true)
+        ;
     }
+
+
 }

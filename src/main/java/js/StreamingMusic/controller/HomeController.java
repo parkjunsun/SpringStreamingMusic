@@ -1,27 +1,16 @@
 package js.StreamingMusic.controller;
 
-import js.StreamingMusic.domain.Member;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.crawling.GetHomeNewAlbums;
 import js.StreamingMusic.service.crawling.GetTop10;
 import js.StreamingMusic.service.data.DataApi;
 import lombok.RequiredArgsConstructor;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -35,13 +24,6 @@ public class HomeController {
     @RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
     public String home(Model model, HttpServletRequest request, @AuthenticationPrincipal MemberContext member) throws Exception{
         if (request.getMethod().equals("GET")) {
-//            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//            Object principal = auth.getPrincipal();
-//            String name = "";
-//            if (principal != null && principal instanceof MemberContext) {
-//                name = ((MemberContext) principal).getUsername();
-//                model.addAttribute("name", name);
-//            }
             if(member != null) {
                 String username = member.getUsername();
                 model.addAttribute("name", username);
@@ -50,13 +32,6 @@ public class HomeController {
             model.addAttribute("albums", getHomeNewAlbums.getHomeNewAlbumPg1());
         }
         else if (request.getMethod().equals("POST")) {
-//            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//            Object principal = auth.getPrincipal();
-//            String name = "";
-//            if (principal != null && principal instanceof MemberContext) {
-//                name = ((MemberContext) principal).getUsername();
-//                model.addAttribute("name", name);
-//            }
             if(member != null) {
                 String username = member.getUsername();
                 model.addAttribute("name", username);

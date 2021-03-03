@@ -1,9 +1,8 @@
 package js.StreamingMusic.service;
 
-import js.StreamingMusic.domain.Member;
+import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +16,18 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
 
-
     @Transactional
     public void join(Member member) {
-//        validateDuplicateMember(member);
         memberRepository.save(member);
+    }
+
+    @Transactional
+    public void removeMember(Member member) {
+        memberRepository.remove(member);
+    }
+
+    public Member findById(Long id) {
+        return memberRepository.findOne(id);
     }
 
     public Member findByUsername(String username) {
@@ -52,5 +58,9 @@ public class MemberService {
         findMember.setPassword(password);
         findMember.setEmail(email);
         findMember.setAge(age);
+    }
+
+    public List<Member> findAllMember() {
+        return memberRepository.findAll();
     }
 }

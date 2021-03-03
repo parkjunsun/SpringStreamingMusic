@@ -1,4 +1,4 @@
-package js.StreamingMusic.domain;
+package js.StreamingMusic.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;

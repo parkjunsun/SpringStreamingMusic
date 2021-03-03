@@ -1,9 +1,8 @@
 package js.StreamingMusic.security;
 
-import js.StreamingMusic.domain.Member;
+import js.StreamingMusic.domain.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 

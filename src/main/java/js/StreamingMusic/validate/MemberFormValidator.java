@@ -1,7 +1,6 @@
 package js.StreamingMusic.validate;
 
-import js.StreamingMusic.domain.MemberForm;
-import js.StreamingMusic.repository.MemberRepository;
+import js.StreamingMusic.domain.dto.MemberForm;
 import js.StreamingMusic.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

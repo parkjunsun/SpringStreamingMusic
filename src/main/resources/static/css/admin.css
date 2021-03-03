@@ -1,0 +1,30 @@
+table {
+    border-top: 1px solid gray;
+    border-collapse: collapse;
+    padding: 10px;
+    width:100%;
+ }
+
+
+tr,td {
+    border-bottom: 1px solid #B0C4DE;
+    padding: 20px;
+    text-align: center;
+}
+
+th {
+    border-bottom: 1px solid #B0C4DE;
+    padding: 10px;
+    text-align: center;
+}
+
+.delete_btn {
+    border: 1px solid #e3e3e3;
+    color: #999;
+    background-color: #fff;
+    padding: 3px;
+    font_size: 15px;
+}
+
+
+.delete_btn:hover { border: 2px solid gray;}

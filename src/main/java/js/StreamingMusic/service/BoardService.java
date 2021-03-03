@@ -1,6 +1,6 @@
 package js.StreamingMusic.service;
 
-import js.StreamingMusic.domain.Board;
+import js.StreamingMusic.domain.entity.Board;
 import js.StreamingMusic.exception.BoardInputEmptyException;
 import js.StreamingMusic.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;

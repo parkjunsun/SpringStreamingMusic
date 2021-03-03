@@ -1,7 +1,7 @@
 package js.StreamingMusic.controller;
 
-import js.StreamingMusic.domain.Member;
-import js.StreamingMusic.domain.Song;
+import js.StreamingMusic.domain.entity.Member;
+import js.StreamingMusic.domain.entity.Song;
 import js.StreamingMusic.exception.DuplicateSongException;
 import js.StreamingMusic.exception.NotExistSearchResult;
 import js.StreamingMusic.security.MemberContext;

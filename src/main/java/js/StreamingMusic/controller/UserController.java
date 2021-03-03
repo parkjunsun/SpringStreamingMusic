@@ -1,6 +1,11 @@
 package js.StreamingMusic.controller;
 
-import js.StreamingMusic.domain.*;
+import js.StreamingMusic.domain.dto.BoardDto;
+import js.StreamingMusic.domain.dto.MemberForm;
+import js.StreamingMusic.domain.dto.RecordDto;
+import js.StreamingMusic.domain.entity.Board;
+import js.StreamingMusic.domain.entity.Member;
+import js.StreamingMusic.domain.entity.Record;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.BoardService;
 import js.StreamingMusic.service.MemberService;

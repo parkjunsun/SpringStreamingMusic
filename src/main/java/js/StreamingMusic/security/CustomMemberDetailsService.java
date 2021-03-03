@@ -1,6 +1,6 @@
 package js.StreamingMusic.security;
 
-import js.StreamingMusic.domain.Member;
+import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
