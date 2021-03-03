@@ -35,10 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();   // 평문인 비밀번호 암호화
     }
 
-//    @Bean
-//    public HttpFirewall defaultHttpFirewall() {
-//        return new DefaultHttpFirewall();
-//    }
+
 
     @Override
     public void configure(WebSecurity web){

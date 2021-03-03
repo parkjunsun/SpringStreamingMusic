@@ -28,6 +28,15 @@ public class MemberService {
         return memberRepository.findByUserName(username);
     }
 
+    /**
+     *
+     * 임시로 만든 함수
+     */
+
+    public List<Member> findByAdminName(String name) {
+        return memberRepository.findByAdminName(name);
+    }
+
     public boolean validateDuplicateMember(String username) {
         List<Member> members = memberRepository.checkByUserName(username);
         if (!members.isEmpty()) {
