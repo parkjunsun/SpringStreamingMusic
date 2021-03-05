@@ -20,4 +20,6 @@ public class BoardDto {
     private String img;
     private String type;
 
+    private int LikeCount;
+
 }

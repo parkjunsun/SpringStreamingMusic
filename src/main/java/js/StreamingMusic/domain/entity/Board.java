@@ -12,6 +12,7 @@ import javax.persistence.*;
 public class Board extends TimeEntity {
 
     @Id @GeneratedValue
+    @Column(name = "BOARD_ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,8 +28,16 @@ public class Board extends TimeEntity {
     private String img;
     private String type;
 
+    private int likeCount;
+
     public void setMember(Member member) {
         this.member = member;
         member.getBoards().add(this);
     }
+
+    public void addLikeCount(int cnt) {
+        this.likeCount += cnt;
+    }
+
+
 }

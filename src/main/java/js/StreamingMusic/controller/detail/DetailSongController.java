@@ -2,8 +2,10 @@ package js.StreamingMusic.controller.detail;
 
 import js.StreamingMusic.domain.entity.Board;
 import js.StreamingMusic.domain.dto.BoardDto;
+import js.StreamingMusic.domain.entity.LikeBoard;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.BoardService;
+import js.StreamingMusic.service.LikeBoardService;
 import js.StreamingMusic.service.crawling.GetDetailSongInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -24,6 +26,7 @@ public class DetailSongController {
 
     private final GetDetailSongInfo getDetailSongInfo;
     private final BoardService boardService;
+    private final LikeBoardService likeBoardService;
 
     @GetMapping("/detail/songinfo")
     public String songinfo(Model model, @RequestParam("song_id") String song_id, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) throws IOException {
@@ -48,6 +51,7 @@ public class DetailSongController {
             boardDto.setCreatedDate(board.getCreatedDate());
             boardDto.setWriter(board.getMember().getUsername());
             boardDto.setTraceId(board.getTraceId());
+            boardDto.setLikeCount(board.getLikeCount());
 
             result.add(boardDto);
         }

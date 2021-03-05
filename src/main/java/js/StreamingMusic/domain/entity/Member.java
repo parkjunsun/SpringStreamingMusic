@@ -32,6 +32,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<LikeBoard> likeBoards = new ArrayList<>();
+
     public void addSong(int quantity) {
         this.songQuantity += quantity;
     }

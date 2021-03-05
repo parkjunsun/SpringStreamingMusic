@@ -28,9 +28,7 @@
         swal("Success", successMessage, "success");
     }
 
-    function warn() {
-        alert("정말 삭제하시겠습니까?");
-    }
+
 
 </script>
 <div th:replace="fragments/top::header"></div><br><br><br>
@@ -58,7 +56,7 @@
             <th:block th:if="${#strings.equals(member.role, 'ROLE_USER')}">
                 <td>
                     <form th:action="@{/admin/{id}/delete (id=${member.id})}" method="post">
-                        <input class="delete_btn" type="submit" name="delete" value="삭제" onclick="warn()">
+                        <input class="delete_btn" type="submit" name="delete" value="삭제">
                     </form>
                 </td>
             </th:block>

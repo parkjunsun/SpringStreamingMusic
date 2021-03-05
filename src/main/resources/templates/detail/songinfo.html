@@ -101,12 +101,21 @@
                 <td class="scomment">
                     <span class="writer" th:text="${board.writer}"></span>&nbsp;
                     <span class="createDate" th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>&nbsp;&nbsp;&nbsp;
-                        <th:block th:if="${board.writer} == ${username}">
-                            <a class="update_btn" th:href="@{/post/{id}/update (id=${board.id})}" style="display:inline-block">수정</a>
-                            <form th:action="@{/post/{id}/delete (id=${board.id})}" method="post" style="display:inline-block">
-                                <input class="delete_btn" type="submit" name="delete" value="삭제">
-                            </form>
-                        </th:block>
+                    <th:block th:if="${board.writer} == ${username}">
+                        <a class="update_btn" th:href="@{/post/{id}/update (id=${board.id})}" style="display:inline-block">수정</a>
+                        <form th:action="@{/post/{id}/delete (id=${board.id})}" method="post" style="display:inline-block">
+                            <input class="delete_btn" type="submit" name="delete" value="삭제">
+                        </form>
+                    </th:block>
+                    <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
+                        <form th:action="@{/post/{id}/delete (id=${board.id})}" method="post" style="display:inline-block">
+                            <input class="delete_btn" type="submit" name="delete" value="관리자권한 삭제">
+                        </form>
+                    </th:block>
+                    <form th:action="@{/like/{id}/add (id=${board.id})}" method="post" style="display:inline-block">
+                        <button type="submit" class="heartBtn"><i class="fas fa-heart heart"></i></button>
+                    </form>
+                    <span th:text="${board.likeCount}"></span>&nbsp;
                     <br>
                     <span class="lining" th:text="${board.comment}"></span>
                 </td>
@@ -116,7 +125,7 @@
     <div id="btn_div">
         <div id="btn_group">
             <span th:each="pageNum : ${pageList}">
-                <a th:class="onbtn" th:classappend="${pageNum} == ${curPage} ? offbtn" th:href="@{'/detail/albuminfo?album_id=' +${album_id} + '&page=' + ${pageNum}}" th:text="${pageNum}"></a>
+                <a th:class="onbtn" th:classappend="${pageNum} == ${curPage} ? offbtn" th:href="@{'/detail/songinfo?song_id=' +${song_id} + '&page=' + ${pageNum}}" th:text="${pageNum}"></a>
             </span>
         </div>
     </div>

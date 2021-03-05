@@ -184,3 +184,17 @@ input.add_btn {
             color: #999;
             text-decoration: none;
        }
+
+
+       .heartBtn {
+            border: none;
+            background-color: white;
+            padding-left:5px;
+       }
+
+        .heart {
+            color:gray;
+            cursor:pointer;
+        }
+
+       .heart:hover { color: red;}

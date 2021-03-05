@@ -48,6 +48,7 @@ public class DetailAlbumController {
             boardDto.setCreatedDate(board.getCreatedDate());
             boardDto.setWriter(board.getMember().getUsername());
             boardDto.setTraceId(board.getTraceId());
+            boardDto.setLikeCount(board.getLikeCount());
 
             result.add(boardDto);
         }
