@@ -1,10 +1,13 @@
 package js.StreamingMusic.domain.entity;
 
+import js.StreamingMusic.domain.LikeBoardStatus;
 import js.StreamingMusic.domain.TimeEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -29,6 +32,12 @@ public class Board extends TimeEntity {
     private String type;
 
     private int likeCount;
+
+    @Enumerated(EnumType.STRING)
+    private LikeBoardStatus status;
+
+    @OneToMany(mappedBy = "board")
+    private List<LikeBoard> likeBoards = new ArrayList<>();
 
     public void setMember(Member member) {
         this.member = member;

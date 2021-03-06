@@ -1,5 +1,6 @@
 package js.StreamingMusic.domain.dto;
 
+import js.StreamingMusic.domain.LikeBoardStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +22,6 @@ public class BoardDto {
     private String type;
 
     private int LikeCount;
+    private LikeBoardStatus status;
 
 }

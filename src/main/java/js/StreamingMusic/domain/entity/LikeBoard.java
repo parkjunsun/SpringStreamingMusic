@@ -14,19 +14,24 @@ public class LikeBoard {
     @Column(name = "LIKE_BOARD_ID")
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private LikeBoardStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    private Long board_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BOARD_ID")
+    private Board board;
 
 
     public void setMember(Member member) {
         this.member = member;
         member.getLikeBoards().add(this);
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+        board.getLikeBoards().add(this);
     }
 
 

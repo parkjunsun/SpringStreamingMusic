@@ -30,12 +30,12 @@ public class LikeBoardController {
 
         Member findMember = memberService.findByUsername(member.getUsername());
         Board board = boardService.findBoard(id);
+        board.setStatus(LikeBoardStatus.LIKE);
         board.addLikeCount(1);
 
         LikeBoard likeBoard = new LikeBoard();
-        likeBoard.setStatus(LikeBoardStatus.LIKE);
         likeBoard.setMember(findMember);
-        likeBoard.setBoard_id(id);
+        likeBoard.setBoard(board);
 
         likeBoardService.saveLike(likeBoard);
 

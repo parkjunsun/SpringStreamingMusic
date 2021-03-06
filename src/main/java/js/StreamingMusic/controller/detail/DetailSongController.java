@@ -52,6 +52,7 @@ public class DetailSongController {
             boardDto.setWriter(board.getMember().getUsername());
             boardDto.setTraceId(board.getTraceId());
             boardDto.setLikeCount(board.getLikeCount());
+            boardDto.setStatus(board.getStatus());
 
             result.add(boardDto);
         }
