@@ -18,19 +18,19 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
     <script th:inline="javascript">
-    /* <![CDATA[ */
-    var data = /*[[${songs}]]*/
-    var ballardUrl = /*[[@{/playlist/category(genre = '발라드')}]]*/
-    var danceUrl = /*[[@{/playlist/category(genre = '댄스')}]]*/
-    var hiphopUrl = /*[[@{/playlist/category(genre = '힙합')}]]*/
-    var rockUrl = /*[[@{/playlist/category(genre = '락')}]]*/
-    var elecUrl = /*[[@{/playlist/category(genre = '일렉트로니카')}]]*/
-    var indeUrl = /*[[@{/playlist/category(genre = '인디뮤직')}]]*/
-    var trotUrl = /*[[@{/playlist/category(genre = '트로트')}]]*/
-    var ytUrl = /*[[@{/playlist/category(genre = '유튜브')}]]*/
-    var etcUrl = /*[[@{/playlist/category(genre = '기타')}]]*/
-    /* ]]> */
-</script>
+        /* <![CDATA[ */
+        var data = /*[[${songs}]]*/
+        var ballardUrl = /*[[@{/playlist/category(genre = '발라드')}]]*/
+        var danceUrl = /*[[@{/playlist/category(genre = '댄스')}]]*/
+        var hiphopUrl = /*[[@{/playlist/category(genre = '힙합')}]]*/
+        var rockUrl = /*[[@{/playlist/category(genre = '락')}]]*/
+        var elecUrl = /*[[@{/playlist/category(genre = '일렉트로니카')}]]*/
+        var indeUrl = /*[[@{/playlist/category(genre = '인디뮤직')}]]*/
+        var trotUrl = /*[[@{/playlist/category(genre = '트로트')}]]*/
+        var ytUrl = /*[[@{/playlist/category(genre = '유튜브')}]]*/
+        var etcUrl = /*[[@{/playlist/category(genre = '기타')}]]*/
+        /* ]]> */
+    </script>
     <script type="text/javascript" th:src="@{/js/playlist.js}"></script>
 </head>
 <body>

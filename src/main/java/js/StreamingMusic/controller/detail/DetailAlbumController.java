@@ -1,9 +1,12 @@
 package js.StreamingMusic.controller.detail;
 
+import js.StreamingMusic.domain.dto.LikeBoardDto;
 import js.StreamingMusic.domain.entity.Board;
 import js.StreamingMusic.domain.dto.BoardDto;
+import js.StreamingMusic.domain.entity.LikeBoard;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.BoardService;
+import js.StreamingMusic.service.LikeBoardService;
 import js.StreamingMusic.service.crawling.GetDetailAlbumInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -23,6 +26,7 @@ public class DetailAlbumController {
 
     private final GetDetailAlbumInfo getDetailAlbumInfo;
     private final BoardService boardService;
+    private final LikeBoardService likeBoardService;
 
     @GetMapping("/detail/albuminfo")
     public String GetDetailAlbumInfo(Model model, @RequestParam("album_id") String album_id, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) throws IOException {
@@ -53,6 +57,14 @@ public class DetailAlbumController {
             result.add(boardDto);
         }
 
+        List<LikeBoard> likeMarkings = likeBoardService.findLikeMarkingByName(name);
+        List<LikeBoardDto> likeBoardDtos = new ArrayList<>();
+        for (LikeBoard likeMarking : likeMarkings) {
+            LikeBoardDto likeBoardDto = new LikeBoardDto();
+            likeBoardDto.setBoard_id(likeMarking.getBoard().getId());
+
+            likeBoardDtos.add(likeBoardDto);
+        }
 
 
         model.addAttribute("info", info);
@@ -63,6 +75,8 @@ public class DetailAlbumController {
         model.addAttribute("allCount", boardCount);
         model.addAttribute("curPage", pageNum);
         model.addAttribute("username", name);
+
+        model.addAttribute("likeMarkingList", likeBoardDtos);
 
         return "detail/albuminfo";
     }

@@ -23,6 +23,9 @@ public class LikeBoard {
     @JoinColumn(name = "BOARD_ID")
     private Board board;
 
+    @Enumerated(EnumType.STRING)
+    private LikeBoardStatus status;
+
 
     public void setMember(Member member) {
         this.member = member;

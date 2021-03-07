@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,20 +27,30 @@ public class LikeBoardController {
     private final LikeBoardService likeBoardService;
 
     @PostMapping("/like/{id}/add")
-    public String addLikeBoard(@PathVariable Long id, @AuthenticationPrincipal MemberContext member, HttpServletRequest request) {
+    public String addLikeBoard(@PathVariable Long id, @AuthenticationPrincipal MemberContext member,
+                               HttpServletRequest request) {
 
         Member findMember = memberService.findByUsername(member.getUsername());
         Board board = boardService.findBoard(id);
+        List<LikeBoard> likeMarkings = likeBoardService.findLikeMarkingByIds(findMember.getId(), board.getId());
 
-        board.addLikeCount(1);
 
-        LikeBoard likeBoard = new LikeBoard();
-        likeBoard.setMember(findMember);
-        likeBoard.setBoard(board);
+        if (likeMarkings.isEmpty()) {
+            board.addLikeCount(1);
 
-        likeBoardService.saveLike(likeBoard);
+            LikeBoard likeBoard = new LikeBoard();
+            likeBoard.setMember(findMember);
+            likeBoard.setBoard(board);
+
+            likeBoardService.saveLike(likeBoard);
+        } else {
+            board.removeLikeCount(1);
+            LikeBoard likeMarking = likeMarkings.get(0);
+            likeBoardService.removeLike(likeMarking);
+        }
 
         return "redirect:" + request.getHeader("Referer");
     }
+
 
 }

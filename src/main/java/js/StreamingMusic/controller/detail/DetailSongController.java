@@ -58,7 +58,7 @@ public class DetailSongController {
         }
 
 
-        List<LikeBoard> likeMarkings = likeBoardService.findLikeMarking(name);
+        List<LikeBoard> likeMarkings = likeBoardService.findLikeMarkingByName(name);
         List<LikeBoardDto> likeBoardDtos = new ArrayList<>();
         for (LikeBoard likeMarking : likeMarkings) {
             LikeBoardDto likeBoardDto = new LikeBoardDto();

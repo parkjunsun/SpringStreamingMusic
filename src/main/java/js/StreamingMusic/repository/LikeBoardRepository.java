@@ -18,10 +18,22 @@ public class LikeBoardRepository {
         em.persist(likeBoard);
     }
 
+    public void remove(LikeBoard likeBoard) {
+        em.remove(likeBoard);
+    }
+
     public List<LikeBoard> findByUserName(String username) {
-        String jpql = "SELECT l FROM LikeBoard l JOIN l.member m WHERE m.username = :name";
+        String jpql = "SELECT l FROM LikeBoard l JOIN FETCH l.member m WHERE m.username = :name";
         return em.createQuery(jpql, LikeBoard.class)
                 .setParameter("name", username)
+                .getResultList();
+    }
+
+    public List<LikeBoard> findByMemberIdAndBoardId(Long memberId, Long boardId) {
+        String jpql = "SELECT l FROM LikeBoard l JOIN FETCH l.member m JOIN FETCH l.board b WHERE m.id = :memberId AND b.id = :boardId";
+        return em.createQuery(jpql, LikeBoard.class)
+                .setParameter("memberId", memberId)
+                .setParameter("boardId", boardId)
                 .getResultList();
     }
 

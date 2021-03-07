@@ -20,6 +20,7 @@
     /* <![CDATA[ */
     var errorMessage = /*[[${errorMsg}]]*/
     var successMessage = /*[[${successMsg}]]*/
+    var likeMarkingList =  /*[[${likeMarkingList}]]*/
     /* ]]> */
 
     if (errorMessage != null) {
@@ -28,6 +29,7 @@
         swal("Success", successMessage, "success");
     }
 </script>
+<script type="text/javascript" th:src="@{/js/likeCount.js}"></script>
 <div th:replace="fragments/top::header"></div><br><br>
 <div class="wrapper">
     <div id="contents">
@@ -93,7 +95,7 @@
                         </form>
                     </th:block>
                     <form th:action="@{/like/{id}/add (id=${board.id})}" method="post" style="display:inline-block">
-                        <button type="submit" class="heartBtn"><i class="fas fa-heart heart"></i></button>
+                        <button type="submit" class="heartBtn"><i th:id="${board.id}" class="fas fa-heart heart"></i></button>
                     </form>
                     <span th:text="${board.likeCount}"></span>&nbsp;
                     <br>

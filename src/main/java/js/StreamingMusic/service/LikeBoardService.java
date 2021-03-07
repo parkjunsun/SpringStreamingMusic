@@ -20,7 +20,16 @@ public class LikeBoardService {
         likeBoardRepository.save(likeBoard);
     }
 
-    public List<LikeBoard> findLikeMarking(String name) {
+    @Transactional
+    public void removeLike(LikeBoard likeBoard) {
+        likeBoardRepository.remove(likeBoard);
+    }
+
+    public List<LikeBoard> findLikeMarkingByName(String name) {
         return likeBoardRepository.findByUserName(name);
+    }
+
+    public List<LikeBoard> findLikeMarkingByIds(Long memberId, Long boardId) {
+        return likeBoardRepository.findByMemberIdAndBoardId(memberId,boardId);
     }
 }

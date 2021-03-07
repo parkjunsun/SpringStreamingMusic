@@ -1,14 +1,12 @@
 <html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <!--    <script th:src="@{/js/jquery-2.1.3.min.js}"></script>-->
     <link rel="stylesheet" th:href="@{/css/base.css}" />
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/tomorrow.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -16,43 +14,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <style>
-        .heartBtn {
-            border: none;
-            background-color: white;
-            padding-left:5px;
-       }
-
-        .heart {
-            color:gray;
-            cursor:pointer;
-        }
-
-       .heart:hover { color: red;}
-    </style>
-    <script th:inline="javascript">
-        /* <![CDATA[ */
-            var likeMarkingList =  /*[[${likeMarkingList}]]*/
-        /* ]]> */
-
-        var ids = [];
-
-        for (var i in likeMarkingList) {
-            ids.push(likeMarkingList[i].board_id);
-        }
-
-        window.onload = function() {
-            for(var id in ids) {
-                document.getElementById(ids[i]).style.color = "red";
-            }
-        }
-    </script>
 </head>
 <body>
 <script th:inline="javascript">
     /* <![CDATA[ */
     var errorMessage = /*[[${errorMsg}]]*/
     var successMessage = /*[[${successMsg}]]*/
+    var likeMarkingList =  /*[[${likeMarkingList}]]*/
     /* ]]> */
 
     if (errorMessage != null) {
@@ -61,6 +29,7 @@
         swal("Success", successMessage, "success");
     }
 </script>
+<script type="text/javascript" th:src="@{/js/likeCount.js}"></script>
 <div th:replace="fragments/top::header"></div><br><br>
 <div class="wrapper">
     <div id="contents">

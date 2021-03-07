@@ -46,6 +46,7 @@ public class Board extends TimeEntity {
     public void addLikeCount(int cnt) {
         this.likeCount += cnt;
     }
+    public void removeLikeCount(int cnt) {this.likeCount -= cnt;}
 
 
 }
