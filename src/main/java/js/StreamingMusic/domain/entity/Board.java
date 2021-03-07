@@ -33,8 +33,7 @@ public class Board extends TimeEntity {
 
     private int likeCount;
 
-    @Enumerated(EnumType.STRING)
-    private LikeBoardStatus status;
+
 
     @OneToMany(mappedBy = "board")
     private List<LikeBoard> likeBoards = new ArrayList<>();

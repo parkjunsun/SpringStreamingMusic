@@ -1,5 +1,6 @@
 package js.StreamingMusic.controller.detail;
 
+import js.StreamingMusic.domain.dto.LikeBoardDto;
 import js.StreamingMusic.domain.entity.Board;
 import js.StreamingMusic.domain.dto.BoardDto;
 import js.StreamingMusic.domain.entity.LikeBoard;
@@ -52,10 +53,20 @@ public class DetailSongController {
             boardDto.setWriter(board.getMember().getUsername());
             boardDto.setTraceId(board.getTraceId());
             boardDto.setLikeCount(board.getLikeCount());
-            boardDto.setStatus(board.getStatus());
 
             result.add(boardDto);
         }
+
+
+        List<LikeBoard> likeMarkings = likeBoardService.findLikeMarking(name);
+        List<LikeBoardDto> likeBoardDtos = new ArrayList<>();
+        for (LikeBoard likeMarking : likeMarkings) {
+            LikeBoardDto likeBoardDto = new LikeBoardDto();
+            likeBoardDto.setBoard_id(likeMarking.getBoard().getId());
+
+            likeBoardDtos.add(likeBoardDto);
+        }
+
 
         model.addAttribute("boardList", result);
         model.addAttribute("allCount", boardCount);
@@ -63,6 +74,8 @@ public class DetailSongController {
         model.addAttribute("song_id", song_id);
         model.addAttribute("curPage", pageNum);
         model.addAttribute("username", name);
+
+        model.addAttribute("likeMarkingList", likeBoardDtos);
 
         return "detail/songinfo";
     }

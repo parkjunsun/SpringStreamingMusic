@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -16,5 +18,9 @@ public class LikeBoardService {
     @Transactional
     public void saveLike(LikeBoard likeBoard) {
         likeBoardRepository.save(likeBoard);
+    }
+
+    public List<LikeBoard> findLikeMarking(String name) {
+        return likeBoardRepository.findByUserName(name);
     }
 }

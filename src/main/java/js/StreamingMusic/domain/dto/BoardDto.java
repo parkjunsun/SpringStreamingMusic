@@ -22,6 +22,6 @@ public class BoardDto {
     private String type;
 
     private int LikeCount;
-    private LikeBoardStatus status;
+
 
 }
