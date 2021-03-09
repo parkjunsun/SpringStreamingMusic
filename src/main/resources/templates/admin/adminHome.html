@@ -27,12 +27,17 @@
     } else if (successMessage != null) {
         swal("Success", successMessage, "success");
     }
-
-
-
 </script>
 <div th:replace="fragments/top::header"></div><br><br><br>
+
 <div class="wrapper" style="height: 1000px;">
+    <h2>회원 검색</h2><br><br>
+    <form action="/admin/userSearch" method="get">
+        <input type="text" class="search1" name="username" id="search" placeholder="Search...">
+        <button type="submit" class="btn_search">
+            <i class="fa fa-search"></i>
+        </button>
+    </form><br><br><br><br>
     <h2>회원 목록</h2><br><br>
     <table>
         <th id="th_number">번호</th>
@@ -49,7 +54,9 @@
             <td th:text="${member.username}"></td>
             <td th:text="${member.email}"></td>
             <td th:text="${member.age}"></td>
-            <td th:text="${member.role}"></td>
+            <td>
+                <a th:href="@{/admin/{id}/updateRole (id=${member.id})}" th:text="${member.role}" role="button" class="update_btn"></a>
+            </td>
             <td th:text="${member.songQuantity}"></td>
             <td th:text="${member.boardQuantity}"></td>
             <td th:text="${member.joinDate}"></td>

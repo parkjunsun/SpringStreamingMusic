@@ -34,6 +34,10 @@ public class MemberService {
         return memberRepository.findByUserName(username);
     }
 
+    public List<Member> findUserContaining(String username) {
+        return memberRepository.findByUsernameContaining(username);
+    }
+
     /**
      *
      * 임시로 만든 함수

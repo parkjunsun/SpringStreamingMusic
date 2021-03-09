@@ -33,6 +33,13 @@ public class MemberRepository {
         return members.get(0);
     }
 
+
+    public List<Member> findByUsernameContaining(String username) {
+        return em.createQuery("SELECT m FROM Member m WHERE m.username LIKE :username", Member.class)
+                .setParameter("username","%" + username + "%")
+                .getResultList();
+    }
+
     /**
      *
      * 임시로 만든 함수
@@ -46,16 +53,16 @@ public class MemberRepository {
     }
 
     public List<Member> checkByUserName(String username) {
-        List<Member> members = em.createQuery("select m From Member m where m.username = :username", Member.class)
+        return em.createQuery("select m From Member m where m.username = :username", Member.class)
                 .setParameter("username", username)
                 .getResultList();
-        return members;
     }
 
     public List<Member> findAll() {
         return em.createQuery("SELECT m FROM Member m", Member.class)
                 .getResultList();
     }
+
 
 
 }

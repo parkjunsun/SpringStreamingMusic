@@ -1,3 +1,35 @@
+input.search1 {
+    border: 1px solid skyblue;
+    float:left;
+    padding: 7px;
+    width:40%;
+}
+
+
+input.search1:hover {
+    background:aliceblue;
+}
+
+
+input.search1:focus {
+    font-size: 120%;
+ }
+
+
+.btn_search {
+    width 7%;
+    background: #2196F3;
+    padding: 7px;
+    float:left;
+    color:white;
+    font-size: 25px;
+    border: 1px solid skyblue;
+    border-left:none;
+    cursor: pointer;
+}
+
+
+
 table {
     border-top: 1px solid gray;
     border-collapse: collapse;
@@ -28,3 +60,17 @@ th {
 
 
 .delete_btn:hover { border: 2px solid gray;}
+
+.update_btn {
+    border: 1px solid #e3e3e3;
+    color: #999;
+    background-color: #fff;
+    padding: 3px;
+    font_size: 15px;
+}
+
+
+.update_btn:hover {
+    border: 2px solid gray;
+    text-decoration: none;
+}
