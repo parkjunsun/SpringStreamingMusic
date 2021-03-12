@@ -35,7 +35,7 @@ public class Board extends TimeEntity {
 
 
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board")
     private List<LikeBoard> likeBoards = new ArrayList<>();
 
     public void setMember(Member member) {
