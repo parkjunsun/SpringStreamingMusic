@@ -45,7 +45,7 @@ public class PlaylistController {
                                             RedirectAttributes redirectAttributes,
                                             HttpServletRequest request) throws IOException, ParseException {
         String username = member.getUsername();
-        Member m = memberService.findByUsername(username);
+        Member m = memberService.findByUsername(username).get(0);
 
         if (param == null) {
             redirectAttributes.addFlashAttribute("errorMsg", "곡을 선택해주세요");
@@ -146,7 +146,7 @@ public class PlaylistController {
                              RedirectAttributes redirectAttributes,
                              HttpServletRequest request) {
 
-        Member member = memberService.findByUsername(memberContext.getUsername());
+        Member member = memberService.findByUsername(memberContext.getUsername()).get(0);
         member.removeSong(1);
 
         Song deleteSong = songService.findSong(songId);

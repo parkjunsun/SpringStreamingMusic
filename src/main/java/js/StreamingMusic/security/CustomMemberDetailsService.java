@@ -21,11 +21,16 @@ public class CustomMemberDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberService.findByUsername(username);
-
-        if (member == null) {
+        List<Member> members = memberService.findByUsername(username);
+        if (members.isEmpty()) {
             throw new UsernameNotFoundException("UsernameNotFoundException");
         }
+
+        Member member = members.get(0);
+
+//        if (member == null) {
+//            throw new UsernameNotFoundException("UsernameNotFoundException");
+//        }
 
         List<GrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority(member.getRole()));

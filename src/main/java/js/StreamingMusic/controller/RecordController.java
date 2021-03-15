@@ -25,7 +25,7 @@ public class RecordController {
     public Message test(HttpServletRequest request, @AuthenticationPrincipal MemberContext memberContext) {
 
         String username = memberContext.getUsername();
-        Member member = memberService.findByUsername(username);
+        Member member = memberService.findByUsername(username).get(0);
 
         String title = request.getParameter("title");
         String artist = request.getParameter("artist");

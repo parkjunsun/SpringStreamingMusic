@@ -50,7 +50,7 @@ public class UserController {
 
         List<HashMap<String, String>> datum = new ArrayList<>();
 
-        Member member = memberService.findByUsername(username);
+        Member member = memberService.findByUsername(username).get(0);
         model.addAttribute("name", member.getUsername());
         model.addAttribute("count", member.getSongQuantity());
         model.addAttribute("role", member.getRole());
@@ -95,7 +95,7 @@ public class UserController {
     @GetMapping("/user/{username}/edit")
     public String updateMemberForm(Model model, @PathVariable("username") String username) {
 
-        Member member = memberService.findByUsername(username);
+        Member member = memberService.findByUsername(username).get(0);
 
         MemberForm form = new MemberForm();
         form.setPassword(member.getPassword());

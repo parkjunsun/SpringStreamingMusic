@@ -30,7 +30,7 @@ public class LikeBoardController {
     public String addLikeBoard(@PathVariable Long id, @AuthenticationPrincipal MemberContext member,
                                HttpServletRequest request) {
 
-        Member findMember = memberService.findByUsername(member.getUsername());
+        Member findMember = memberService.findByUsername(member.getUsername()).get(0);
         Board board = boardService.findBoard(id);
         List<LikeBoard> likeMarkings = likeBoardService.findLikeMarkingByIds(findMember.getId(), board.getId());
 

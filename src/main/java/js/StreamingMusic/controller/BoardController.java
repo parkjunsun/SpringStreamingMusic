@@ -29,7 +29,7 @@ public class BoardController {
     @PostMapping("/post")
     public String writeBoard(BoardDto boardDto, @AuthenticationPrincipal MemberContext member, HttpServletRequest request) {
 
-        Member m = memberService.findByUsername(member.getUsername());
+        Member m = memberService.findByUsername(member.getUsername()).get(0);
         m.addBoard(1);
 
         Board board = new Board();
@@ -47,7 +47,7 @@ public class BoardController {
 
     @PostMapping("/post/{id}/delete")
     public String deleteBoard(@PathVariable Long id, @AuthenticationPrincipal MemberContext member, HttpServletRequest request) {
-        Member m = memberService.findByUsername(member.getUsername());
+        Member m = memberService.findByUsername(member.getUsername()).get(0);
         m.removeBoard(1);
 
         Board board = boardService.findBoard(id);

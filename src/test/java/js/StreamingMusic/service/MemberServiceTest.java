@@ -22,7 +22,7 @@ class MemberServiceTest {
 
         memberService.join(member);
 
-        Member m = memberService.findByUsername("park");
+        Member m = memberService.findByUsername("park").get(0);
         System.out.println(m.getUsername());
     }
 }

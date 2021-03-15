@@ -30,7 +30,7 @@ public class MemberService {
         return memberRepository.findOne(id);
     }
 
-    public Member findByUsername(String username) {
+    public List<Member> findByUsername(String username) {
         return memberRepository.findByUserName(username);
     }
 
@@ -58,7 +58,7 @@ public class MemberService {
 
     @Transactional
     public void updateMember(String username, String password, String email, String age) {
-        Member findMember = memberRepository.findByUserName(username);
+        Member findMember = memberRepository.findByUserName(username).get(0);
         findMember.setPassword(password);
         findMember.setEmail(email);
         findMember.setAge(age);

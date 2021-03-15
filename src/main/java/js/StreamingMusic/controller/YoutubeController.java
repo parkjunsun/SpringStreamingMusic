@@ -43,7 +43,7 @@ public class YoutubeController {
         }
 
         String username = memberContext.getUsername();
-        Member member = memberService.findByUsername(username);
+        Member member = memberService.findByUsername(username).get(0);
 
         HashMap<String, String> videoData = dataApi.getVideoInfo(videoId);
         String title = videoData.get("title");
