@@ -20,19 +20,26 @@
 <div id="content" style="margin: 100px 450px">
     <div id="modal">
         <div class="modal_content">
-            <h5>댓글 수정창</h5><hr>
-            <form th:object="${form}" th:action="@{/post/{id}/update (id=*{id})}" method="post">
-                <div class="form-group"> 댓글 내용</label> <input type="text" class="form-control" th:field="*{comment}" placeholder="댓글 내용을 입력해주세요"> </div>
-                <div class="form-group"> 댓글 작성자</label> <input class="form-control" th:field="*{writer}" readonly > </div>
-                <input type="hidden" th:field="*{type}">
-                <input type="hidden" th:field="*{traceId}">
+            <h5>인가레벨 수정창</h5><hr>
+            <form th:object="${member}" th:action="@{/admin/{id}/update (id=*{id})}" method="post">
+                <h5>회원정보</h5>
+                <div class="form-group"><input class="form-control" th:field="*{username}" readonly > </div>
+                <div class="form-group"><input class="form-control" th:field="*{email}" readonly></div>
+                <div class="form-group"><input class="form-control" th:field="*{age}" readonly></div>
+                <select name="level" class="form-control">
+                    <option value="">레벨 선택</option>
+                    <option value="ROLE_ADMIN">ADMIN</option>
+                    <option value="ROLE_USER">USER</option>
+                </select>
                 <hr>
                 <div class="btn_arrange">
-                    <button class="modal_close_btn" th:if="${#strings.equals(form.type, 'album')}" th:onclick="'window.location.href = \'' + @{/detail/albuminfo?album_id={traceId} (traceId=${form.traceId})} + '\''">닫기</button>
-                    <button class="modal_close_btn" th:if="${#strings.equals(form.type, 'song')}" th:onclick="'window.location.href = \'' + @{/detail/songinfo?song_id={traceId} (traceId=${form.traceId})} + '\''">닫기</button>
                     <input type="submit" id="modal_update_btn" name="update" value="수정">
+                    <a class="modal_close_a" href="/admin">닫기</a>
                 </div>
             </form>
+<!--            <div class="btn_arrange">-->
+<!--                <button class="modal_close_btn" onclick="location.href='/admin';">닫기</button>-->
+<!--            </div>-->
         </div>
         <div class="modal_layer"></div>
     </div>

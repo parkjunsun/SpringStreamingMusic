@@ -64,6 +64,12 @@ public class MemberService {
         findMember.setAge(age);
     }
 
+    @Transactional
+    public void updateMemberRole(Long id, String role) {
+        Member member = memberRepository.findOne(id);
+        member.setRole(role);
+    }
+
     public List<Member> findAllMember() {
         return memberRepository.findAll();
     }

@@ -108,7 +108,8 @@
                         </form>
                     </th:block>
                     <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
-                        <form th:action="@{/post/{id}/delete (id=${board.id})}" method="post" style="display:inline-block">
+                        <form th:action="@{/admin/{id}/post_delete (id=${board.id})}" method="post" style="display:inline-block">
+                            <input type="hidden" name="board_writer" th:value="${board.writer}">
                             <input class="delete_btn" type="submit" name="delete" value="관리자권한 삭제">
                         </form>
                     </th:block>

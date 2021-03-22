@@ -9,7 +9,7 @@
           margin:0;
         }
 
-        #btn_arrange {
+        .btn_arrange {
             float:right;
         }
 
@@ -60,4 +60,21 @@
           height:100%;
           background:rgba(0, 0, 0, 0.5);
           z-index:-1;
+        }
+
+.modal_close_a {
+            width: 50px;
+            height: 35px;
+            background-color: #f8585b;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            text-align:center;
+            font-size: 15px;
+            padding:8 9px;
+        }
+
+        .modal_close_a:hover {
+            text-decoration: none;
+            color:white;
         }

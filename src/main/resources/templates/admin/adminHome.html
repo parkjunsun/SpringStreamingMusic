@@ -54,9 +54,16 @@
             <td th:text="${member.username}"></td>
             <td th:text="${member.email}"></td>
             <td th:text="${member.age}"></td>
-            <td>
-                <a th:href="@{/admin/{id}/updateRole (id=${member.id})}" th:text="${member.role}" role="button" class="update_btn"></a>
-            </td>
+            <th:block th:if="${#strings.equals(member.role, 'ROLE_USER')}">
+                <td>
+                    <a th:href="@{/admin/{id}/updateRole (id=${member.id})}" th:text="${member.role}" role="button" class="update_btn"></a>
+                </td>
+            </th:block>
+            <th:block th:if="${#strings.equals(member.role, 'ROLE_ADMIN')}">
+                <td>
+                    <i class="fas fa-user-lock"></i>
+                </td>
+            </th:block>
             <td th:text="${member.songQuantity}"></td>
             <td th:text="${member.boardQuantity}"></td>
             <td th:text="${member.joinDate}"></td>
