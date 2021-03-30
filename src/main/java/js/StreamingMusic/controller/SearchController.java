@@ -79,6 +79,7 @@ public class SearchController {
 
         return "search";
 //        return "redirect:" + request.getHeader("Referer");
+//        return "redirect:/search?keyword=" + keyword;
 
     }
 

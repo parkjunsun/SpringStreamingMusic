@@ -40,15 +40,16 @@
     }
 </script>
 <div th:replace="fragments/top::header"></div><br><br>
-<div class="wrapper">
-
+<div class="wrapper" style="padding-left:20px;">
     <form action="/search" method="get">
         <input type="text" class="search1"name="keyword" id="search" placeholder="Search...">
         <button type="submit" class="btn_search">
             <i class="fa fa-search"></i>
         </button>
     </form><br><br><br><br>
-    <span style="font-weight:bold; font-size:25px">최신음악</span>
+</div>
+<div class="wrapper">
+    <span style="font-weight:bold; font-size:25px; padding-left:20px;">최신음악</span>
     <div id="btn_div">
         <i id="val" class="material-icons">filter_1</i>
         <i id="val2" class="material-icons">filter_2</i>
