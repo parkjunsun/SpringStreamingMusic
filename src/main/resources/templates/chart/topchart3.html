@@ -119,7 +119,10 @@
     </div>
     <div class="controller">
         <span><p id="playing_info" style="text-align:center; font-size:13px; font-weight:bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">재생중인 노래가 없습니다</p></span>
-        <span id="current-time">0:00</span>&nbsp;/&nbsp;<span id="duration">0:00</span><br>
+        <div>
+            <span id="current-time">0:00</span>
+            <span id="duration" style="float:right;">0:00</span><br>
+        </div>
         <input type="range" id="progress-bar" value="0" style="width:100%;"/>
         <div class="icon">
             <i id="replay" class="material-icons" style="font-size:45px; float:left;">replay</i>

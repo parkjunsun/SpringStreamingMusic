@@ -17,6 +17,9 @@
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+    <link rel="icon" th:href="@{/images/disc.png}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
     <script th:inline="javascript">
         /* <![CDATA[ */
         var data = /*[[${songs}]]*/
@@ -35,8 +38,11 @@
     }
 </script>
 <div class="action">
-    <div id="playSongIframe"></div><br>
-    <p>Logo</p>
+    <div id="playSongIframe"></div><br><br>
+    <div class="logo_div">
+        <img class="logo_img" src="/images/disc.png">
+        <span class="logo_font">JS MUSIC</span>
+    </div>
     <div style="text-align:center; padding-top:50px;">
         <p id="title" style="font-size:20px; font-weight:bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></p>
         <p id="artist" style="font-size:14px;"></p><br>
@@ -44,8 +50,10 @@
     </div>
     <br><br><br>
     <input type="range" id="progress-bar" value="0">
-    &nbsp;&nbsp;&nbsp;&nbsp;<span id="current-time">0:00</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <span id="duration">0:00</span><br>
+    <div style="margin:0 25px;">
+        <span id="current-time">0:00</span>
+        <span id="duration" style="float:right; ">0:00</span><br>
+    </div>
     <div id="controls">
         <i id="repeat" class="material-icons" style="color:#a0a0a0;" title="반복on/off">repeat</i>&nbsp;&nbsp;&nbsp;
         <i id="replay" class="material-icons">replay</i>&nbsp;&nbsp;&nbsp;

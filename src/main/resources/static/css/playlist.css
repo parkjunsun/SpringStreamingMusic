@@ -232,3 +232,11 @@
                 width:95%;
                 margin: 0 auto;
             }
+
+.logo_div {padding-left:10px;}
+.logo_img {width:30px; height:30px;}
+.logo_font {
+    font-family: Fredoka One, cursive;
+    font-size:20px;
+    color: #008EDC;
+}
