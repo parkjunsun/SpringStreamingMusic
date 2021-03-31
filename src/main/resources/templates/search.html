@@ -55,6 +55,7 @@
             <td class="util">
                 <form action="/playlist" method="post" id="form1">
                     <button type="submit" id="add_btn" style="cursor:pointer;">
+                        <input type="hidden" name="keyword" th:value="${keyword}">
                         <i class="fas fa-folder-plus" style="font-size:30px;"></i> 담기
                     </button>
                 </form>
@@ -82,6 +83,7 @@
             <td class="icony">
                 <form action="/playlist" method="post">
                     <input type="submit" class="plus_btn" name="add" th:value="${song.title} + ';' + ${song.artist}">
+                    <input type="hidden" name="keyword" th:value="${keyword}">
                 </form>
             </td>
             <td class="icony">

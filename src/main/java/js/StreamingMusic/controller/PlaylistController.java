@@ -29,6 +29,11 @@ public class PlaylistController {
     private final DataApi dataApi;
     private final SongService songService;
 
+    // 임시 방편 //
+    private String tempKeyword;
+
+    private static final String searchUrl = "http://localhost:8080/search";
+
     @GetMapping("/playlist")
     public String showPlaylist(Model model, @AuthenticationPrincipal MemberContext member) {
 
@@ -42,8 +47,12 @@ public class PlaylistController {
     @PostMapping("/playlist")
     public String SavePlaylist(Model model, @AuthenticationPrincipal MemberContext member,
                                             @RequestParam(value = "add", required = false) List<String> param,
+                                            @RequestParam(value = "keyword", required = false) String keyword,
                                             RedirectAttributes redirectAttributes,
                                             HttpServletRequest request) throws IOException, ParseException {
+
+        tempKeyword = keyword;
+
         String username = member.getUsername();
         Member m = memberService.findByUsername(username).get(0);
 
@@ -88,7 +97,6 @@ public class PlaylistController {
 
             songService.addSong(song, username, title, artist);
 
-
         } else {
             m.addSong(param.size());
 
@@ -110,8 +118,6 @@ public class PlaylistController {
                 String duration = details.get(1);
                 String songid = details.get(2);
 
-
-
                 Song song = new Song();
                 song.setTitle(title);
                 song.setArtist(artist);
@@ -125,19 +131,30 @@ public class PlaylistController {
                 song.setMember(m);
 
                 songService.addSong(song, username, title, artist);
-
             }
         }
 
         redirectAttributes.addFlashAttribute("successMsg", "플레이리스트에 추가 되었습니다");
-        return "redirect:" + request.getHeader("Referer");
+
+        if (request.getHeader("Referer").equals(searchUrl)) {
+            return "redirect:/search?keyword=" + keyword;
+        } else {
+            return "redirect:" + request.getHeader("Referer");
+        }
     }
 
 
     @ExceptionHandler
     public String duplicateSongExceptionHandler(DuplicateSongException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         redirectAttributes.addFlashAttribute("errorMsg", e.getMessage());
-        return "redirect:" + request.getHeader("Referer");
+
+        System.out.println(tempKeyword);
+
+        if (request.getHeader("Referer").equals(searchUrl)) {
+            return "redirect:/search?keyword=" + tempKeyword;
+        } else {
+            return "redirect:" + request.getHeader("Referer");
+        }
     }
 
     @PostMapping(value = "/playlist/{songId}/delete")
