@@ -16,231 +16,231 @@ input[type=text]:focus {
  }
 
 
-            input[type=checkbox] {
-                -ms-transform: scale(2); /* IE */
-                -moz-transform: scale(2); /* FF */
-                -webkit-transform: scale(2); /* Safari and Chrome */
-                -o-transform: scale(2); /* Opera */
-                padding: 10px;
+input[type=checkbox] {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    padding: 10px;
 
-            }
+}
 
-            #btn_search {
-                width 7%;
-                background: #2196F3;
-                padding: 7px;
-                color:white;
-                float: left;
-                font-size: 25px;
-                border: 1px solid skyblue;
-                border-left:none;
-                cursor: pointer;
-            }
-
-
-
-            .wrapper {
-                width: 1250px;
-                margin: 0 auto;
-                padding-bottom: 10px;
-            }
-
-
-            #contents {
-                border: 5pt none #3f51b5;
-                width: 1250px;
-                margin:0 auto;
-            }
-
-            ol {
-                display: table;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            ol li{
-                display: block;
-                height: 100px;
-                line-height: 100px;
-                padding-left: 10px;
-            }
-            ol li img {vertical-align: middle;}
-
-
-            #table {
-                border-top: 3px solid gray;
-                border-collapse: collapse;
-                padding: 10px;
-                width:100%;
-            }
-
-            #tr, .td {
-                border-bottom: 1px solid #B0C4DE;
-                padding: 20px;
-            }
-
-            .util {
-                padding: 20px;
-            }
-
-
-            .chkbox {
-                padding-right:10px;
-            }
-
-
-            .rank {
-                padding-right: 20px;
-                font: italic bold 15px arial, sans-serif;
-                color: #444;
-                font-size: 25px;
-            }
-
-
-            .image {
-                padding-right:15px;
-            }
-
-
-            .info {
-                font-family: 'Roboto Condensed', sans-serif;
-            }
+#btn_search {
+    width 7%;
+    background: #2196F3;
+    padding: 7px;
+    color:white;
+    float: left;
+    font-size: 25px;
+    border: 1px solid skyblue;
+    border-left:none;
+    cursor: pointer;
+}
 
 
 
-            #add_btn {
-                border-radius: 5px;
-                border: 2px solid #A9A9A9;
-                color: black;
-                padding: 5px;
-                background-color: rgba(0,0,0,0);
-                font-size: 17px;
-            }
-
-            input.play_btn {
-                background: url("../images/play.png") no-repeat;
-                border: none;
-                width:30px;
-                height: 30px;
-                cursor:pointer;
-                font-size: 0;
-                line-height: 0;
-            }
+.wrapper {
+    width: 1250px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
 
 
-            input.plus_btn{
-                background: url("../images/plus.png") no-repeat;
-                border: none;
-                width: 30px;
-                height: 30px;
-                cursor: pointer;
-                font-size: 0;
-                line-height: 0;
-            }
+#contents {
+    border: 5pt none #3f51b5;
+    width: 1250px;
+    margin:0 auto;
+}
+
+ol {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+ol li{
+    display: block;
+    height: 100px;
+    line-height: 100px;
+    padding-left: 10px;
+}
+ol li img {vertical-align: middle;}
 
 
+#table {
+    border-top: 3px solid gray;
+    border-collapse: collapse;
+    padding: 10px;
+    width:100%;
+}
 
-            input.desc_btn {
-                background: url("../images/desc.png") no-repeat;
-                border: none;
-                width: 30px;
-                height: 30px;
-                cursor: pointer;
-                font-size: 0;
-                line-height: 0;
-            }
+#tr, .td {
+    border-bottom: 1px solid #B0C4DE;
+    padding: 20px;
+}
 
-
-
-            #fixed{
-                position: fixed;
-                background-color: black;
-                height: 173px;
-                width: 100%;
-                bottom: 0;
-            }
+.util {
+    padding: 20px;
+}
 
 
-            #progress-bar {
-                position: relative;
-                width: 100%;
-                height: 20px;
-                cursor: pointer;
-            }
+.chkbox {
+    padding-right:10px;
+}
 
 
-            #YouTube-player-volume {
-                display: inline-block;
-                width: 7%;
-                cursor: pointer;
-            }
+.rank {
+    padding-right: 20px;
+    font: italic bold 15px arial, sans-serif;
+    color: #444;
+    font-size: 25px;
+}
 
 
-            .track_info {
-                padding-top: 30px;
-                padding-left: 100px;
-                float: left;
-            }
+.image {
+    padding-right:15px;
+}
 
 
-            .controller {
-                width: 35%;
-                padding-top: 40px;
-                padding-left: 0px;
-                padding-right: 0px;
-                margin: 0 auto;
-                color: white;
-            }
+.info {
+    font-family: 'Roboto Condensed', sans-serif;
+}
 
 
 
-            .icon {
-                text-align: center;
-            }
+#add_btn {
+    border-radius: 5px;
+    border: 2px solid #A9A9A9;
+    color: black;
+    padding: 5px;
+    background-color: rgba(0,0,0,0);
+    font-size: 17px;
+}
+
+input.play_btn {
+    background: url("../images/play.png") no-repeat;
+    border: none;
+    width:30px;
+    height: 30px;
+    cursor:pointer;
+    font-size: 0;
+    line-height: 0;
+}
+
+
+input.plus_btn{
+    background: url("../images/plus.png") no-repeat;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+}
 
 
 
-            .icon #play_toggle {
-                text-align: center;
-                cursor: pointer;
-            }
+input.desc_btn {
+    background: url("../images/desc.png") no-repeat;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+}
 
 
 
-            #replay {
-                cursor: pointer;
-            }
+#fixed{
+    position: fixed;
+    background-color: black;
+    height: 173px;
+    width: 100%;
+    bottom: 0;
+}
 
 
-            /*.util {
-                padding-top: 80px;
-                padding-right: 200px;
-                text-align: center;
-                color: white;
-                cursor: pointer;
-            }*/
+#progress-bar {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    cursor: pointer;
+}
+
+
+#YouTube-player-volume {
+    display: inline-block;
+    width: 7%;
+    cursor: pointer;
+}
+
+
+.track_info {
+    padding-top: 30px;
+    padding-left: 100px;
+    float: left;
+}
+
+
+.controller {
+    width: 35%;
+    padding-top: 40px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin: 0 auto;
+    color: white;
+}
 
 
 
-            #thumb {
-                border: 3px solid gray;
-                border-radius: 20px;
-                -moz-border-radius: 20px;
-                -khtml-border-radius: 20px;
-                -webkit-border-radius: 20px;
-                width: 120px;
-                height: 120px;
-            }
+.icon {
+    text-align: center;
+}
 
 
-            .icony {
-                padding: 10px;
-            }
+
+.icon #play_toggle {
+    text-align: center;
+    cursor: pointer;
+}
 
 
-            .shorting{
-               width: 650px;
-	           white-space: nowrap;
-               overflow: hidden;
-               text-overflow: ellipsis;
-               display:inline-block;
-            }
+
+#replay {
+    cursor: pointer;
+}
+
+
+/*.util {
+    padding-top: 80px;
+    padding-right: 200px;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}*/
+
+
+
+#thumb {
+    border: 3px solid gray;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    width: 120px;
+    height: 120px;
+}
+
+
+.icony {
+    padding: 10px;
+}
+
+
+.shorting{
+   width: 650px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display:inline-block;
+}

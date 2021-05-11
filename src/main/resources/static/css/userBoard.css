@@ -1,131 +1,131 @@
 table {
-            border-top: 3px solid gray;
-            border-collapse: collapse;
-            padding: 10px;
-            width:100%;
-        }
+    border-top: 3px solid gray;
+    border-collapse: collapse;
+    padding: 10px;
+    width:100%;
+}
 
-        tr, td {
-            border-bottom: 1px solid #B0C4DE;
-            padding: 20px;
-        }
+tr, td {
+    border-bottom: 1px solid #B0C4DE;
+    padding: 20px;
+}
 
-        .image{
-            width:50px;
-        }
+.image{
+    width:50px;
+}
 
-    .scomment {
-        width: 750px;
-    }
+.scomment {
+    width: 750px;
+}
 
-    .num {
-         padding-right: 20px;
-         font: italic bold 15px arial, sans-serif;
-         color: #444;
-         font-size: 25px;
-    }
-
-
-
-    .writer {
-        font-size:20px;
-        font-weight:bold;
-        line-height:1.8
-    }
-
-    .createDate {
-        color:gray;
-        font-size:15px;
-    }
-
-    .lining {
-        word-break:break-all;
-        color: black;
-    }
-
-    .title_img { width: 50px;}
-
-    .title_text { padding-right:10px;}
-    .artist_text {color:gray;}
-
-    #btn_div {text-align:center;}
-
-    #btn_group a{
-        padding: 5px;
-        background-color: rgba(0,0,0,0);
-        font-size: 17px;
-        cursor: pointer;
-    }
+.num {
+     padding-right: 20px;
+     font: italic bold 15px arial, sans-serif;
+     color: #444;
+     font-size: 25px;
+}
 
 
-        .onbtn {
-            border-radius: 5px;
-            border:2px solid #A9A9A9;
-            color: black;
-            display:inline;
-         }
 
-         .offbtn {
-            border-radius: 5px;
-            border:2px solid #1E90FF;
-            color: #1E90FF;
-            display:inline;
-        }
-        .comment_div_box {
-            width: 100%;
-            height: 100px;
-            border: 2px solid #e3e3e3;
-            background-color: #fdfdfd;
-            text-align:center;
-            padding:10px;
-        }
+.writer {
+font-size:20px;
+font-weight:bold;
+line-height:1.8
+}
 
-        .comment_box {
-            float:left;
-            width: 90%;
-            height: 80px;
-        }
+.createDate {
+color:gray;
+font-size:15px;
+}
 
-        .comment_btn {
-            width:100px;
-            height:80px;
-            background-color: #f8585b;
-            border: none;
-            color:#fff;
-            padding: 15px 0;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 15px;
-            cursor: pointer;
-        }
+.lining {
+word-break:break-all;
+color: black;
+}
 
-        .delete_btn {
-            border: 1px solid #e3e3e3;
-            color: #999;
-            background-color: #fff;
-            padding: 3px;
-            font_size: 15px;
-       }
+.title_img { width: 50px;}
 
-       .update_btn {
-            border: 1px solid #e3e3e3;
-            color: #999;
-            background-color: #fff;
-            padding: 3px;
-            font_size: 15px;
-       }
+.title_text { padding-right:10px;}
+.artist_text {color:gray;}
 
-       .delete_btn:hover { border: 2px solid gray;}
-       .update_btn:hover {
-            border: 2px solid gray;
-            color: #999;
-            text-decoration: none;
-       }
+#btn_div {text-align:center;}
 
-       .warn {
-            font-size:13px;
-            color:gray;
-            float:right;
-            padding-top:20px;
-       }
+#btn_group a{
+    padding: 5px;
+    background-color: rgba(0,0,0,0);
+    font-size: 17px;
+    cursor: pointer;
+}
+
+
+.onbtn {
+    border-radius: 5px;
+    border:2px solid #A9A9A9;
+    color: black;
+    display:inline;
+ }
+
+ .offbtn {
+    border-radius: 5px;
+    border:2px solid #1E90FF;
+    color: #1E90FF;
+    display:inline;
+}
+.comment_div_box {
+    width: 100%;
+    height: 100px;
+    border: 2px solid #e3e3e3;
+    background-color: #fdfdfd;
+    text-align:center;
+    padding:10px;
+}
+
+.comment_box {
+    float:left;
+    width: 90%;
+    height: 80px;
+}
+
+.comment_btn {
+    width:100px;
+    height:80px;
+    background-color: #f8585b;
+    border: none;
+    color:#fff;
+    padding: 15px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.delete_btn {
+    border: 1px solid #e3e3e3;
+    color: #999;
+    background-color: #fff;
+    padding: 3px;
+    font_size: 15px;
+}
+
+.update_btn {
+    border: 1px solid #e3e3e3;
+    color: #999;
+    background-color: #fff;
+    padding: 3px;
+    font_size: 15px;
+}
+
+.delete_btn:hover { border: 2px solid gray;}
+.update_btn:hover {
+    border: 2px solid gray;
+    color: #999;
+    text-decoration: none;
+}
+
+.warn {
+    font-size:13px;
+    color:gray;
+    float:right;
+    padding-top:20px;
+}

@@ -66,12 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(failureHandler)
                 .permitAll()
         .and()
-                .csrf().disable()
-//        .rememberMe()
-//                .userDetailsService(userDetailsService)
-//                .tokenValiditySeconds(3600)
-//                .alwaysRemember(true)
-        ;
+                .csrf().disable();
     }
 
 

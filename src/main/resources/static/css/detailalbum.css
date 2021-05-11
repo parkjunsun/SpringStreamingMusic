@@ -130,80 +130,80 @@ input.desc_btn {
 
 
 .onbtn {
-            border-radius: 5px;
-            border:2px solid #A9A9A9;
-            color: black;
-            display:inline;
-         }
+    border-radius: 5px;
+    border:2px solid #A9A9A9;
+    color: black;
+    display:inline;
+}
 
-         .offbtn {
-            border-radius: 5px;
-            border:2px solid #1E90FF;
-            color: #1E90FF;
-            display:inline;
-        }
-        .comment_div_box {
-            width: 100%;
-            height: 100px;
-            border: 2px solid #e3e3e3;
-            background-color: #fdfdfd;
-            text-align:center;
-            padding:10px;
-        }
+.offbtn {
+    border-radius: 5px;
+    border:2px solid #1E90FF;
+    color: #1E90FF;
+    display:inline;
+}
+.comment_div_box {
+    width: 100%;
+    height: 100px;
+    border: 2px solid #e3e3e3;
+    background-color: #fdfdfd;
+    text-align:center;
+    padding:10px;
+}
 
-        .comment_box {
-            float:left;
-            width: 90%;
-            height: 80px;
-        }
+.comment_box {
+    float:left;
+    width: 90%;
+    height: 80px;
+}
 
-        .comment_btn {
-            width:100px;
-            height:80px;
-            background-color: #f8585b;
-            border: none;
-            color:#fff;
-            padding: 15px 0;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 15px;
-            cursor: pointer;
-        }
+.comment_btn {
+    width:100px;
+    height:80px;
+    background-color: #f8585b;
+    border: none;
+    color:#fff;
+    padding: 15px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    cursor: pointer;
+}
 
 
-        .delete_btn {
-            border: 1px solid #e3e3e3;
-            color: #999;
-            background-color: #fff;
-            padding: 3px;
-            font_size: 15px;
-        }
+.delete_btn {
+    border: 1px solid #e3e3e3;
+    color: #999;
+    background-color: #fff;
+    padding: 3px;
+    font_size: 15px;
+}
 
-        .update_btn {
-            border: 1px solid #e3e3e3;
-            color: #999;
-            background-color: #fff;
-            padding: 3px;
-            font_size: 15px;
-        }
+.update_btn {
+    border: 1px solid #e3e3e3;
+    color: #999;
+    background-color: #fff;
+    padding: 3px;
+    font_size: 15px;
+}
 
-        .delete_btn:hover { border: 2px solid gray;}
-        .update_btn:hover {
-            border: 2px solid gray;
-            color: #999;
-            text-decoration: none;
-        }
+.delete_btn:hover { border: 2px solid gray;}
+.update_btn:hover {
+    border: 2px solid gray;
+    color: #999;
+    text-decoration: none;
+}
 
-        .heartBtn {
-            border: none;
-            background-color: white;
-            padding-left:5px;
-        }
+.heartBtn {
+    border: none;
+    background-color: white;
+    padding-left:5px;
+}
 
-       .heart {
-            color:gray;
-            cursor:pointer;
-       }
+.heart {
+    color:gray;
+    cursor:pointer;
+}
 
-      .heart:hover { color: red;}
+.heart:hover { color: red;}

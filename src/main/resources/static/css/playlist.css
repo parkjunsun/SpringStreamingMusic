@@ -1,237 +1,235 @@
 #search_box {
-                padding-left: 10px;
-                width: 250px;
-                white-space: nowrap;
-                position: relative;
-                vertical-align: middle;
-            }
+    padding-left: 10px;
+    width: 250px;
+    white-space: nowrap;
+    position: relative;
+    vertical-align: middle;
+}
 
 
 
-            #search_box input#search {
-                width: 250px;
-                height: 40px;
-                background: white;
-                border: 2px solid #3A56B7;
-                font-size: 10pt;
-                float: left;
-                color: #63717f;
-                padding-left: 30px;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 20px;
-            }
+#search_box input#search {
+    width: 250px;
+    height: 40px;
+    background: white;
+    border: 2px solid #3A56B7;
+    font-size: 10pt;
+    float: left;
+    color: #63717f;
+    padding-left: 30px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 20px;
+}
 
-            #search_box .icon {
-                position: absolute;
-                top: 50%;
-                margin-left: 13px;
-                margin-top: 13px;
-                z-index: 1;
-                color: #4f5b66;
-            }
+#search_box .icon {
+    position: absolute;
+    top: 50%;
+    margin-left: 13px;
+    margin-top: 13px;
+    z-index: 1;
+    color: #4f5b66;
+}
 
-            input[type=text]:hover {
-                background:aliceblue;
-            }
-
-
-
-            #btn_search {
-                width: 10%;
-                background: #2196F3;
-                padding: 5px;
-                color: white;
-                float:left;
-                font-size: 20px;
-                border: 1px solid skyblue;
-                border-left: none;
-                cursor: pointer;
-            }
-
-
-            #progress-bar {
-                width: 90%;
-                height: 20px;
-                cursor: pointer;
-                display: block;
-                margin: 0 auto;
-            }
-
-            input.img-button {
-                background: url("../images/delete.png") no-repeat;
-                border: none;
-                width: 32px;
-                height: 32px;
-                cursor: pointer;
-                font-size: 0;
-                line-height: 0;
-            }
-
-
-            button.cont {
-                font-size: 16px;
-                background-color: #ffffff;
-                padding: 5px;
-            }
-
-
-            div.playlist {
-                width: 50%;
-                height: 100%;
-                float: left;
-                box-sizing: border-box;
-                overflow-y: auto;
-            }
-
-            div.action {
-                background-color: #3f4047;
-                width: 50%;
-                height: 100%;
-                float: left;
-                box-sizing: border-box;
-                color: white;
-            }
-
-            #notice{
-                position: absolute;
-                top:50%;
-                left: 68%;
-            }
-
-
-            #msg {
-                text-align: center;
-                font-weight: border;
-            }
-
-
-            #word {
-                text-align: center;
-                color: blue;
-                font-size: 20px;
-            }
-
-
-            .container {
-                width: 100%;
-                margin: 0 auto;
-            }
-
-
-            table {
-                border-top: 3px solid gray;
-                border-collapse: collapse;
-                padding: 10px;
-                width: 95%;
-                margin: 0 auto;
-
-            }
-
-            tr,td {
-                border-bottom: 1px solid #B0C4DE;
-                padding: 5px;
-            }
+input[type=text]:hover {
+    background:aliceblue;
+}
 
 
 
-
-            .playbutton {
-                text-align: left;
-                border: 0;
-                outline: 0;
-                background-color: white;
-                font-size: 13px;
-            }
-
-
-	    .shorting{
-               width: 300px;
-	           white-space: nowrap;
-               overflow: hidden;
-               text-overflow: ellipsis;
-               display: inline-block;
-            }
+#btn_search {
+    width: 10%;
+    background: #2196F3;
+    padding: 5px;
+    color: white;
+    float:left;
+    font-size: 20px;
+    border: 1px solid skyblue;
+    border-left: none;
+    cursor: pointer;
+}
 
 
-            #controls {
-                text-align:center;
-            }
+#progress-bar {
+    width: 90%;
+    height: 20px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+input.img-button {
+    background: url("../images/delete.png") no-repeat;
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+}
 
 
-            #controls i {
-                color: #000;
-                font-size: 32px;
-                cursor: pointer;
-                vertical-align: middle;
-                padding-left: 20px;
-            }
+button.cont {
+    font-size: 16px;
+    background-color: #ffffff;
+    padding: 5px;
+}
 
 
-            #YouTube-player-volume {
-                display: inline-block;
-                width: 50%;
-            }
+div.playlist {
+    width: 50%;
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+div.action {
+    background-color: #3f4047;
+    width: 50%;
+    height: 100%;
+    float: left;
+    box-sizing: border-box;
+    color: white;
+}
+
+#notice{
+    position: absolute;
+    top:50%;
+    left: 68%;
+}
 
 
-            #link {
-                border: 3px solid black;
-                border-radius: 20px;
-                -moz-border-radius: 20px;
-                -khtml-border-radius: 20px;
-                -webkit-border-radius: 20px;
-
-            }
+#msg {
+    text-align: center;
+    font-weight: border;
+}
 
 
+#word {
+    text-align: center;
+    color: blue;
+    font-size: 20px;
+}
 
-            .genre_per {
-                display: inline-block;
-                width: 10px;
-                height: 10px;
-            }
 
-            .genre_name {
-                font-size: 10px;
-                font-weight: bold;
-            }
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
 
-            #reorder {
-                position: fixed;
-                background-color: #b4b4b4;
-                bottom: 0;
-                height: 70px;
-                width: 50%;
-                padding-left:80px;
-                padding-right:80px;
-            }
 
-            #relocation {
-                background: url("../images/complete.svg") no-repeat;
-                border: none;
-                width: 46px;
-                height: 46px;
-                cursor: pointer;
-                font-size: 0;
-                line-height: 0;
-                float: left;
-            }
+table {
+    border-top: 3px solid gray;
+    border-collapse: collapse;
+    padding: 10px;
+    width: 95%;
+    margin: 0 auto;
 
-            #cancel {
-                background: url("../images/cancel.svg") no-repeat;
-                border: none;
-                width: 46px;
-                height: 46px;
-                cursor: pointer;
-                font-size: 0;
-                line-height: 0;
-                float:right;
-            }
+}
 
-            #dv{
-                width:95%;
-                margin: 0 auto;
-            }
+tr,td {
+    border-bottom: 1px solid #B0C4DE;
+    padding: 5px;
+}
+
+
+
+
+.playbutton {
+    text-align: left;
+    border: 0;
+    outline: 0;
+    background-color: white;
+    font-size: 13px;
+}
+
+
+.shorting{
+   width: 300px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: inline-block;
+}
+
+
+#controls {
+    text-align:center;
+}
+
+
+#controls i {
+    color: #000;
+    font-size: 32px;
+    cursor: pointer;
+    vertical-align: middle;
+    padding-left: 20px;
+}
+
+
+#YouTube-player-volume {
+    display: inline-block;
+    width: 50%;
+}
+
+
+#link {
+    border: 3px solid black;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    -webkit-border-radius: 20px;
+
+}
+
+.genre_per {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+}
+
+.genre_name {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+#reorder {
+    position: fixed;
+    background-color: #b4b4b4;
+    bottom: 0;
+    height: 70px;
+    width: 50%;
+    padding-left:80px;
+    padding-right:80px;
+}
+
+#relocation {
+    background: url("../images/complete.svg") no-repeat;
+    border: none;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+    float: left;
+}
+
+#cancel {
+    background: url("../images/cancel.svg") no-repeat;
+    border: none;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+    float:right;
+}
+
+#dv{
+    width:95%;
+    margin: 0 auto;
+}
 
 .logo_div {padding-left:10px;}
 .logo_img {width:30px; height:30px;}

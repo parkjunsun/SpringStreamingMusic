@@ -1,26 +1,26 @@
 .left {
-                width: 400px;
-                height: 350px;
-                float:left;
-                margin-right: 30px;
-            }
+    width: 400px;
+    height: 350px;
+    float:left;
+    margin-right: 30px;
+}
 
-            .right {
-                width: 800px;
-                height: 350px;
-                float: left;
-            }
+.right {
+    width: 800px;
+    height: 350px;
+    float: left;
+}
 
-	        .line {
-	            line-height:2.0;
-	        }
+.line {
+    line-height:2.0;
+}
 
-	        .category {
-                display: inline-block;
-                width: 120px;
-                font-size: 18px;
-                color: gray;
-	        }
+.category {
+    display: inline-block;
+    width: 120px;
+    font-size: 18px;
+    color: gray;
+}
 
 #upside {
     border-top: 3px solid gray;
@@ -96,18 +96,18 @@ input.add_btn {
 
 
 .wrapper {
-                width: 1250px;
-                margin: 0 auto;
-                padding-bottom: 10px;
-            }
+    width: 1250px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
 
 
-            #contents {
-                border: 5pt none #3f51b5;
-                width: 1250px;
-                height: 950px;
-                margin:0 auto;
-            }
+#contents {
+    border: 5pt none #3f51b5;
+    width: 1250px;
+    height: 950px;
+    margin:0 auto;
+}
 
 
 #btn_div {text-align:center;}
@@ -121,69 +121,69 @@ input.add_btn {
 
 
 .onbtn {
-            border-radius: 5px;
-            border:2px solid #A9A9A9;
-            color: black;
-            display:inline;
-         }
+    border-radius: 5px;
+    border:2px solid #A9A9A9;
+    color: black;
+    display:inline;
+ }
 
-         .offbtn {
-            border-radius: 5px;
-            border:2px solid #1E90FF;
-            color: #1E90FF;
-            display:inline;
-        }
-        .comment_div_box {
-            width: 100%;
-            height: 100px;
-            border: 2px solid #e3e3e3;
-            background-color: #fdfdfd;
-            text-align:center;
-            padding:10px;
-        }
+ .offbtn {
+    border-radius: 5px;
+    border:2px solid #1E90FF;
+    color: #1E90FF;
+    display:inline;
+}
+.comment_div_box {
+    width: 100%;
+    height: 100px;
+    border: 2px solid #e3e3e3;
+    background-color: #fdfdfd;
+    text-align:center;
+    padding:10px;
+}
 
-        .comment_box {
-            float:left;
-            width: 90%;
-            height: 80px;
-        }
+.comment_box {
+    float:left;
+    width: 90%;
+    height: 80px;
+}
 
-        .comment_btn {
-            width:100px;
-            height:80px;
-            background-color: #f8585b;
-            border: none;
-            color:#fff;
-            padding: 15px 0;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 15px;
-            cursor: pointer;
-        }
+.comment_btn {
+    width:100px;
+    height:80px;
+    background-color: #f8585b;
+    border: none;
+    color:#fff;
+    padding: 15px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    cursor: pointer;
+}
 
-        .delete_btn {
-            border: 1px solid #e3e3e3;
-            color: #999;
-            background-color: #fff;
-            padding: 3px;
-            font_size: 15px;
-       }
+.delete_btn {
+    border: 1px solid #e3e3e3;
+    color: #999;
+    background-color: #fff;
+    padding: 3px;
+    font_size: 15px;
+}
 
-       .update_btn {
-            border: 1px solid #e3e3e3;
-            color: #999;
-            background-color: #fff;
-            padding: 3px;
-            font_size: 15px;
-       }
+.update_btn {
+    border: 1px solid #e3e3e3;
+    color: #999;
+    background-color: #fff;
+    padding: 3px;
+    font_size: 15px;
+}
 
-       .delete_btn:hover { border: 2px solid gray;}
-       .update_btn:hover {
-            border: 2px solid gray;
-            color: #999;
-            text-decoration: none;
-       }
+.delete_btn:hover { border: 2px solid gray;}
+.update_btn:hover {
+    border: 2px solid gray;
+    color: #999;
+    text-decoration: none;
+}
 
 
 .heartBtn {
