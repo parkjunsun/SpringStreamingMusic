@@ -148,8 +148,6 @@ public class PlaylistController {
     public String duplicateSongExceptionHandler(DuplicateSongException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         redirectAttributes.addFlashAttribute("errorMsg", e.getMessage());
 
-        System.out.println(tempKeyword);
-
         if (request.getHeader("Referer").equals(searchUrl)) {
             return "redirect:/search?keyword=" + tempKeyword;
         } else {

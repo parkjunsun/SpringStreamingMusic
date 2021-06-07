@@ -37,11 +37,11 @@ public class MemberController {
 
         memberFormValidator.validate(memberForm, errors);
 
-        if (errors.hasErrors()) {
+        if (errors.hasErrors()) {    //이름 중복검사 (중복 검사하기 위해 validator class를 사용)
             return "members/createMemberForm";
         }
 
-        if (result.hasErrors()) {
+        if (result.hasErrors()) {   // 나머지 오류 검사 (나머지는 bean validataion의 어노테이션이 있기 때문에 validator class 사용 안함)
             return "members/createMemberForm";
         }
 

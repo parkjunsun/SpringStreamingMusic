@@ -31,8 +31,6 @@ public class RecordController {
         String artist = request.getParameter("artist");
         String img = request.getParameter("img");
         String songid = request.getParameter("songid");
-        System.out.println("artist = " + artist);
-
 
         if (recordService.findDuplicateRecord(username, title, artist)) {
             Record record = new Record();

@@ -1,6 +1,6 @@
 package js.StreamingMusic.domain.entity;
 
-import js.StreamingMusic.domain.LikeBoardStatus;
+
 import js.StreamingMusic.domain.TimeEntity;
 import lombok.Getter;
 import lombok.Setter;
