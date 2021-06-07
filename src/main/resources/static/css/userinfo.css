@@ -33,7 +33,7 @@
 button:hover, a:hover { opacity: 0.7;}
 
 div.main {
-    width: 1600px;
+    width: 1500px;
     height:2000px;
     margin: 0 auto;
 }
@@ -42,15 +42,15 @@ div.info {
     width: 750px;
     float: left;
     box-sizing: border-box;
-    padding-right:50px;
+
 }
 
 div.record {
-    width: 850px;
-    float: right;
+    width: 750px;
+    float: left;
     box-sizing: border-box;
     margin: 0 auto;
-    padding-left: 100px;
+    padding-right: 30px;
 }
 
 #table {
@@ -121,7 +121,7 @@ input.desc_btn {
 
 
 .shorting{
-    width: 350px;
+    width: 300px;
 	white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
