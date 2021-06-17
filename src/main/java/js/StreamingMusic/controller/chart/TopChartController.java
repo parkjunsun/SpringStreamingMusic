@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -42,10 +43,11 @@ public class TopChartController {
     @PostMapping("/chart/top200/{pgNum}")
     public String playTop200(Model model, @PathVariable("pgNum") String pgNum,
                              @AuthenticationPrincipal MemberContext memberContext,
-                             @RequestParam(value = "play") String param) throws IOException, ParseException {
+                             @RequestParam(value = "play") String param,
+                             RedirectAttributes redirectAttributes) throws IOException, ParseException {
         if(memberContext != null) {
             String username = memberContext.getUsername();
-            model.addAttribute("name", username);
+            redirectAttributes.addFlashAttribute("name", username);
         }
 
         String[] parameters = param.split(";");
@@ -54,13 +56,15 @@ public class TopChartController {
         Integer index = Integer.parseInt(parameters[2]);
 
         List<String> videoIds = dataApi.getVideoId(title, artist);
-        model.addAttribute("videoIds", videoIds);
-        model.addAttribute("index", index);
-
         List<HashMap<String, String>> songs = getTop200.getSongs(pgNum);
 
-        model.addAttribute("songs", songs);
+        redirectAttributes.addFlashAttribute("videoIds", videoIds);
+        redirectAttributes.addFlashAttribute("index", index);
+        redirectAttributes.addFlashAttribute("songs", songs);
+        //PRG - Post/Redirect/Get
 
-        return "chart/topchart" + pgNum;
+        redirectAttributes.addAttribute("pgNum", pgNum);
+
+        return "redirect:/chart/top200/{pgNum}";
     }
 }
