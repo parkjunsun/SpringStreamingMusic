@@ -22,7 +22,13 @@
                     <input type="password" class="form-control" name="password" placeholder="비밀번호" required="required">
                 </div>
                 <!--                <button type="button" onclick="formLogin()" id="formbtn" class="btn btn-lg btn-primary btn-block">Ajax 로그인</button>-->
-                <button type="submit" class="btn btn-lg btn-primary btn-block">로그인</button>
+                <button type="submit" class="btn btn-lg btn-primary btn-block">로그인</button><br>
+                <label style="float: left">
+                    <input th:type="checkbox" name="remember-me" id="rmember-me" th:checked="true">자동 로그인
+                </label>
+                <label style="float:right;">
+                    <a href="">아이디 / 비밀번호 찾기</a>
+                </label>
             </form>
         </div>
     </div>
