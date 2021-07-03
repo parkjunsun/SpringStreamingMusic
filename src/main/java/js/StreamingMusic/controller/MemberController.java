@@ -1,8 +1,10 @@
 package js.StreamingMusic.controller;
 
+import js.StreamingMusic.domain.dto.MailDto;
 import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.domain.dto.MemberForm;
 import js.StreamingMusic.service.MemberService;
+import js.StreamingMusic.service.SendEmailService;
 import js.StreamingMusic.validate.MemberFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,11 +14,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,6 +31,7 @@ public class MemberController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
     private final MemberFormValidator memberFormValidator;
+    private final SendEmailService sendEmailService;
 
     @GetMapping("/register")
     public String createMemberForm(Model model) {
@@ -48,6 +55,7 @@ public class MemberController {
         Member member = new Member();
         member.setUsername(memberForm.getUsername());
         member.setPassword(passwordEncoder.encode(memberForm.getPassword()));
+        member.setRealname(memberForm.getRealname());
         member.setEmail(memberForm.getEmail());
         member.setAge(memberForm.getAge());
         member.setRole(memberForm.getRole());

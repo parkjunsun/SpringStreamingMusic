@@ -1,6 +1,7 @@
 package js.StreamingMusic.service;
 
 import js.StreamingMusic.domain.entity.Member;
+import js.StreamingMusic.exception.NotExistUserNameException;
 import js.StreamingMusic.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,25 @@ public class MemberService {
         return memberRepository.findByUserName(username);
     }
 
+    public List<Member> findByUsernameViaNameAndEmail(String email, String realname) {
+        List<Member> usernames = memberRepository.findByUsernameViaIdAndEmail(email, realname);
+        if (usernames.size() == 0) {
+            throw new NotExistUserNameException("일치하는 아이디가 없습니다.");
+        } else {
+            return usernames;
+        }
+    }
+
+    public List<Member> findByUserCheckViaAllInfo(String username, String email, String realname) {
+        List<Member> users = memberRepository.findByUsernameViaAllInfo(username, email, realname);
+        if (users.size() == 0) {
+            throw new NotExistUserNameException("일치하는 유저의 정보가 없습니다.");
+        } else {
+            return users;
+        }
+    }
+
+
     public List<Member> findUserContaining(String username) {
         return memberRepository.findByUsernameContaining(username);
     }
@@ -52,16 +72,22 @@ public class MemberService {
         if (!members.isEmpty()) {
             return true;
         }
-
         return false;
     }
 
     @Transactional
-    public void updateMember(String username, String password, String email, String age) {
+    public void updateMember(String username, String password, String email, Integer age) {
         Member findMember = memberRepository.findByUserName(username).get(0);
         findMember.setPassword(password);
         findMember.setEmail(email);
         findMember.setAge(age);
+    }
+
+    @Transactional
+    public void updateMemberPassword(String pw, String username, String email, String realname) {
+        List<Member> findMembers = memberRepository.findByUsernameViaAllInfo(username, email, realname);
+        Member member = findMembers.get(0);
+        member.setPassword(pw);
     }
 
     @Transactional

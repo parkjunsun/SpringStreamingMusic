@@ -1,54 +1,63 @@
 <html  xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header::userHead"></head>
-<style>
-    .fieldError {
-        border-color: #bd2130;
-    }
-</style>
 <body>
 <div th:replace="fragments/top::header"></div><br><br>
-
-
 <div class="container d-flex justify-content-center">
     <div style="width:700px; margin-top: 30px;">
+        <h4>회원가입</h4>
+        <hr><br><br><br>
         <form class="form-horizontal" th:action="@{/register}" method="post" th:object="${memberForm}">
             <div class="form-group">
                 <label th:for="username" class="col-sm-2 control-label">아이디</label>
                 <div class="col-sm-10">
-                    <input type="text" th:class="${#fields.hasErrors('username')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{username}" placeholder="username" required>
-                    <span style="color:red" th:if="${#fields.hasErrors('username')}" th:errors=*{username}></span>
+                    <input type="text" th:class="${#fields.hasErrors('username')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{username}" placeholder="아이디" required>
+                    <span style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
                 </div>
             </div><br>
             <div class="form-group">
                 <label th:for="password" class="col-sm-2 control-label">비밀번호</label>
                 <div class="col-sm-10">
-                    <input type="password" th:class="${#fields.hasErrors('password')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{password}" placeholder="Password" required>
-                    <span style="color:red" th:if="${#fields.hasErrors('password')}" th:errors=*{password}></span>
+                    <input type="password" th:class="${#fields.hasErrors('password')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{password}" placeholder="비밀번호" required>
+                    <span style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                 </div>
             </div><br>
             <div class="form-group">
-                <label th:for="email" class="col-sm-2 control-label">이메일</label>
+                <label th:for="checkPassword">&nbsp;&nbsp;&nbsp;비밀번호 확인</label>
                 <div class="col-sm-10">
-                    <input type=text th:class="${#fields.hasErrors('email')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{email}" placeholder="이메일" required>
-                    <p style="color:red" th:if="${#fields.hasErrors('email')}" th:errors=*{email}></p>
+                    <input type="password" th:class="${#fields.hasErrors('checkPassword')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{checkPassword}" placeholder="비밀번호" onkeyup="pwcheck()" required>
+                    <span style="color:red" th:if="${#fields.hasErrors('checkPassword')}" th:errors="*{checkPassword}"></span>
+                    <span id="message"></span>
+                </div>
+            </div><br>
+            <div class="form-group">
+                <label th:for="realname" class="col-sm-2 control-label">이름</label>
+                <div class="col-sm-10">
+                    <input type="text" th:class="${#fields.hasErrors('realname')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{realname}" placeholder="이름" required>
+                    <span style="color:red" th:if="${#fields.hasErrors('realname')}" th:errors="*{realname}"></span>
                 </div>
             </div><br>
             <div class="form-group">
                 <label th:for="age" class="col-sm-2 control-label">나이</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control input-large" th:field="*{age}" placeholder="나이" required>
+                    <input type=number th:class="${#fields.hasErrors('age')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{age}" placeholder="나이" required>
+                    <p style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+                </div>
+            </div><br>
+            <div class="form-group">
+                <label th:for="email" class="col-sm-2 control-label">이메일</label>
+                <div class="col-sm-10">
+                    <input type=text th:class="${#fields.hasErrors('email')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{email}" placeholder="이메일" required><br>
+                    <p style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                    <input id="auth_btn" value="인증키 받기" type="button" onclick="auth()">
+                    <input id="auth_input" type="text" value="" readonly onkeyup="exec()" required>
+                    <span id="auth_message"></span>
+<!--                    <input id="exec_btn" value="인증" type="button" onclick="exec()" disabled="disabled">-->
                 </div>
             </div><br>
             <input type="hidden" name="role" id="role" value="ROLE_USER">
-<!--            <div class="form-group">-->
-<!--                <label for="role" class="col-sm-2 control-label">권한</label>-->
-<!--                <div class="col-sm-10">-->
-<!--                    <input type="text" class="form-control input-large" name="role" id="role" placeholder="권한" required>-->
-<!--                </div>-->
-<!--            </div>-->
             <div class="form-group">
                 <div class="col-sm-offset-1 col-sm-10">
-                    <button type="Submit" class="btn btn-dark btn-lg">가입하기</button>
+                    <button type="Submit" class="btn btn-dark btn-lg" id="registerBtn" disabled="disabled">가입하기</button>
                 </div>
             </div>
         </form>

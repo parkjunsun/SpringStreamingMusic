@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header::userHead"></head>
+
+<body>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    var errorMessage = /*[[${errorMsg}]]*/
+    var successMessage = /*[[${successMsg}]]*/
+    /* ]]> */
+
+    if (errorMessage != null) {
+        swal("Error", errorMessage, "error");
+    } else if (successMessage != null) {
+        swal("Success", successMessage, "success");
+    }
+</script>
+<div th:replace="fragments/top::header"></div><br><br><br><br><br>
+<div class="container text-center">
+    <h4>비밀번호 찾기</h4>
+    <hr>
+    <div class="login-form d-flex justify-content-center">
+        <div class="col-sm-5" style="margin-top: 30px;">
+            <div class="panel">
+                <p style="font-size: 15px">회원가입시 기입한 아이디와 이메일 주소와 이름을 써주세요</p><br>
+            </div>
+            <form th:action="@{/forget/pw}" class="form-signin" method="post" th:object="${memberForm}">
+                <div class="form-group">
+                    <input type=text th:class="${#fields.hasErrors('username')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{username}" placeholder="아이디" required>
+                    <p style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                </div>
+                <div class="form-group">
+                    <input type=text th:class="${#fields.hasErrors('email')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{email}" placeholder="이메일" required>
+                    <p style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                </div>
+                <div class="form-group">
+                    <input type=text th:class="${#fields.hasErrors('realname')}? 'form-control input-large fieldError' : 'form-control input-large'" th:field="*{realname}" placeholder="이름" required>
+                    <p style="color:red" th:if="${#fields.hasErrors('realname')}" th:errors="*{realname}"></p>
+                </div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block">비밀번호 찾기</button><br>
+            </form>
+        </div>
+    </div>
+</div>
+<br><br><br><br><br><br><br>
+<div th:replace="fragments/footer::footer"></div>
+</body>
+</html>

@@ -15,9 +15,10 @@ public class Member {
     @Column(name = "MEMBER_ID")
     private Long id;
     private String username;
+    private String realname;
     private String password;
     private String email;
-    private String age;
+    private Integer age;
     private String role;
     private int songQuantity;
     private int boardQuantity;

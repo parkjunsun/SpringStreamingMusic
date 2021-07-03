@@ -27,7 +27,7 @@ public class AdminController {
 
         List<Member> members = memberService.findAllMember();
         List<MemberDto> memberList = members.stream()
-                .map(m -> new MemberDto(m.getId(), m.getUsername(), m.getEmail(), m.getAge(), m.getRole(), m.getSongQuantity(), m.getBoardQuantity(), m.getJoinDate()))
+                .map(m -> new MemberDto(m.getId(), m.getUsername(), m.getRealname(), m.getEmail(), m.getAge(), m.getRole(), m.getSongQuantity(), m.getBoardQuantity(), m.getJoinDate()))
                 .collect(Collectors.toList());
 
 
@@ -41,7 +41,7 @@ public class AdminController {
     public String adminSearch(Model model, @RequestParam("username") String username) {
         List<Member> members = memberService.findUserContaining(username);
         List<MemberDto> memberList = members.stream()
-                .map(m -> new MemberDto(m.getId(), m.getUsername(), m.getEmail(), m.getAge(), m.getRole(), m.getSongQuantity(), m.getBoardQuantity(), m.getJoinDate()))
+                .map(m -> new MemberDto(m.getId(), m.getUsername(), m.getRealname(), m.getEmail(), m.getAge(), m.getRole(), m.getSongQuantity(), m.getBoardQuantity(), m.getJoinDate()))
                 .collect(Collectors.toList());
 
         model.addAttribute("members", memberList);
@@ -53,7 +53,7 @@ public class AdminController {
     @GetMapping("/admin/{id}/updateRole")
     public String updateRoleForm(Model model, @PathVariable Long id) {
         Member m = memberService.findById(id);
-        MemberDto memberDto = new MemberDto(m.getId(), m.getUsername(), m.getEmail(), m.getAge(), m.getRole(), m.getSongQuantity(), m.getBoardQuantity(), m.getJoinDate());
+        MemberDto memberDto = new MemberDto(m.getId(), m.getUsername(), m.getRealname(), m.getEmail(), m.getAge(), m.getRole(), m.getSongQuantity(), m.getBoardQuantity(), m.getJoinDate());
         model.addAttribute("member", memberDto);
 
         return "admin/updateRoleForm";

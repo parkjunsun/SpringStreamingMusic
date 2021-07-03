@@ -31,6 +31,20 @@ public class MemberRepository {
                 .getResultList();
     }
 
+    public List<Member> findByUsernameViaIdAndEmail(String email, String realname) {
+        return em.createQuery("SELECT m FROM Member m WHERE m.email = :email AND m.realname = :realname", Member.class)
+                .setParameter("email", email)
+                .setParameter("realname", realname)
+                .getResultList();
+    }
+
+    public List<Member> findByUsernameViaAllInfo(String username, String email, String realname) {
+        return em.createQuery("SELECT m FROM Member m WHERE m.username = :username AND m.email = :email AND m.realname = :realname", Member.class)
+                .setParameter("username", username)
+                .setParameter("email", email)
+                .setParameter("realname", realname)
+                .getResultList();
+    }
 
     public List<Member> findByUsernameContaining(String username) {
         return em.createQuery("SELECT m FROM Member m WHERE m.username LIKE :username", Member.class)

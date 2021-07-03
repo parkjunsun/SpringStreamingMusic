@@ -3,6 +3,18 @@
 <head th:replace="fragments/header::userHead"></head>
 
 <body>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    var errorMessage = /*[[${errorMsg}]]*/
+    var successMessage = /*[[${successMsg}]]*/
+    /* ]]> */
+
+    if (errorMessage != null) {
+        swal("Error", errorMessage, "error");
+    } else if (successMessage != null) {
+        swal("Success", successMessage, "success");
+    }
+</script>
 <div th:replace="fragments/top::header"></div><br><br><br><br><br>
 <div class="container text-center">
     <div class="login-form d-flex justify-content-center">
@@ -24,14 +36,17 @@
                 <!--                <button type="button" onclick="formLogin()" id="formbtn" class="btn btn-lg btn-primary btn-block">Ajax 로그인</button>-->
                 <button type="submit" class="btn btn-lg btn-primary btn-block">로그인</button><br>
                 <label style="float: left">
-                    <input th:type="checkbox" name="remember-me" id="rmember-me" th:checked="true">자동 로그인
+                    <input th:type="checkbox" name="remember-me" id="remember-me" th:checked="true">자동 로그인
                 </label>
                 <label style="float:right;">
-                    <a href="">아이디 / 비밀번호 찾기</a>
+                    <a th:href="@{/forget/id}">아이디 찾기 </a> /
+                    <a th:href="@{/forget/pw}">비밀번호 찾기</a>
                 </label>
             </form>
         </div>
     </div>
 </div>
+<br><br><br><br><br><br><br>
+<div th:replace="fragments/footer::footer"></div>
 </body>
 </html>
