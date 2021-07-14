@@ -42,7 +42,28 @@
                     <a th:href="@{/forget/id}">아이디 찾기 </a> /
                     <a th:href="@{/forget/pw}">비밀번호 찾기</a>
                 </label>
-            </form>
+            </form><br><br>
+            <h4>SNS계정으로도 이용 가능합니다</h4><hr>
+            <ul>
+                <li>
+                    <a href="javascript:;" class="btn_social" data-social="google">구글 로그인</a><br/>
+                </li>
+                <li>
+                    <a href="javascript:;" class="btn_social" data-social="kakao">카카오 로그인</a><br/>
+                </li>
+                <li>
+                    <a href="javascript:;" class="btn_social" data-social="naver">네이버 로그인</a><br/>
+                </li>
+            </ul>
+            <script>
+                let socials = document.getElementsByClassName("btn_social");
+                for (let social of socials) {
+                    social.addEventListener('click', function () {
+                        let socialType = this.getAttribute('data-social');
+                        location.href="/oauth2/authorization/" + socialType;
+                    })
+                }
+            </script>
         </div>
     </div>
 </div>

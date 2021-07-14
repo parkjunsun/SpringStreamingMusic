@@ -4,6 +4,8 @@ import js.StreamingMusic.domain.dto.LikeBoardDto;
 import js.StreamingMusic.domain.entity.Board;
 import js.StreamingMusic.domain.dto.BoardDto;
 import js.StreamingMusic.domain.entity.LikeBoard;
+import js.StreamingMusic.domain.entity.Member;
+//import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.BoardService;
 import js.StreamingMusic.service.LikeBoardService;
@@ -32,11 +34,13 @@ public class DetailAlbumController {
     public String GetDetailAlbumInfo(Model model, @RequestParam("album_id") String album_id, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object principal = auth.getPrincipal();
+
         String name = "";
         if (principal != null && principal instanceof MemberContext) {
             name = ((MemberContext) principal).getUsername();
             model.addAttribute("name", name);
         }
+
 
         HashMap<String, String> info = getDetailAlbumInfo.getData(album_id);
         List<HashMap<String, String>> songs = getDetailAlbumInfo.getSongs(album_id);

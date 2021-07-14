@@ -1,5 +1,8 @@
 package js.StreamingMusic.security;
 
+
+import js.StreamingMusic.oauth.PrincipalOauth2UserService;
+import js.StreamingMusic.util.ConfigUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -14,15 +17,16 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-
-
 import javax.sql.DataSource;
 
 
+
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity //스프링 시큐리티 필터가 스프링 필터체인에 등록됨
+//@EnableGlobalMethodSecurity(securedEnabled = true) //secured 어노테이션 활성화
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -30,6 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
     private final DataSource dataSource;
+    private final ConfigUtil configUtil;
+
+    private final PrincipalOauth2UserService principalOauth2UserService;
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -58,29 +66,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http
-                .authorizeRequests()
-                .antMatchers("/", "/register","/login*", "/ajax", "/ajax/**", "/detail", "/detail/**", "/search", "/chart", "/chart/**", "/forget", "/forget/**").permitAll()
-                .antMatchers("/playlist","/youtube").hasRole("USER")
-                .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-        .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/")
-                .loginProcessingUrl("/login_proc")
-                .successHandler(successHandler)
-                .failureHandler(failureHandler)
-                .permitAll()
-        .and()
                 .rememberMe()
                 .key("rememberMe")
                 .userDetailsService(userDetailsService)
                 .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(60*60*24)
+                .tokenValiditySeconds(60*60*24);
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/oauth2/**", "/register","/login", "/login/**", "/ajax", "/ajax/**", "/detail", "/detail/**", "/search", "/chart", "/chart/**", "/forget", "/forget/**").permitAll()
+                .antMatchers("/playlist","/youtube").hasRole("USER")
+                .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
         .and()
-                .csrf().disable();
+                .exceptionHandling()
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+        .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login_proc") ///login_proc 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행해줌
+                .defaultSuccessUrl("/")
+                .successHandler(successHandler)
+                .failureHandler(failureHandler)
+                .permitAll()
+        .and()
+                .oauth2Login() //구글 로그인이 완료된 뒤의 후처리가 필요 1.코드받기(인증) 2.엑세스토큰(권한) 3.사용자프로필 정보를 가져옴 4-1.그 정보를 토대로 회원가입 자동진행 4-2. 집주소, vip(일반)등급같은 추가할 정보가 있을 경우 또 입력이 가능해야함
+                                //구글 로그인이 완료가 되면 (엑세스 토큰 + 사용자프로필 정보를 받음)
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
     }
-
 
 }

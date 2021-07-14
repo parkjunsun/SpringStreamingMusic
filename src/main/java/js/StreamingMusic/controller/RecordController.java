@@ -2,11 +2,13 @@ package js.StreamingMusic.controller;
 
 import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.domain.entity.Record;
+//import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.MemberService;
 import js.StreamingMusic.service.RecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +25,7 @@ public class RecordController {
     @PostMapping("/data")
     @ResponseBody
     public Message test(HttpServletRequest request, @AuthenticationPrincipal MemberContext memberContext) {
+
 
         String username = memberContext.getUsername();
         Member member = memberService.findByUsername(username).get(0);

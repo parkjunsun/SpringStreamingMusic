@@ -4,12 +4,14 @@ import js.StreamingMusic.domain.LikeBoardStatus;
 import js.StreamingMusic.domain.entity.Board;
 import js.StreamingMusic.domain.entity.LikeBoard;
 import js.StreamingMusic.domain.entity.Member;
+//import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.BoardService;
 import js.StreamingMusic.service.LikeBoardService;
 import js.StreamingMusic.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +29,10 @@ public class LikeBoardController {
     private final LikeBoardService likeBoardService;
 
     @PostMapping("/like/{id}/add")
-    public String addLikeBoard(@PathVariable Long id, @AuthenticationPrincipal MemberContext member,
+    public String addLikeBoard(@PathVariable Long id,
+                               @AuthenticationPrincipal MemberContext member,
                                HttpServletRequest request) {
+
 
         Member findMember = memberService.findByUsername(member.getUsername()).get(0);
         Board board = boardService.findBoard(id);

@@ -1,16 +1,12 @@
 package js.StreamingMusic.controller;
 
-import js.StreamingMusic.exception.NotExistSearchResult;
+
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.crawling.GetSearchSongs;
 import js.StreamingMusic.service.data.DataApi;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,10 +28,13 @@ public class SearchController {
 
 
     @GetMapping("/search")
-    public String showSearchSongs(Model model, @AuthenticationPrincipal MemberContext memberContext,
+    public String showSearchSongs(Model model,
+                                  @AuthenticationPrincipal MemberContext memberContext,
                                   @RequestParam(value = "keyword", required = false) String keyword,
                                   RedirectAttributes redirectAttributes,
                                   HttpServletRequest request) throws IOException {
+
+
         if(memberContext != null) {
             String username = memberContext.getUsername();
             model.addAttribute("name", username);
@@ -54,9 +53,11 @@ public class SearchController {
     }
 
     @PostMapping("/search")
-    public String playSearchSong(Model model, @AuthenticationPrincipal MemberContext memberContext,
+    public String playSearchSong(Model model,
+                                 @AuthenticationPrincipal MemberContext memberContext,
                                 @RequestParam(value = "play") String param,
                                 HttpServletRequest request) throws IOException, ParseException {
+
 
         if(memberContext != null) {
             String username = memberContext.getUsername();
@@ -78,9 +79,6 @@ public class SearchController {
         model.addAttribute("keyword", keyword);
 
         return "search";
-//        return "redirect:" + request.getHeader("Referer");
-//        return "redirect:/search?keyword=" + keyword;
-
     }
 
 

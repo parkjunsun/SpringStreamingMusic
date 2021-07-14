@@ -27,7 +27,10 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/post")
-    public String writeBoard(BoardDto boardDto, @AuthenticationPrincipal MemberContext member, HttpServletRequest request) {
+    public String writeBoard(BoardDto boardDto,
+                             @AuthenticationPrincipal MemberContext member
+            , HttpServletRequest request) {
+
 
         Member m = memberService.findByUsername(member.getUsername()).get(0);
         m.addBoard(1);
@@ -46,7 +49,10 @@ public class BoardController {
     }
 
     @PostMapping("/post/{id}/delete")
-    public String deleteBoard(@PathVariable Long id, @AuthenticationPrincipal MemberContext member, HttpServletRequest request) {
+    public String deleteBoard(@PathVariable Long id,
+                              @AuthenticationPrincipal MemberContext member, HttpServletRequest request) {
+
+
         Member m = memberService.findByUsername(member.getUsername()).get(0);
         m.removeBoard(1);
 
@@ -58,7 +64,10 @@ public class BoardController {
 
 
     @GetMapping("/post/{id}/update")
-    public String updateBoardForm(@PathVariable Long id, @AuthenticationPrincipal MemberContext member, Model model) {
+    public String updateBoardForm(@PathVariable Long id,
+                                  @AuthenticationPrincipal MemberContext member, Model model) {
+
+
         Board board = boardService.findBoard(id);
         BoardDto boardForm = new BoardDto();
         boardForm.setId(board.getId());
@@ -74,7 +83,9 @@ public class BoardController {
 
 
     @PostMapping("/post/{id}/update")
-    public String updateBoard(BoardDto boardDto, @PathVariable Long id, @AuthenticationPrincipal MemberContext member, HttpServletRequest request) {
+    public String updateBoard(BoardDto boardDto, @PathVariable Long id,
+                              @AuthenticationPrincipal MemberContext member, HttpServletRequest request) {
+
         boardService.updateBoard(id, boardDto.getComment());
 
         if (boardDto.getType().equals("album")){

@@ -4,6 +4,7 @@ import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.domain.entity.Song;
 import js.StreamingMusic.domain.dto.SongDto;
 import js.StreamingMusic.exception.DuplicateSongException;
+//import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.MemberService;
 import js.StreamingMusic.service.SongService;
@@ -11,6 +12,7 @@ import js.StreamingMusic.service.data.DataApi;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +37,9 @@ public class PlaylistController {
     private static final String searchUrl = "http://localhost:8080/search";
 
     @GetMapping("/playlist")
-    public String showPlaylist(Model model, @AuthenticationPrincipal MemberContext member) {
+    public String showPlaylist(Model model,
+                               @AuthenticationPrincipal MemberContext member) {
+
 
         String username = member.getUsername();
         model.addAttribute("name", username);
@@ -45,11 +49,13 @@ public class PlaylistController {
     }
 
     @PostMapping("/playlist")
-    public String SavePlaylist(Model model, @AuthenticationPrincipal MemberContext member,
-                                            @RequestParam(value = "add", required = false) List<String> param,
-                                            @RequestParam(value = "keyword", required = false) String keyword,
-                                            RedirectAttributes redirectAttributes,
-                                            HttpServletRequest request) throws IOException, ParseException {
+    public String SavePlaylist(Model model,
+                               @AuthenticationPrincipal MemberContext member,
+                               @RequestParam(value = "add", required = false) List<String> param,
+                               @RequestParam(value = "keyword", required = false) String keyword,
+                               RedirectAttributes redirectAttributes,
+                               HttpServletRequest request) throws IOException, ParseException {
+
 
         tempKeyword = keyword;
 
@@ -171,7 +177,8 @@ public class PlaylistController {
     }
 
     @PostMapping(value = "/playlist/relocation")
-    public String reorderSong(Model model, @RequestParam(value = "relocation") String jsonStr, @AuthenticationPrincipal MemberContext memberContext) throws ParseException {
+    public String reorderSong(Model model, @RequestParam(value = "relocation") String jsonStr, @AuthenticationPrincipal MemberContext memberContext
+    ) throws ParseException {
 
         List<HashMap<String, String>> songs = dataApi.parsingAndRelocate(jsonStr);
 
@@ -182,7 +189,11 @@ public class PlaylistController {
     }
 
     @GetMapping("/playlist/category")
-    public String showByGenre(Model model, @AuthenticationPrincipal MemberContext memberContext, @RequestParam("genre") String genre) {
+    public String showByGenre(Model model,
+                              @AuthenticationPrincipal MemberContext memberContext,
+                              @RequestParam("genre") String genre) {
+
+
         String refactoringGenreName = dataApi.refactoringName(genre);
         String username = memberContext.getUsername();
 

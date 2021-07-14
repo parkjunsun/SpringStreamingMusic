@@ -29,6 +29,7 @@ public class NewChartController {
     public String showNewSongs(Model model, @PathVariable("pgNum") String pgNum,
                                @AuthenticationPrincipal MemberContext memberContext) throws IOException {
 
+
         if(memberContext != null) {
             String username = memberContext.getUsername();
             model.addAttribute("name", username);
@@ -46,6 +47,7 @@ public class NewChartController {
                               @AuthenticationPrincipal MemberContext memberContext,
                               @RequestParam(value = "play") String param,
                               RedirectAttributes redirectAttributes) throws IOException, ParseException {
+
 
         if(memberContext != null) {
             String username = memberContext.getUsername();

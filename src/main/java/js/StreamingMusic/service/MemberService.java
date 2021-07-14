@@ -1,5 +1,6 @@
 package js.StreamingMusic.service;
 
+//import js.StreamingMusic.domain.SocialType;
 import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.exception.NotExistUserNameException;
 import js.StreamingMusic.repository.MemberRepository;
@@ -18,8 +19,9 @@ public class MemberService {
 
 
     @Transactional
-    public void join(Member member) {
+    public Member join(Member member) {
         memberRepository.save(member);
+        return member;
     }
 
     @Transactional

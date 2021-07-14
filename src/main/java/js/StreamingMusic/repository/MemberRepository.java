@@ -1,5 +1,6 @@
 package js.StreamingMusic.repository;
 
+//import js.StreamingMusic.domain.SocialType;
 import js.StreamingMusic.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -13,8 +14,9 @@ public class MemberRepository {
 
     private final EntityManager em;
 
-    public void save(Member member) {
+    public Member save(Member member) {
         em.persist(member);
+        return member;
     }
 
     public void remove(Member member) {
@@ -30,6 +32,7 @@ public class MemberRepository {
                 .setParameter("username", username)
                 .getResultList();
     }
+
 
     public List<Member> findByUsernameViaIdAndEmail(String email, String realname) {
         return em.createQuery("SELECT m FROM Member m WHERE m.email = :email AND m.realname = :realname", Member.class)

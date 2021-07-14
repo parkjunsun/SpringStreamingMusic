@@ -1,6 +1,5 @@
 package js.StreamingMusic.controller;
 
-import js.StreamingMusic.domain.dto.MailDto;
 import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.domain.dto.MemberForm;
 import js.StreamingMusic.service.MemberService;
@@ -14,15 +13,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
+//import static js.StreamingMusic.domain.SocialType.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -59,6 +55,7 @@ public class MemberController {
         member.setEmail(memberForm.getEmail());
         member.setAge(memberForm.getAge());
         member.setRole(memberForm.getRole());
+        member.setProvider("JSMUSIC");
         member.setJoinDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
         memberService.join(member);
