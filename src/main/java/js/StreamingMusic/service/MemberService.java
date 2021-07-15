@@ -37,6 +37,12 @@ public class MemberService {
         return memberRepository.findByUserName(username);
     }
 
+
+    public List<Member> findByProviderAndId(String provider, String providerId) {
+        return memberRepository.findByProviderAndProviderId(provider, providerId);
+    }
+
+
     public List<Member> findByUsernameViaNameAndEmail(String email, String realname) {
         List<Member> usernames = memberRepository.findByUsernameViaIdAndEmail(email, realname);
         if (usernames.size() == 0) {

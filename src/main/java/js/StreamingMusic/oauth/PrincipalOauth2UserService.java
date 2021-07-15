@@ -1,6 +1,7 @@
 package js.StreamingMusic.oauth;
 
 import js.StreamingMusic.domain.entity.Member;
+import js.StreamingMusic.oauth.provider.*;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -32,16 +34,27 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         OAuth2User oAuth2User = super.loadUser(userRequest);
         // 구글 로그인 버튼 클릭 -> 구글로그인창 -> 로그인을 완료 -> code를 리턴(OAuth-Client라이브러리가 받음) -> AccessToken요청
         // userRequest 정보 -> loadUser함수 호출 -> 구글로부터 회원프로필을 받아준다.
-//        System.out.println(oAuth2User.getAttributes());
+        System.out.println(oAuth2User.getAttributes());
 
-        String provider = userRequest.getClientRegistration().getRegistrationId();// google
-        String providerId = oAuth2User.getAttribute("sub");
-        String email = oAuth2User.getAttribute("email");
-        String username = provider + "_" + providerId; //google_2039281390
+        OAuth2UserInfo oAuth2UserInfo = null;
+        if (userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+            oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        } else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
+            oAuth2UserInfo = new FacebookUserInfo(oAuth2User.getAttributes());
+        } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
+            oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
+        } else if (userRequest.getClientRegistration().getRegistrationId().equals("kakao")) {
+            oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
+        }
+
+        String provider = oAuth2UserInfo.getProvider();// google
+        String providerId = oAuth2UserInfo.getProviderId();
+        String email = oAuth2UserInfo.getEmail();
+        String username = oAuth2UserInfo.getName();
         String password = UUID.randomUUID().toString();
         String role = "ROLE_USER";
 
-        List<Member> memberList = memberService.findByUsername(username);
+        List<Member> memberList = memberService.findByProviderAndId(provider, providerId);
         if (memberList.size() == 0) {
             Member member = new Member();
             member.setUsername(username);

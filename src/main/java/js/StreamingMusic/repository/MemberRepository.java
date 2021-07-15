@@ -33,6 +33,13 @@ public class MemberRepository {
                 .getResultList();
     }
 
+    public List<Member> findByProviderAndProviderId(String provider, String providerId) {
+        return em.createQuery("SELECT m FROM Member m WHERE m.provider = :provider AND m.providerId =:providerId", Member.class)
+                .setParameter("provider", provider)
+                .setParameter("providerId", provider)
+                .getResultList();
+    }
+
 
     public List<Member> findByUsernameViaIdAndEmail(String email, String realname) {
         return em.createQuery("SELECT m FROM Member m WHERE m.email = :email AND m.realname = :realname", Member.class)
