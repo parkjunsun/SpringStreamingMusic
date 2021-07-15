@@ -1,7 +1,9 @@
 package js.StreamingMusic.controller;
 
 
+import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.security.MemberContext;
+import js.StreamingMusic.service.MemberService;
 import js.StreamingMusic.service.crawling.GetHomeNewAlbums;
 import js.StreamingMusic.service.crawling.GetTop10;
 import js.StreamingMusic.service.data.DataApi;
@@ -27,31 +29,15 @@ public class HomeController {
     private final GetTop10 songs;
     private final GetHomeNewAlbums getHomeNewAlbums;
     private final DataApi dataApi;
-    private final HttpSession httpSession;
-
-    @GetMapping("/test/login") //@AuthenticationPrincipal: 세션정보에 접근
-    public @ResponseBody String loginTest(Authentication authentication, @AuthenticationPrincipal MemberContext memberContext) {
-        MemberContext principalDetails = (MemberContext) authentication.getPrincipal();
-        System.out.println("authentication:" + principalDetails.getMember());
-        System.out.println("userDetails:" + memberContext.getMember());
-        return "세션 정보 확인하기";
-    }
-
-    @GetMapping("/test/oauth/login") //@AuthenticationPrincipal: 세션정보에 접근
-    public @ResponseBody String OauthloginTest(Authentication authentication, @AuthenticationPrincipal OAuth2User oauth) {
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        System.out.println("authentication:" + oAuth2User.getAttributes());
-        System.out.println("oauth2User:" + oauth.getAttributes());
-        return "Oauth세션 정보 확인하기";
-    }
+    private final MemberService memberService;
 
 
     @GetMapping("/")
     public String ShowHome(Model model, @AuthenticationPrincipal MemberContext member) throws IOException {
 
         if (member != null) {
-            String username = member.getUsername();
-            model.addAttribute("name", username);
+            model.addAttribute("name", member.getMember().getUsername());
+            model.addAttribute("social", member.getMember().getProvider());
         }
 
         model.addAttribute("top10", songs.getTop10());

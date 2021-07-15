@@ -21,7 +21,24 @@
                 <li class="nav-item" ><a class="nav-link text-light" href="/"><i class="fas fa-home"></i> HOME</a></li>
                 <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="nav-link text-light" th:href="@{/admin}"><i class="fas fa-user-shield"></i> 관리자</a></li>
                 <li class="nav-item" sec:authorize="hasAuthority('ROLE_USER')">
-                    <a class="nav-link text-light" th:href="@{/user/{username} (username=${name})}" th:if="${name}"><i class="fas fa-user"></i> [[${name}]]님</a>
+                    <a class="nav-link text-light" th:href="@{/user/{username} (username=${name})}" th:if="${name}">
+                        <th:block th:if="${social == 'JSMUSIC'}">
+                            <img src="../images/disc.png" style="height: 25px; width: 25px;">
+                        </th:block>
+                        <th:block th:if="${social == 'google'}">
+                            <img src="../images/google.PNG" style="height: 20px; width: 20px;">
+                        </th:block>
+                        <th:block th:if="${social == 'facebook'}">
+                            <img src="../images/facebook.png" style="height: 25px; width: 25px;">
+                        </th:block>
+                        <th:block th:if="${social == 'naver'}">
+                            <img src="../images/naver.png" style="height: 30px; width: 30px;">
+                        </th:block>
+                        <th:block th:if="${social == 'kakao'}">
+                            <img src="../images/kakao.png" style="height: 25px; width: 25px;">
+                        </th:block>
+                         [[${name}]]님
+                    </a>
                 </li>
             </ul>
 

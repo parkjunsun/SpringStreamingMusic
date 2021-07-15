@@ -42,22 +42,20 @@
                     <a th:href="@{/forget/id}">아이디 찾기 </a> /
                     <a th:href="@{/forget/pw}">비밀번호 찾기</a>
                 </label>
-            </form><br><br>
+            </form><br><br><br><br><br>
             <h4>SNS계정으로도 이용 가능합니다</h4><hr>
-            <ul>
-                <li>
-                    <a href="javascript:;" class="btn_social" data-social="google">구글 로그인</a><br/>
-                </li>
-                <li>
-                    <a href="javascript:;" class="btn_social" data-social="facebook">페이스북 로그인</a><br/>
-                </li>
-                <li>
-                    <a href="javascript:;" class="btn_social" data-social="naver">네이버 로그인</a><br/>
-                </li>
-                <li>
-                    <a href="javascript:;" class="btn_social" data-social="kakao">카카오 로그인</a><br/>
-                </li>
-            </ul>
+            <a href="javascript:;" class="btn_social" data-social="google" style="text-decoration: none; margin: 0 10px;">
+                <img src="../images/google.PNG" alt="구글 로그인" style="height: 40px; width: 40px">
+            </a>
+            <a href="javascript:;" class="btn_social" data-social="facebook" style="text-decoration: none; margin: 0 10px;">
+                <img src="../images/facebook.png" alt="페이스북 로그인" style="height: 40px; width: 40px">
+            </a>
+            <a href="javascript:;" class="btn_social" data-social="naver" style="text-decoration: none; margin: 0 10px;">
+                <img src="../images/naver.png" alt="네이버 로그인" style="height: 50px; width: 50px" >
+            </a>
+            <a href="javascript:;" class="btn_social" data-social="kakao" style="text-decoration: none; margin: 0 10px;">
+                <img src="../images/kakao.png" alt="카카오 로그인" style="height: 45px; width: 45px">
+            </a>
             <script>
                 let socials = document.getElementsByClassName("btn_social");
                 for (let social of socials) {
