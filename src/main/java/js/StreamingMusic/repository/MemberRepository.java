@@ -36,7 +36,7 @@ public class MemberRepository {
     public List<Member> findByProviderAndProviderId(String provider, String providerId) {
         return em.createQuery("SELECT m FROM Member m WHERE m.provider = :provider AND m.providerId =:providerId", Member.class)
                 .setParameter("provider", provider)
-                .setParameter("providerId", provider)
+                .setParameter("providerId", providerId)
                 .getResultList();
     }
 

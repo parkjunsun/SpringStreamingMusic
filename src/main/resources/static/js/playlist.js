@@ -169,7 +169,6 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player,
     time_update_interval = 0;
 
-
 function onYouTubeIframeAPIReady () {
     player = new YT.Player('playSongIframe', {
             height: '0',
@@ -242,7 +241,6 @@ function onStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING){
         errorCnt = 0;
     }
-
 
 
     trigger(event.data, event.target);

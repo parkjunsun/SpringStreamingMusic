@@ -34,8 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
     private final DataSource dataSource;
-    private final ConfigUtil configUtil;
-
     private final PrincipalOauth2UserService principalOauth2UserService;
 
 
