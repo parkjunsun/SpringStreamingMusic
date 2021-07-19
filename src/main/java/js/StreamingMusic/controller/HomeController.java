@@ -36,7 +36,9 @@ public class HomeController {
     public String ShowHome(Model model, @AuthenticationPrincipal MemberContext member) throws IOException {
 
         if (member != null) {
-            model.addAttribute("name", member.getMember().getUsername());
+            if (!member.getMember().getProvider().equals("JSMUSIC")) model.addAttribute("name", member.getMember().getRealname());
+            else model.addAttribute("name", member.getMember().getUsername());
+
             model.addAttribute("social", member.getMember().getProvider());
         }
 

@@ -50,14 +50,16 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String provider = oAuth2UserInfo.getProvider();// google
         String providerId = oAuth2UserInfo.getProviderId();
         String email = oAuth2UserInfo.getEmail();
-        String username = oAuth2UserInfo.getName();
+        String realname = oAuth2UserInfo.getName();
+        String username = provider + providerId;
         String password = UUID.randomUUID().toString();
         String role = "ROLE_USER";
 
-        List<Member> memberList = memberService.findByProviderAndId(provider, providerId);
+        List<Member> memberList = memberService.findByUsername(username);
         if (memberList.size() == 0) {
             Member member = new Member();
             member.setUsername(username);
+            member.setRealname(realname);
             member.setPassword(password);
             member.setEmail(email);
             member.setRole(role);

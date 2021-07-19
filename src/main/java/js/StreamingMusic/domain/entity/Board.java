@@ -31,6 +31,8 @@ public class Board extends TimeEntity {
     private String img;
     private String type;
 
+    private String provider;
+
     private int likeCount;
 
 

@@ -242,7 +242,6 @@ function onStateChange(event) {
         errorCnt = 0;
     }
 
-
     trigger(event.data, event.target);
     play_stop(event.data, event.target);
     video_state = event.data;
@@ -275,7 +274,6 @@ function onStateChange(event) {
         }
     }
     else {
-
         if (repeat_flag == 2){
             if (event.data == YT.PlayerState.ENDED){
                 player.previousVideo();
@@ -320,7 +318,7 @@ function trigger(state, pl) {
         document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "#00CDFF";
         document.getElementById(index).scrollIntoView();
     }
-    else if (state == YT.PlayerState.ENDED) {
+    else if (state == -1 || state == YT.PlayerState.ENDED) {
         document.getElementById(index).innerHTML = "";
         document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
         if (document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].getElementsByTagName("i")[0]) {
@@ -538,12 +536,6 @@ function stopYoutube () {
 }
 
 var played = false;
-function collectPlayCount (data) {
-if (data == YT.PlayerState.PLAYING && played == false) {
-    played = true;
-    }
-}
-
 
 function buttonplay(element) {
     var str = element.value;

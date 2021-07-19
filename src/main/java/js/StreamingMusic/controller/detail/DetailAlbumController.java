@@ -12,6 +12,7 @@ import js.StreamingMusic.service.LikeBoardService;
 import js.StreamingMusic.service.crawling.GetDetailAlbumInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,14 +32,30 @@ public class DetailAlbumController {
     private final LikeBoardService likeBoardService;
 
     @GetMapping("/detail/albuminfo")
-    public String GetDetailAlbumInfo(Model model, @RequestParam("album_id") String album_id, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) throws IOException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = auth.getPrincipal();
+    public String GetDetailAlbumInfo(Model model, @AuthenticationPrincipal MemberContext memberContext,
+                                     @RequestParam("album_id") String album_id, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) throws IOException {
+
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        Object principal = auth.getPrincipal();
+//
+//        String name = "";
+//        if (principal != null && principal instanceof MemberContext) {
+//            name = ((MemberContext) principal).getUsername();
+//            model.addAttribute("name", name);
+//        }
 
         String name = "";
-        if (principal != null && principal instanceof MemberContext) {
-            name = ((MemberContext) principal).getUsername();
-            model.addAttribute("name", name);
+        if (memberContext != null) {
+            if (!memberContext.getMember().getProvider().equals("JSMUSIC")) {
+                model.addAttribute("name", memberContext.getMember().getRealname());
+                model.addAttribute("username", memberContext.getMember().getRealname());
+            }
+            else {
+                model.addAttribute("name", memberContext.getMember().getUsername());
+                model.addAttribute("username", memberContext.getMember().getUsername());
+            }
+            model.addAttribute("social", memberContext.getMember().getProvider());
+            name = memberContext.getUsername();
         }
 
 
@@ -48,13 +65,18 @@ public class DetailAlbumController {
         List<Board> boardList = boardService.findAlbumBoardList(pageNum, album_id);
         List<Integer> pageList = boardService.getPageList(pageNum, album_id);
         Long boardCount = boardService.getBoardCount(album_id);
+
         List<BoardDto> result = new ArrayList<>();
         for (Board board : boardList) {
             BoardDto boardDto = new BoardDto();
             boardDto.setId(board.getId());
             boardDto.setComment(board.getComment());
             boardDto.setCreatedDate(board.getCreatedDate());
-            boardDto.setWriter(board.getMember().getUsername());
+            if (!board.getMember().getProvider().equals("JSMUSIC"))
+                boardDto.setWriter(board.getMember().getRealname());
+            else
+                boardDto.setWriter(board.getMember().getUsername());
+            boardDto.setProvider(board.getMember().getProvider());
             boardDto.setTraceId(board.getTraceId());
             boardDto.setLikeCount(board.getLikeCount());
 
@@ -78,7 +100,7 @@ public class DetailAlbumController {
         model.addAttribute("album_id", album_id);
         model.addAttribute("allCount", boardCount);
         model.addAttribute("curPage", pageNum);
-        model.addAttribute("username", name);
+
 
         model.addAttribute("likeMarkingList", likeBoardDtos);
 

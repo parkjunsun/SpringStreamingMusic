@@ -20,6 +20,7 @@ public class BoardDto {
     private String artist;
     private String img;
     private String type;
+    private String provider;
 
     private int LikeCount;
 

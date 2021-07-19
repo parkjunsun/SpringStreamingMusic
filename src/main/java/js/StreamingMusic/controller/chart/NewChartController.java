@@ -30,9 +30,11 @@ public class NewChartController {
                                @AuthenticationPrincipal MemberContext memberContext) throws IOException {
 
 
-        if(memberContext != null) {
-            String username = memberContext.getUsername();
-            model.addAttribute("name", username);
+        if (memberContext != null) {
+            if (!memberContext.getMember().getProvider().equals("JSMUSIC")) model.addAttribute("name", memberContext.getMember().getRealname());
+            else model.addAttribute("name", memberContext.getMember().getUsername());
+
+            model.addAttribute("social", memberContext.getMember().getProvider());
         }
 
         List<HashMap<String, String>> songs = getNewestSongs.getSongs(pgNum);

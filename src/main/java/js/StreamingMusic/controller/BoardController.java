@@ -27,9 +27,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/post")
-    public String writeBoard(BoardDto boardDto,
-                             @AuthenticationPrincipal MemberContext member
-            , HttpServletRequest request) {
+    public String writeBoard(BoardDto boardDto, @AuthenticationPrincipal MemberContext member, HttpServletRequest request) {
 
 
         Member m = memberService.findByUsername(member.getUsername()).get(0);
@@ -42,6 +40,7 @@ public class BoardController {
         board.setArtist(boardDto.getArtist());
         board.setImg(boardDto.getImg());
         board.setType(boardDto.getType());
+        board.setProvider(m.getProvider());
         board.setMember(m);
 
         boardService.savePost(board);
