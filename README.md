@@ -3,7 +3,7 @@
 
 ***
 
-## 개발개요
+## 🚀개발개요
 * 음악 스트리밍 가격이 너무 비싸지고 있다. 모바일 스트리밍 요금만 내고 있다면 데스크탑 스트리밍 서비스를 이용하려면 추가요금이 발생한다. 금액적인 부담을 해소 하고 싶었다. youtube로는 노래를 무료로 들을 수 있는 점에 착안하여 서비스를 만들어 보았다.
 
 * 대부분의 스트리밍 서비스는 노래를 플레이리스트에 담은 후에는 그룹화를 할 수가 없다. 미리 그룹을 만들어 놓은 후에 노래를 플레이리스트에 담을 때 그룹화를 해야한다. 기존 서비스의 이러한 부분이 불편함 점으로 다가와 개선된 서비를 만들고자 했다.
@@ -12,7 +12,7 @@
 
 ***
 
-## 주요기능
+## 📚주요기능
 * ### Form 로그인과 Oauth2.0 로그인 통합
 <img src = "https://user-images.githubusercontent.com/50009692/127871724-2c5fb78d-bdd3-4b25-ba25-47318514f964.PNG" width="400" height="400">
 
@@ -30,13 +30,23 @@
 
 ***
 
-## 환경설정 (application.properties)
+## ⚒기술스택
+
+***
+
+## ⚙환경설정 (application.properties)
 ```application.properties
+#db 정보
+
 spring.datasource.url=본인 DB URL주소
 spring.datasource.username=본인 DB ID
 spring.datasource.password=본인 DB PW
 
+#youtube video id 검색 api
+
 youtube.data.apikey = Youtube Data api key
+
+#회원가입 이메일 인증시 필요기능
 
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
@@ -44,6 +54,8 @@ spring.mail.username=본인 Gmail ID
 spring.mail.password=본인 Gmail PW
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
+
+#Google, Facebook, naver, kakao Oauth2.0 인증 api 환경설정
 
 spring.security.oauth2.client.registration.google.client-id=GOOGLE Oauth2.0 api key id
 spring.security.oauth2.client.registration.google.client-secret=GOOGLE Oauth2.0 api scret key
