@@ -6,7 +6,6 @@ import js.StreamingMusic.domain.dto.RecordDto;
 import js.StreamingMusic.domain.entity.Board;
 import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.domain.entity.Record;
-//import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.security.MemberContext;
 import js.StreamingMusic.service.BoardService;
 import js.StreamingMusic.service.MemberService;
@@ -29,6 +28,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,12 +48,22 @@ public class UserController {
 
 
     @GetMapping("/user/{username}")
-    public String showUserInfo(Model model, @PathVariable("username") String username, @AuthenticationPrincipal MemberContext memberContext) throws IOException {
+    public String showUserInfo(Model model, @AuthenticationPrincipal MemberContext memberContext) throws IOException {
+
+
+        if (!memberContext.getMember().getProvider().equals("JSMUSIC"))
+            model.addAttribute("name", memberContext.getMember().getRealname());
+        else
+            model.addAttribute("name", memberContext.getMember().getUsername());
+
+        String username = memberContext.getMember().getUsername();
+
+        model.addAttribute("social", memberContext.getMember().getProvider());
 
         List<HashMap<String, String>> datum = new ArrayList<>();
 
         Member member = memberService.findByUsername(username).get(0);
-        model.addAttribute("name", member.getUsername());
+//        model.addAttribute("name", member.getUsername());
         model.addAttribute("count", member.getSongQuantity());
         model.addAttribute("role", member.getRole());
         model.addAttribute("joinDate", member.getJoinDate());
@@ -94,7 +105,16 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}/edit")
-    public String updateMemberForm(Model model, @PathVariable("username") String username) {
+    public String updateMemberForm(Model model, @AuthenticationPrincipal MemberContext memberContext) {
+
+        if (!memberContext.getMember().getProvider().equals("JSMUSIC"))
+            model.addAttribute("name", memberContext.getMember().getRealname());
+        else
+            model.addAttribute("name", memberContext.getMember().getUsername());
+
+        model.addAttribute("social", memberContext.getMember().getProvider());
+
+        String username = memberContext.getMember().getUsername();
 
         Member member = memberService.findByUsername(username).get(0);
 
@@ -109,18 +129,27 @@ public class UserController {
     }
 
     @PostMapping("/user/{username}/edit")
-    public String updateMember(Model model, @Valid MemberForm form, BindingResult result,
-                               @PathVariable("username") String username, RedirectAttributes redirectAttributes,
-                               HttpServletRequest request) {
+    public String updateMember(Model model, @Valid MemberForm form, BindingResult result, HttpServletRequest request,
+                               @AuthenticationPrincipal MemberContext memberContext, RedirectAttributes redirectAttributes) {
+
+        String tmpName = "";
+
+        if (!memberContext.getMember().getProvider().equals("JSMUSIC"))
+            tmpName = memberContext.getMember().getRealname();
+        else
+            tmpName = memberContext.getMember().getUsername();
 
         if (result.hasErrors()) {
             return "members/updateMemberForm";
         }
 
+        String username = memberContext.getMember().getUsername();
         memberService.updateMember(username, passwordEncoder.encode(form.getPassword()), form.getEmail(), form.getAge());
 
         redirectAttributes.addFlashAttribute("successMsg", "회원정보가 수정 되었습니다");
-        return "redirect:/user/" + username;
+
+        String path = URLEncoder.encode("/user/" + tmpName, StandardCharsets.UTF_8);
+        return "redirect:" + path;
     }
 
     @GetMapping("/user/{username}/myboard")

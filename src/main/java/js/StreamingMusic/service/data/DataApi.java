@@ -12,6 +12,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -26,7 +27,10 @@ import java.util.List;
 @Service
 public class DataApi {
 
-    private static String api_key = "AIzaSyD26KoGfRFz3p6ptxqInXSGKq3jt8_C13I";
+
+    @Value("${youtube.data.apikey}")
+    private String api_key;
+
 
     public List<String> getVideoId(String title, String artist) throws IOException, MalformedURLException, ParseException {
 

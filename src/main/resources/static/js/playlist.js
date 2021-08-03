@@ -318,7 +318,7 @@ function trigger(state, pl) {
         document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "#00CDFF";
         document.getElementById(index).scrollIntoView();
     }
-    else if (state == -1 || state == YT.PlayerState.ENDED) {
+    else if (state == YT.PlayerState.ENDED) {
         document.getElementById(index).innerHTML = "";
         document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
         if (document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].getElementsByTagName("i")[0]) {
