@@ -31,6 +31,26 @@
 ***
 
 ## ⚒기술스택
+* ### Backend
+
+<img src = "https://user-images.githubusercontent.com/50009692/128025620-433b0fc2-4fc9-4b7e-83cf-97a4357828d3.PNG" height="100">
+
+* ### DB & ORM
+
+<img src = "https://user-images.githubusercontent.com/50009692/128027059-a48492dc-567a-4974-8ced-8de6705adfba.PNG"> <img src = "https://user-images.githubusercontent.com/50009692/128027411-8a96f791-a21c-4806-8ef5-642650960b2c.PNG">
+
+* ### Frontend
+
+<img src = "https://user-images.githubusercontent.com/50009692/128028270-bbb1adab-70d6-41c2-aef0-62ac8627a67f.PNG" height="80">　　<img src = "https://user-images.githubusercontent.com/50009692/128028278-1a8e5034-f27d-4275-b9ff-0d82416e7127.PNG" height="80">
+
+* ### API
+> Youtube Data API
+> 
+> Youtube Iframe API
+> 
+> GOOGLE, FACEBOOK, NAVER, KAKAO Oauth2.0 API
+
+
 
 ***
 
