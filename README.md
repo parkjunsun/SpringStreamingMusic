@@ -1,9 +1,9 @@
-## Music Streaming Web Service
+## 🔊 Music Streaming Web Service
 🎵음원이나 youtube 라이브 음원을 골라 나만의 플레이리스트에 넣어 들을 수 있는 뮤직 스트리밍 웹서버입니다🎵
 
 ***
 
-## 🚀개발개요
+## 🚀 개발개요
 * 음악 스트리밍 가격이 너무 비싸지고 있다. 모바일 스트리밍 요금만 내고 있다면 데스크탑 스트리밍 서비스를 이용하려면 추가요금이 발생한다. 금액적인 부담을 해소 하고 싶었다. youtube로는 노래를 무료로 들을 수 있는 점에 착안하여 서비스를 만들어 보았다.
 
 * 대부분의 스트리밍 서비스는 노래를 플레이리스트에 담은 후에는 그룹화를 할 수가 없다. 미리 그룹을 만들어 놓은 후에 노래를 플레이리스트에 담을 때 그룹화를 해야한다. 기존 서비스의 이러한 부분이 불편함 점으로 다가와 개선된 서비를 만들고자 했다.
@@ -12,7 +12,7 @@
 
 ***
 
-## 📚주요기능
+## 📚 주요기능
 * ### Form 로그인과 Oauth2.0 로그인 통합
 <img src = "https://user-images.githubusercontent.com/50009692/127871724-2c5fb78d-bdd3-4b25-ba25-47318514f964.PNG" width="400" height="400">
 
@@ -30,7 +30,7 @@
 
 ***
 
-## ⚒기술스택
+## ⚒ 기술스택
 * ### Backend
 
 <img src = "https://user-images.githubusercontent.com/50009692/128025620-433b0fc2-4fc9-4b7e-83cf-97a4357828d3.PNG" height="100">
@@ -54,7 +54,7 @@
 
 ***
 
-## ⚙환경설정 (application.properties)
+## ⚙ 환경설정 (application.properties)
 ```application.properties
 #db 정보
 
