@@ -33,7 +33,7 @@
 ## ⚒ 기술스택
 * ### Backend
 
-<img src = "https://user-images.githubusercontent.com/50009692/128025620-433b0fc2-4fc9-4b7e-83cf-97a4357828d3.PNG" height="100">
+<img src="https://user-images.githubusercontent.com/50009692/128605119-f9409005-2078-493b-9adc-9de204476dda.PNG" height="100">　<img src = "https://user-images.githubusercontent.com/50009692/128025620-433b0fc2-4fc9-4b7e-83cf-97a4357828d3.PNG" height="100">
 
 * ### DB & ORM
 
