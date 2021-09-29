@@ -92,6 +92,11 @@ public class MemberContext implements UserDetails, OAuth2User {
         return true;
     }
 
+    /**
+     *
+     * Oauth2User overloading
+     */
+
     @Override
     public Map<String, Object> getAttributes() {
         return attributes;

@@ -82,15 +82,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
         .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login") //사용자 정의 loginPage
                 .loginProcessingUrl("/login_proc") ///login_proc 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행해줌
                 .defaultSuccessUrl("/")
                 .successHandler(successHandler)
                 .failureHandler(failureHandler)
                 .permitAll()
         .and()
-                .oauth2Login() //구글 로그인이 완료된 뒤의 후처리가 필요 1.코드받기(인증) 2.엑세스토큰(권한) 3.사용자프로필 정보를 가져옴 4-1.그 정보를 토대로 회원가입 자동진행 4-2. 집주소, vip(일반)등급같은 추가할 정보가 있을 경우 또 입력이 가능해야함
-                                //구글 로그인이 완료가 되면 (엑세스 토큰 + 사용자프로필 정보를 받음)
+                .oauth2Login() //구글 로그인이 완료된 뒤의 후처리가 필요 1.코드받기(인증됬다는것) 2.엑세스토큰(권한) 3.사용자프로필 정보를 가져옴 4-1.그 정보를 토대로 회원가입 자동진행 4-2. 집주소, vip(일반)등급같은 추가할 정보가 있을 경우 또 입력이 가능해야함
+                                //중요! 구글 로그인이 완료가 되면 엑세스 토큰 + 사용자프로필 정보를 받음
+                .loginPage("/login")
                 .userInfoEndpoint()
                 .userService(principalOauth2UserService);
     }
