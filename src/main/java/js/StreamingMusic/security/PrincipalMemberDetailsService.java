@@ -39,7 +39,7 @@ import java.util.List;
 //}
 
 @Service
-public class CustomMemberDetailsService implements UserDetailsService {
+public class PrincipalMemberDetailsService implements UserDetailsService {
 
     @Autowired
     private MemberService memberService;

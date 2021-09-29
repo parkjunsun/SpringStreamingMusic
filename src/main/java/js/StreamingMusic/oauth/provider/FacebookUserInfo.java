@@ -2,7 +2,7 @@ package js.StreamingMusic.oauth.provider;
 
 import java.util.Map;
 
-public class FacebookUserInfo implements OAuth2UserInfo{
+public class FacebookUserInfo implements OAuth2UserInfo {
 
     private Map<String, Object> attributes; //oauth2User.getAttributes()
 
