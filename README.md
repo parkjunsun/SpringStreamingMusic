@@ -12,6 +12,12 @@
 
 ***
 
+## 💾 ERD 설계
+
+<img src="https://user-images.githubusercontent.com/50009692/135459139-8fe292f0-060e-41ef-b425-bce6b14f7dfe.png">
+
+***
+
 ## 📚 주요기능
 * ### ✅ Form 로그인과 Oauth2.0 로그인 통합
 <img src = "https://user-images.githubusercontent.com/50009692/127871724-2c5fb78d-bdd3-4b25-ba25-47318514f964.PNG" width="400" height="400">
