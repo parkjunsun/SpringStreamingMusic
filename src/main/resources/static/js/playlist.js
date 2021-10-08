@@ -147,6 +147,7 @@ window.onload = function() {
 
 flag = 0;
 repeat_flag = 0;
+next_flag = 0;
 cnt = 0;
 
 function shuffle(){
@@ -318,7 +319,7 @@ function trigger(state, pl) {
         document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "#00CDFF";
         document.getElementById(index).scrollIntoView();
     }
-    else if (state == YT.PlayerState.ENDED) {
+    else if (state == YT.PlayerState.ENDED || state == YT.PlayerState.UNSTARTED) {
         document.getElementById(index).innerHTML = "";
         document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
         if (document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].getElementsByTagName("i")[0]) {
@@ -327,16 +328,22 @@ function trigger(state, pl) {
             document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
         }
 
-        $(document).ready(function() {
-            $.ajax({
-                url: "/data",
-                type: "POST",
-                data: {"title": data[index].title,
-                       "artist": data[index].artist,
-                       "img": data[index].img,
-                       "songid": data[index].songid},
+        if (next_flag != 1) {
+            $(document).ready(function () {
+                $.ajax({
+                    url: "/data",
+                    type: "POST",
+                    data: {
+                        "title": data[index].title,
+                        "artist": data[index].artist,
+                        "img": data[index].img,
+                        "songid": data[index].songid
+                    },
+                });
             });
-        });
+        }
+
+        next_flag = 0
     }
 }
 
@@ -405,6 +412,7 @@ $(document).ready(function(){
     });
 
     $('#next').on('click', function() {
+        next_flag = 1;
         if (flag == 1){
             if (arr.length){
                 idx = getRandomId();

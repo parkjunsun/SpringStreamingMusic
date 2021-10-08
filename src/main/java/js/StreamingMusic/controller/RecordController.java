@@ -30,6 +30,7 @@ public class RecordController {
         String username = memberContext.getUsername();
         Member member = memberService.findByUsername(username).get(0);
 
+        // ajax로 데이터 받아옴
         String title = request.getParameter("title");
         String artist = request.getParameter("artist");
         String img = request.getParameter("img");

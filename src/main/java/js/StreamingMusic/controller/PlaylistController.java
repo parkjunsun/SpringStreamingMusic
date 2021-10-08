@@ -180,7 +180,7 @@ public class PlaylistController {
     public String reorderSong(Model model, @RequestParam(value = "relocation") String jsonStr, @AuthenticationPrincipal MemberContext memberContext
     ) throws ParseException {
 
-        List<HashMap<String, String>> songs = dataApi.parsingAndRelocate(jsonStr);
+        List<HashMap<String, String>> songs = dataApi.parsingAndRelocate(jsonStr); //ajax로 jsonStr을 받아오는것임
 
         model.addAttribute("songs", songs);
         model.addAttribute("name", memberContext.getUsername());
