@@ -31,11 +31,6 @@
   * AWS EC2
   * AWS S3
 
-* ### API
-   * Youtube Data API
-   * Youtube Iframe API
-   * GOOGLE, FACEBOOK, NAVER, KAKAO Oauth2.0 API
-
 <br><br>
 
 ## 💾 ERD 설계
@@ -63,7 +58,15 @@
 <br><br>
 
 
-## ⚙ 환경설정 (application.properties)
+## ⚙ 환경설정
+* #### API
+> Youtube Data API (<https://developers.google.com/youtube/v3/getting-started?hl=ko>)
+> 
+> Youtube Iframe API (<https://developers.google.com/youtube/iframe_api_reference?hl=ko>)
+> 
+> GOOGLE, FACEBOOK, NAVER, KAKAO Oauth2.0 API (<https://developers.google.com/identity/protocols/oauth2>)
+
+* #### application.properties
 ```application.properties
 #db 정보
 
