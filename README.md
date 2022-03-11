@@ -32,11 +32,9 @@
   * AWS S3
 
 * ### API
-> Youtube Data API
-> 
-> Youtube Iframe API
-> 
-> GOOGLE, FACEBOOK, NAVER, KAKAO Oauth2.0 API
+   * Youtube Data API
+   * Youtube Iframe API
+   * GOOGLE, FACEBOOK, NAVER, KAKAO Oauth2.0 API
 
 <br><br>
 
