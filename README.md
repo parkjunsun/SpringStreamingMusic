@@ -1,7 +1,7 @@
 ## 🔊 Music Streaming Web Service
 🎵음원이나 youtube 라이브 음원을 골라 나만의 플레이리스트에 넣어 들을 수 있는 뮤직 스트리밍 웹서버입니다🎵
 
-***
+<br><br>
 
 ## 🚀 개발개요
 * 음악 스트리밍 가격이 너무 비싸지고 있다. 모바일 스트리밍 요금만 내고 있다면 데스크탑 스트리밍 서비스를 이용하려면 추가요금이 발생한다. 금액적인 부담을 해소 하고 싶었다. 또한 youtube로는 노래를 무료로 들을 수 있는 점에 착안하여 서비스를 만들어 보았다.
@@ -10,13 +10,41 @@
 
 * 개인적으로 노래감상하는 것을 좋아한다. 음원도 물론 많이 듣지만 가수들의 라이브 공연 무대를 듣는 것을 좋아한다. 기존 스트리밍 서비스에서는 음원만 있을 뿐 라이브 공연을 들을 수는 없다. 나와 같이 라이브 공연 듣는 것을 좋아하는 사람들을 위해 플레이리스트에 음원 뿐만 아니라 라이브 공연 도 넣을 수 있는 서비스를 만들어 보았다.
 
-***
+<br><br>
+
+## ⚒ 기술스택
+* ### Backend
+  * Java
+  * Spring
+  * Spring Security
+  * Thymeleaf
+
+* ### DB & ORM
+  * PostgreSql
+  * JPA
+
+* ### Frontend
+  * HTML, CSS, Javascript
+  * jQuery
+
+* ### Infra
+  * AWS EC2
+  * AWS S3
+
+* ### API
+> Youtube Data API
+> 
+> Youtube Iframe API
+> 
+> GOOGLE, FACEBOOK, NAVER, KAKAO Oauth2.0 API
+
+<br><br>
 
 ## 💾 ERD 설계
 
 <img src="https://user-images.githubusercontent.com/50009692/135459139-8fe292f0-060e-41ef-b425-bce6b14f7dfe.png">
 
-***
+<br><br>
 
 ## 📚 주요기능
 * ### ✅ Form 로그인과 Oauth2.0 로그인 통합
@@ -34,31 +62,8 @@
 <img src = "https://user-images.githubusercontent.com/50009692/127876376-49b18521-67e9-43c9-b53e-5756c24ad179.PNG" height="700">
 <img src = "https://user-images.githubusercontent.com/50009692/127876408-840c143f-24ac-4520-ab09-deb4ca75d4b6.PNG" height="700">
 
-***
+<br><br>
 
-## ⚒ 기술스택
-* ### Backend
-
-<img src="https://user-images.githubusercontent.com/50009692/128605119-f9409005-2078-493b-9adc-9de204476dda.PNG" height="100">　<img src = "https://user-images.githubusercontent.com/50009692/128025620-433b0fc2-4fc9-4b7e-83cf-97a4357828d3.PNG" height="100">
-
-* ### DB & ORM
-
-<img src = "https://user-images.githubusercontent.com/50009692/128027059-a48492dc-567a-4974-8ced-8de6705adfba.PNG"> <img src = "https://user-images.githubusercontent.com/50009692/128027411-8a96f791-a21c-4806-8ef5-642650960b2c.PNG">
-
-* ### Frontend
-
-<img src = "https://user-images.githubusercontent.com/50009692/128028270-bbb1adab-70d6-41c2-aef0-62ac8627a67f.PNG" height="80">　　<img src = "https://user-images.githubusercontent.com/50009692/128028278-1a8e5034-f27d-4275-b9ff-0d82416e7127.PNG" height="80">
-
-* ### API
-> Youtube Data API
-> 
-> Youtube Iframe API
-> 
-> GOOGLE, FACEBOOK, NAVER, KAKAO Oauth2.0 API
-
-
-
-***
 
 ## ⚙ 환경설정 (application.properties)
 ```application.properties
