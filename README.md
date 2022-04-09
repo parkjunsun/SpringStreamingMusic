@@ -41,6 +41,7 @@
 
 ## 📚 주요기능
 * ### ✅ Form 로그인과 Oauth2.0 로그인 통합
+<br>
 <div align=center>
 <img src = "https://user-images.githubusercontent.com/50009692/127871724-2c5fb78d-bdd3-4b25-ba25-47318514f964.PNG" width="400" height="400">
 </div>
@@ -48,6 +49,7 @@
 <br><br>
 
 * ### ✅ 메인 사이트 - 노래 검색, 저장, 상세정보, 1회 감상 기능
+<br>
 <div align=center>
 <img src = "https://user-images.githubusercontent.com/50009692/127873089-e20e6db3-92b4-4201-b5fd-b1c4d50e0a18.PNG"><br>
 </div>
@@ -55,6 +57,7 @@
 <br><br>
 
 * ### ✅ 웹플레이어 - 반복재생, 셔플, 재생/정지, 다음곡/다시듣기, 장르별그룹화, Drag & Drop으로 노래 순서 변경
+<br>
 <div align=center>
 <img src = "https://user-images.githubusercontent.com/50009692/127874552-66beace3-8648-45f7-84f3-58919715e73e.PNG" height="600">
 </div>
@@ -62,6 +65,7 @@
 <br><br>
 
 * ### ✅ myPage - 가수 및 노래별 감상 횟수 히스토리, 댓글 모음, 회원 정보 수정
+<br>
 <div align=center>
 <img src = "https://user-images.githubusercontent.com/50009692/127876376-49b18521-67e9-43c9-b53e-5756c24ad179.PNG">
 <img src = "https://user-images.githubusercontent.com/50009692/127876408-840c143f-24ac-4520-ab09-deb4ca75d4b6.PNG" height="700">
