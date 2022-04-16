@@ -56,7 +56,7 @@
 
 <br><br>
 
-* ### ✅ 웹플레이어 - 반복재생, 셔플, 재생/정지, 다음곡/다시듣기, 장르별그룹화, Drag & Drop으로 노래 순서 변경
+* ### ✅ 웹플레이어 - 반복재생, 셔플, 장르별 그룹화, Drag & Drop으로 노래 순서 변경
 <br>
 <div align=center>
 <img src = "https://user-images.githubusercontent.com/50009692/127874552-66beace3-8648-45f7-84f3-58919715e73e.PNG" height="600">
