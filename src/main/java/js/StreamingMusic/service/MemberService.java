@@ -1,6 +1,7 @@
 package js.StreamingMusic.service;
 
 //import js.StreamingMusic.domain.SocialType;
+import js.StreamingMusic.domain.dto.MemberDto;
 import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.exception.NotExistUserNameException;
 import js.StreamingMusic.repository.MemberRepository;
@@ -104,7 +105,7 @@ public class MemberService {
         member.setRole(role);
     }
 
-    public List<Member> findAllMember() {
-        return memberRepository.findAll();
+    public List<MemberDto> findAllMember() {
+        return memberRepository.findAllMemberDto();
     }
 }

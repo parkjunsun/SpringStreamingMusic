@@ -1,6 +1,7 @@
 package js.StreamingMusic.repository;
 
 //import js.StreamingMusic.domain.SocialType;
+import js.StreamingMusic.domain.dto.MemberDto;
 import js.StreamingMusic.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -84,6 +85,15 @@ public class MemberRepository {
         return em.createQuery("SELECT m FROM Member m", Member.class)
                 .getResultList();
     }
+
+    public List<MemberDto> findAllMemberDto() {
+        String jpql = "SELECT new js.StreamingMusic.domain.dto.MemberDto(" +
+                "m.id, m.username, m.realname, m.email, m.age, m.role, " +
+                "m.songQuantity, m.boardQuantity, m.joinDate) " +
+                "FROM Member m";
+        return em.createQuery(jpql, MemberDto.class).getResultList();
+    }
+
 
 
 

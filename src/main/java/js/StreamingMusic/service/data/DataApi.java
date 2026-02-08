@@ -13,6 +13,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -23,6 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class DataApi {
@@ -135,7 +137,7 @@ public class DataApi {
 
     }
 
-
+    @Cacheable(value = "artistImages", key = "#artist")
     public String getImgByArtist(String artist) throws IOException {
         if (artist.contains("&")) {
             artist = artist.split("&")[0];
@@ -163,9 +165,19 @@ public class DataApi {
             artist = artist.replace("&", "");
         }
 
+
+
         String url = "https://www.genie.co.kr/search/searchMain?query=" + artist + " " + title + "&pagesize=1";
+        String tmpUrl = "https://www.genie.co.kr/search/searchMain?query=" + title + " " + artist + "&pagesize=1";
+        String songid = null;
         Document d1 = Jsoup.connect(url).get();
-        String songid = d1.selectFirst("tr.list").attr("songid");
+        if (d1.selectFirst("tr.list") == null) {
+            Document d2 = Jsoup.connect(tmpUrl).get();
+            songid = d2.attr("songid");
+        } else {
+            songid = d1.selectFirst("tr.list").attr("songid");
+        }
+
         String song_url = "https://www.genie.co.kr/detail/songInfo?xgnm=" + songid;
 
         Document d2 = Jsoup.connect(song_url).get();

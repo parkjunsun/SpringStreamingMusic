@@ -177,7 +177,7 @@ function onYouTubeIframeAPIReady () {
             loadPlaylist:{
                 listType:'playlist',
                 list: id_lst,
-                index: parseInt(0),
+                index: parseInt("0"),
                 suggestedQuality: 'small'
             },
             playerVars: {
@@ -256,7 +256,7 @@ function onStateChange(event) {
                 currentIndex = event.target.getPlaylistIndex();
             }
 
-            if (event.data == YT.PlayerState.ENDED) {
+            if (event.data == YT.PlayerState.ENDED || state == YT.PlayerState.UNSTARTED) {
                 if (currentIndex == (id_lst.length -1)) {
                     player.loadPlaylist({
                         'playlist': id_lst,
@@ -269,22 +269,22 @@ function onStateChange(event) {
             }
         }
         else if (repeat_flag == 2){
-            if (event.data == YT.PlayerState.ENDED){
+            if (event.data == YT.PlayerState.ENDED || state == YT.PlayerState.UNSTARTED){
                 player.previousVideo();
             }
         }
     }
     else {
         if (repeat_flag == 2){
-            if (event.data == YT.PlayerState.ENDED){
+            if (event.data == YT.PlayerState.ENDED || state == YT.PlayerState.UNSTARTED){
                 player.previousVideo();
             }
         }
         else {
-            if (event.data == YT.PlayerState.ENDED) {
+            if (event.data === YT.PlayerState.ENDED || state === YT.PlayerState.UNSTARTED) {
+                autoshuffle();
                 num = getRandomId();
                 player.playVideoAt(num);
-                autoshuffle();
             }
         }
     }
@@ -328,20 +328,20 @@ function trigger(state, pl) {
             document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
         }
 
-        if (next_flag != 1) {
-            $(document).ready(function () {
-                $.ajax({
-                    url: "/data",
-                    type: "POST",
-                    data: {
-                        "title": data[index].title,
-                        "artist": data[index].artist,
-                        "img": data[index].img,
-                        "songid": data[index].songid
-                    },
-                });
-            });
-        }
+        // if (next_flag != 1) {
+        //     $(document).ready(function () {
+        //         $.ajax({
+        //             url: "/data",
+        //             type: "POST",
+        //             data: {
+        //                 "title": data[index].title,
+        //                 "artist": data[index].artist,
+        //                 "img": data[index].img,
+        //                 "songid": data[index].songid
+        //             },
+        //         });
+        //     });
+        // }
 
         next_flag = 0
     }

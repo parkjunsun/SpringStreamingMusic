@@ -48,12 +48,7 @@ public class MemberContext implements UserDetails, OAuth2User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collect = new ArrayList<>();
-        collect.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return member.getRole();
-            }
-        });
+        collect.add((GrantedAuthority) () -> member.getRole());
         return collect;
     }
 

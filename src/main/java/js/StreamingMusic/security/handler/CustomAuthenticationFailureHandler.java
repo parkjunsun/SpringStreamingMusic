@@ -1,6 +1,7 @@
 package js.StreamingMusic.security.handler;
 
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -19,7 +20,11 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         if (exception instanceof BadCredentialsException) {
-            errorMessage = "Invalid Username or Password";
+            errorMessage = "DisabledException account";
+        } else if (exception instanceof CredentialsExpiredException) {
+            errorMessage = "CredentialExpiredException account";
+        } else if (exception instanceof BadCredentialsException) {
+            errorMessage = "BadCredentialException account";
         }
 
         setDefaultFailureUrl("/login?error=true&exception=" + errorMessage);

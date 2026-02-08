@@ -25,12 +25,7 @@ public class AdminController {
     @GetMapping("/admin")
     public String adminHome(Model model) {
 
-        List<Member> members = memberService.findAllMember();
-        List<MemberDto> memberList = members.stream()
-                .map(m -> new MemberDto(m.getId(), m.getUsername(), m.getRealname(), m.getEmail(), m.getAge(), m.getRole(), m.getSongQuantity(), m.getBoardQuantity(), m.getJoinDate()))
-                .collect(Collectors.toList());
-
-
+        List<MemberDto> memberList = memberService.findAllMember();
         model.addAttribute("members", memberList);
 
         return "admin/adminHome";
@@ -75,13 +70,28 @@ public class AdminController {
     }
 
     @PostMapping("/admin/{id}/post_delete")
-    public String deleteBoard(@PathVariable Long id, @RequestParam("board_writer") String writer, HttpServletRequest request) {
-        Member findMember = memberService.findByUsername(writer).get(0);
-        findMember.removeBoard(1);
+    public String deleteBoard(@PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
         Board board = boardService.findBoard(id);
+        // 게시글이 존재하지 않을 경우 처리
+        if (board == null) {
+            redirectAttributes.addFlashAttribute("errorMsg", "게시글을 찾을 수 없습니다.");
+            return "redirect:/admin";
+        }
+
+        // 게시글 작성자를 찾음
+        Member boardWriter = board.getMember();
+        if (boardWriter == null) {
+            redirectAttributes.addFlashAttribute("errorMsg", "게시글 작성자를 찾을 수 없습니다.");
+            return "redirect:/admin";
+        }
+
+        // 작성자의 게시글 수 감소
+        boardWriter.removeBoard(1);
+        // 게시글 삭제
         boardService.removePost(board);
 
+        redirectAttributes.addFlashAttribute("successMsg", "게시글이 삭제되었습니다.");
         return "redirect:" + request.getHeader("Referer");
 
     }

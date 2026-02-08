@@ -26,7 +26,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         if (alreadySetup) {
             return;
         }
-        createAdminIfNotFound("admin", "1164425ab^^", "", 1, "ROLE_ADMIN", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        createAdminIfNotFound("admin", "1234", "", 1, "ROLE_ADMIN", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
         alreadySetup = true;
     }
