@@ -59,11 +59,11 @@
 
     $(document).ready(function() {
 
-        url1 = "http://localhost:8080/ajax/firstmenu";
-        url2 = "http://localhost:8080/ajax/secondmenu";
-        url3 = "http://localhost:8080/ajax/thirdmenu";
-        url4 = "http://localhost:8080/ajax/fourthmenu";
-        url5 = "http://localhost:8080/ajax/fifthmenu";
+        url1 = "http://localhost:9999/ajax/firstmenu";
+        url2 = "http://localhost:9999/ajax/secondmenu";
+        url3 = "http://localhost:9999/ajax/thirdmenu";
+        url4 = "http://localhost:9999/ajax/fourthmenu";
+        url5 = "http://localhost:9999/ajax/fifthmenu";
 
         $('#val').on('click', function(){
             $.ajax({url: url1, async: false, success:function(result){

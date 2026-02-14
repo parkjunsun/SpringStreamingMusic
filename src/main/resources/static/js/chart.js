@@ -44,6 +44,10 @@ $(document).ready(function(){
                     player.seekTo(newTime);
     });
 
+    $('#replay').on('click', function() {
+        player.seekTo(0);
+    });
+
 });
 
 if (videoIds != null) {

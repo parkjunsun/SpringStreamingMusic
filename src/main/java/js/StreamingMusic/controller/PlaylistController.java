@@ -34,7 +34,7 @@ public class PlaylistController {
     // 임시 방편 //
     private String tempKeyword;
 
-    private static final String searchUrl = "http://localhost:8080/search";
+    private static final String searchUrl = "http://localhost:9999/search";
 
     @GetMapping("/playlist")
     public String showPlaylist(Model model,

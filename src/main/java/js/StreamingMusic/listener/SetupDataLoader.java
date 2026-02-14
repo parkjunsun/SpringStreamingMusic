@@ -26,13 +26,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         if (alreadySetup) {
             return;
         }
-        createAdminIfNotFound("admin", "1234", "", 1, "ROLE_ADMIN", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        createAdminIfNotFound("admin", "1164425ab^^", "", 1, "ROLE_ADMIN", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
         alreadySetup = true;
     }
 
 
-    public void createAdminIfNotFound(String name, String password, String email, Integer age, String role, String joinDate) {
+    public void createAdminIfNotFound(String name, String password, String email, Integer age, String role,  String joinDate) {
 
         List<Member> findAdmin = memberService.findByAdminName(name);
         if (findAdmin.isEmpty()) {
@@ -43,6 +43,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             admin.setAge(age);
             admin.setRole(role);
             admin.setJoinDate(joinDate);
+
 
             memberService.join(admin);
         }
