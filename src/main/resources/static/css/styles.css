@@ -5,6 +5,7 @@
     box-sizing: border-box;
 }
 
+
 .wrap {
     height: 100%;
     width: 100%;
@@ -21,6 +22,7 @@
     background: #fff;
     padding: 5px;
     overflow: hidden;
+    border-radius: 20px;
 }
 .button-wrap {
     width: 230px;
@@ -69,6 +71,7 @@
     border-bottom: 1px solid #999;
     outline: none;
     background: transparent;
+    border-radius: 5px;
 }
 .submit {
     width: 85%;
@@ -98,16 +101,141 @@ header{
     box-sizing: border-box;
     text-align: center;
     width: 100%;
-    height: 150px;
-    padding: 25px 40px;
-    background-color: #3A56B7;
+    min-height: 150px;
+    padding: 30px 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
     overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* header 내 링크 기본 스타일 */
+header > a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+header > a:hover {
+    transform: scale(1.02);
+}
+
+/* 음악 노트 배경 패턴 */
+header::before {
+    content: '♪ ♫ ♩ ♬';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 80px;
+    color: rgba(255, 255, 255, 0.1);
+    letter-spacing: 100px;
+    animation: musicNotes 20s linear infinite;
+    pointer-events: none;
+}
+
+/* 추가 음표 레이어 */
+header::after {
+    content: '♫ ♪ ♬ ♩';
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 100%;
+    height: 100%;
+    font-size: 60px;
+    color: rgba(255, 255, 255, 0.08);
+    letter-spacing: 150px;
+    animation: musicNotes 15s linear infinite reverse;
+    pointer-events: none;
+}
+
+@keyframes musicNotes {
+    0% {
+        transform: translateX(-10%);
+        opacity: 0.1;
+    }
+    50% {
+        opacity: 0.15;
+    }
+    100% {
+        transform: translateX(10%);
+        opacity: 0.1;
+    }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 header h1{
     float: center;
-    font: normal 24px/1.5 'Open Sans', sans-serif;
-    color: #fff;
+    font: bold 48px/1.2 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    padding: 20px 80px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 255, 255, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.3);
+    position: relative;
+    font-weight: 900;
+    animation: textGlow 3s ease-in-out infinite alternate;
+    z-index: 1;
+}
+
+/* h1 좌측 음표 아이콘 */
+header h1::before {
+    content: '🎵';
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 45px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+/* h1 우측 음표 아이콘 */
+header h1::after {
+    content: '🎶';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 45px;
+    animation: bounce 2s ease-in-out infinite 0.5s;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+    }
+    50% {
+        transform: translateY(-60%) scale(1.1);
+    }
+}
+
+@keyframes textGlow {
+    from {
+        text-shadow:
+            2px 2px 4px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 255, 255, 0.5),
+            0 0 30px rgba(255, 255, 255, 0.3);
+    }
+    to {
+        text-shadow:
+            2px 2px 4px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 255, 255, 0.8),
+            0 0 40px rgba(255, 255, 255, 0.6);
+    }
 }
 
 header a.a1{

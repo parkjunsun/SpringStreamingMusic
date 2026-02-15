@@ -3,6 +3,7 @@ input.search1 {
     float:left;
     padding: 7px;
     width:40%;
+    border-radius: 20px 0 0 20px;
 }
 
 
@@ -26,6 +27,7 @@ input.search1:focus {
     border: 1px solid skyblue;
     border-left:none;
     cursor: pointer;
+    border-radius: 0 20px 20px 0;
 }
 
 form.example input.textbox {
@@ -34,7 +36,7 @@ form.example input.textbox {
   border: 1px solid red;
   float: left;
   width: 80%;
-
+  border-radius: 20px 0 0 20px;
 }
 
 form.example .searchbtn {
@@ -47,6 +49,7 @@ form.example .searchbtn {
   border: 1px solid red;
   border-left: none;
   cursor: pointer;
+  border-radius: 0 20px 20px 0;
 }
 
 form.example button:hover {
@@ -57,6 +60,55 @@ form.example::after {
   content: "";
   clear: both;
   display: table;
+}
+
+/* 차트 링크 스타일 */
+.chart-link {
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.chart-link:hover::before {
+    left: 100%;
+}
+
+.chart-link:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    color: white !important;
+}
+
+.chart-link i {
+    transition: transform 0.3s ease;
+}
+
+.chart-link:hover i {
+    transform: translateX(5px);
 }
 
 /*
@@ -110,6 +162,7 @@ form.example::after {
     border: 1px solid #fff;
     padding: 10px;
     overflow: hidden;
+    border-radius: 15px;
 }
 
 
@@ -120,6 +173,8 @@ form.example::after {
     float: left;
     position: relative;
     color: white;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 
@@ -130,6 +185,7 @@ form.example::after {
     transition: .5s ease;
     backface-visibility: hidden;
     filter:brightness(0.8);
+    border-radius: 12px;
 }
 
 .middle {
@@ -194,14 +250,33 @@ form.example::after {
 
 table {
     border-top: 1px solid gray;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     padding: 10px;
     width:100%;
+    border-radius: 15px;
+    overflow: hidden;
  }
 
 tr,td {
     border-bottom: 1px solid #B0C4DE;
     padding: 20px;
+}
+
+tr:first-child td:first-child {
+    border-top-left-radius: 15px;
+}
+
+tr:first-child td:last-child {
+    border-top-right-radius: 15px;
+}
+
+tr:last-child td:first-child {
+    border-bottom-left-radius: 15px;
+}
+
+tr:last-child td:last-child {
+    border-bottom-right-radius: 15px;
 }
 
 
@@ -216,6 +291,7 @@ tr,td {
     display: none;
     width:80px;
     height:80px;
+    border-radius: 10px;
 }
 
 
@@ -397,6 +473,7 @@ input.play-button {
     cursor: pointer;
     font-size: 0;
     line-height: 0;
+    border-radius: 50%;
 }
 
 
@@ -408,6 +485,7 @@ input.add-button {
     cursor: pointer;
     font-size: 0;
     line-height: 0;
+    border-radius: 50%;
 }
 
 
@@ -419,6 +497,7 @@ input.desc_btn {
     cursor: pointer;
     font-size: 0;
     line-height: 0;
+    border-radius: 50%;
 }
 
 
@@ -429,7 +508,7 @@ input.desc_btn {
     height: 170px;
     width: 100%;
     bottom: 0;
-
+    border-radius: 15px 15px 0 0;
 }
 
 
@@ -439,6 +518,7 @@ input.desc_btn {
     width: 100%;
     height: 20px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 
@@ -446,6 +526,7 @@ input.desc_btn {
     display: inline-block;
     width: 150px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 

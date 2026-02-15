@@ -19,7 +19,6 @@ public class SongRepository {
         em.persist(song);
     }
 
-
     public void remove(Song song) {em.remove(song);}
 
     public Song findOne(Long songid) {
@@ -36,9 +35,17 @@ public class SongRepository {
         return data;
     }
 
+    public List<SongDto> findAllByMemberId(Long memberId) {
+        String jpql = "select new js.StreamingMusic.domain.dto.SongDto(s.id, s.title, s.artist, s.videoId, s.videoId2, s.videoId3, s.img, s.genre, s.duration, s.songid) " +
+                      "From Song s join s.member m " +
+                      "where m.id = :memberId";
+        List<SongDto> data = em.createQuery(jpql, SongDto.class).setParameter("memberId", memberId).getResultList();
+
+        return data;
+    }
 
 
-    public List<SongDto> findAllByCategory(String name, String genre) {
+    public List<SongDto> findAllByCategory(Long memberId, String genre) {
         String jpql = "select new js.StreamingMusic.domain.dto.SongDto(s.id, s.title, s.artist, s.videoId, s.videoId2, s.videoId3, s.img, s.genre, s.duration, s.songid) ";
         if (genre.equals("가요 / 발라드;가요 / 블루스/포크;가요 / R&B/소울")){
             String[] columns = genre.split(";");
@@ -46,10 +53,10 @@ public class SongRepository {
             String blues = columns[1];
             String rnb = columns[2];
             String condition = "From Song s join s.member m " +
-                               "where m.username like :name " +
+                               "where m.id = :memberId " +
                                "and s.genre IN :genreList";
             return em.createQuery(jpql+condition, SongDto.class)
-                    .setParameter("name", name)
+                    .setParameter("memberId", memberId)
                     .setParameter("genreList", Arrays.asList(ballard, blues, rnb))
                     .getResultList();
         } else if (genre.equals("기타")) {
@@ -65,18 +72,18 @@ public class SongRepository {
             String ytColumns = "youtube";
 
             String condition = "From Song s join s.member m " +
-                               "where m.username like :name " +
+                               "where m.id = :memberId " +
                                "and s.genre NOT IN :genreList";
 
             return em.createQuery(jpql+condition, SongDto.class)
-                    .setParameter("name", name)
+                    .setParameter("memberId", memberId)
                     .setParameter("genreList", Arrays.asList(ballardColumns, bluesColumns, rnbColumns, danceColumns, rockColumns, hiphopColumns, elecColumns, indeColumns, trotColumns, ytColumns))
                     .getResultList();
         } else {
             String condition = "From Song s join s.member m " +
-                    "where m.username like :name " +
+                    "where m.id = :memberId " +
                     "and s.genre like :genre";
-            return em.createQuery(jpql+condition, SongDto.class).setParameter("name", name).setParameter("genre", genre).getResultList();
+            return em.createQuery(jpql+condition, SongDto.class).setParameter("memberId", memberId).setParameter("genre", genre).getResultList();
         }
 
     }

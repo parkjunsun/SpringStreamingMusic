@@ -3,6 +3,7 @@ input.search1 {
     float:left;
     padding: 7px;
     width:40%;
+    border-radius: 20px 0 0 20px;
 }
 
 
@@ -26,15 +27,19 @@ input.search1:focus {
     border: 1px solid skyblue;
     border-left:none;
     cursor: pointer;
+    border-radius: 0 20px 20px 0;
 }
 
 
 
 table {
     border-top: 1px solid gray;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     padding: 10px;
     width:100%;
+    border-radius: 15px;
+    overflow: hidden;
  }
 
 

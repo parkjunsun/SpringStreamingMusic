@@ -1,6 +1,7 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" style="height: 100%;">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/base.css}" />
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/tomorrow.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="icon" th:href="@{/images/disc.png}">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -17,7 +19,6 @@
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
-    <link rel="icon" th:href="@{/images/disc.png}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
     <script th:inline="javascript">
@@ -27,7 +28,7 @@
     </script>
     <script type="text/javascript" th:src="@{/js/genrePlaylist.js}"></script>
 </head>
-<body>
+<body style="height: 100%;">
 <script th:inline="javascript">
     /* <![CDATA[ */
     var updateMessage = /*[[${updateMsg}]]*/
@@ -38,67 +39,74 @@
     }
 </script>
 <div class="action">
-    <div id="playSongIframe"></div><br><br>
+    <div id="playSongIframe"></div>
     <div class="logo_div">
-        <img class="logo_img" src="/images/disc.png">
+        <i class="fas fa-music" style="font-size: 20px; vertical-align: middle; margin-right: 8px;"></i>
         <span class="logo_font">JS MUSIC</span>
     </div>
-    <div style="text-align:center; padding-top:50px;">
-        <p id="title" style="font-size:20px; font-weight:bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></p>
-        <p id="artist" style="font-size:14px;"></p><br>
-        <img id="link" src="../images/white.png" style="width:60%;height:30%;" alt="sorry, can't loading album photo">
+    <div style="text-align:center; padding-top:10px;">
+        <p style="font-size:10px; color: rgba(255,255,255,0.7); margin-bottom: 5px;">♪ NOW PLAYING</p>
+        <p id="title" style="font-size:16px; font-weight:bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px;"></p>
+        <p id="artist" style="font-size:12px; color: rgba(255,255,255,0.8); margin-bottom: 8px;"></p>
+        <img id="link" src="../images/white.png" style="width:45%; max-width: 200px;" alt="Album Cover">
     </div>
-    <br><br><br>
     <input type="range" id="progress-bar" value="0">
-    <div style="margin:0 25px;">
-        <span id="current-time">0:00</span>
-        <span id="duration" style="float:right; ">0:00</span><br>
+    <div style="margin:0 20px;">
+        <span id="current-time" style="font-size:11px; color: rgba(255,255,255,0.8);">0:00</span>
+        <span id="duration" style="float:right; font-size:11px; color: rgba(255,255,255,0.8);">0:00</span>
     </div>
     <div id="controls">
-        <i id="repeat" class="material-icons" style="color:#a0a0a0;" title="반복on/off">repeat</i>&nbsp;&nbsp;&nbsp;
+        <i id="repeat" class="material-icons" title="반복on/off">repeat</i>&nbsp;&nbsp;&nbsp;
         <i id="replay" class="material-icons">replay</i>&nbsp;&nbsp;&nbsp;
-        <i id="play" class="material-icons" style="font-size:60px;">play_circle_outline</i>&nbsp;&nbsp;&nbsp;
+        <i id="play" class="material-icons">play_circle_outline</i>&nbsp;&nbsp;&nbsp;
         <i id="next" class="material-icons">skip_next</i>&nbsp;&nbsp;&nbsp;
-        <i id="shuffle" class="material-icons" style="color:#a0a0a0;" title="셔플on/off">shuffle</i><br>
+        <i id="shuffle" class="material-icons" title="셔플on/off">shuffle</i><br>
         <i id="mute-toggle" class="material-icons">volume_up</i>
         <input id="YouTube-player-volume" type="range" value="50" min="0" max="100" onchange="youTubePlayerVolumeChange(this.value);"><br>
     </div>
+    <div id="reorder-overlay" style="display:none" onclick="hide();"></div>
     <div id="reorder" style="display:none">
-        <span style="float:left; color:black; font-size:13px;">배치완료</span>
-        <span style="float:right; color:black; font-size:12px;">이전으로</span><br>
-        <form action="/playlist/relocation" method="post">
-            <input type="submit" name="relocation" id="relocation" value=""/>
+        <h4 style="color: #667eea; margin-bottom: 15px;">🎵 플레이리스트 재배치</h4>
+        <p style="color: #666; margin-bottom: 20px;">변경된 순서를 저장하시겠습니까?</p>
+        <form action="/playlist/relocation" method="post" style="display: inline-block;">
+            <input type="hidden" name="relocation" id="relocation" value="">
+            <input type="submit" id="relocation-submit" value="배치완료">
         </form>
-        <input type="button" id="cancel" onclick="hide();"/>
+        <input type="button" id="cancel" onclick="hide();" value="취소">
     </div>
 </div>
 <div class="playlist">
     <div id="dv">
-        <h5 style="color: #3A56B7" th:text="|${name}님의 플레이리스트|"></h5><br>
-        <span style="font-size:20px; color: #3A56B7" th:text="|장르: ${genrename}|"></span>
-        <span style="float:right"><a href="/playlist">전체리스트</a> </span><br><br>
+        <h5 th:text="|🎵 ${name}님의 플레이리스트|"></h5>
+        <p style="color: rgba(255, 255, 255, 0.9); font-size: 14px; margin: 5px 0;">
+            <span th:text="|장르: ${genrename}|"></span>
+            <span style="float:right;"><a href="/playlist" style="color: white; text-decoration: none; font-size: 13px; background: rgba(255, 255, 255, 0.2); padding: 4px 12px; border-radius: 15px; transition: all 0.3s ease;">📋 전체리스트</a></span>
+        </p>
         <p id="count"></p>
     </div>
     <div id="search_box">
-        <span class="icon"><i class="fa fa-search"></i></span>
         <input id="search" type="text" name="keyword" value="" placeholder="Search..."/>
     </div><br><br><br>
     <table>
         <tbody id="sortable">
         <tr th:each="song : ${songs}">
             <td>
-                <div th:class="${songStat.index}">
-                    <i th:id="${songStat.index}" class="material-icons" style="font-size:20px"></i>
+                <div th:class="${songStat.index}" style="display: flex; align-items: center; width: 100%;">
+                    <i th:id="${songStat.index}" class="material-icons" style="font-size:18px; margin-right: 8px; color: #667eea;"></i>
                     <button class="playbutton" onclick="buttonplay(this)" th:value="${song.title} + ';' + ${song.artist}">
-                        <span class="shorting">[[${song.title}]]</span><br>
-                        <span class="shorting">[[${song.artist}]]</span>
+                        <span class="shorting" style="font-weight: 500; color: #333;" th:text="${song.title}"></span>
+                        <span class="shorting" th:if="${song.artist.equals('youtube')}" style="color:#ff0000; font-size: 12px;">
+                            <i class="fab fa-youtube" style="font-size: 12px;"></i>
+                            [[${song.artist}]]
+                        </span>
+                        <span class="shorting" th:unless="${song.artist.equals('youtube')}" style="color: #888; font-size: 12px;" th:text="${song.artist}"></span>
                     </button>
                 </div>
             </td>
-            <td style="text-align:right; font-size:12px;" th:text="${song.duration}"></td>
-            <td style="text-align:right;">
-                <form th:action="@{/playlist/{id}/delete (id=${song.id})}" method="post">
-                    <input type="submit" class="img-button" name="delete" id="data" value="${song.id}">
+            <td th:text="${song.duration}"></td>
+            <td>
+                <form th:action="@{/playlist/{id}/delete (id=${song.id})}" method="post" style="margin: 0;">
+                    <input type="submit" class="img-button" name="delete" value="">
                 </form>
             </td>
         </tr>

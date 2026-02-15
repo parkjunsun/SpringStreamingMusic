@@ -36,7 +36,9 @@
 <div class="main">
     <div class="info">
         <div class="card">
-            <img src="https://image.genie.co.kr/imageg/web/common/blank.gif/dims/resize/Q_80,0" alt="John" style="width:100%; height:150px">
+            <div class="card-header-img">
+                <i class="fas fa-user-circle"></i>
+            </div>
             <h2 th:text="|${name}님|"></h2>
             <p class="role" th:text="${role}"></p>
             <p th:text="|가입일: ${joinDate}|"></p>

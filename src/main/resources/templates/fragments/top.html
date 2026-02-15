@@ -2,17 +2,21 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <div th:fragment="header">
     <header>
-        <h1>Streaming music for Free</h1>
-        <div class="vertical-menu">
-<!--            <a href="/playlist" sec:authorize="isAnonymous()">플레이리스트</a>-->
-            <a href="/playlist" sec:authorize="isAuthenticated()" onClick="window.open(this.href, '','width=900,height=700'); return false;">플레이리스트</a>
-        </div>
+        <a href="/" style="text-decoration: none; color: inherit; cursor: pointer;">
+            <h1>Streaming music for Free</h1>
+        </a>
     </header>
     <nav class="navbar navbar-dark sticky-top bg-dark ">
         <div class="container">
-            <a class="text-light" href="/"><h4>StreamgingMusic Free</h4></a>
+            <ul class="nav">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link text-light" href="/playlist" onClick="window.open(this.href, '','width=1400,height=800'); return false;">
+                        <i class="fas fa-list"></i> 플레이리스트
+                    </a>
+                </li>
+            </ul>
 <!--            <h6 class="text-light" sec:authorize="isAuthenticated()" th:if="${name}" th:text="|${name}님 안녕하세요!|"></h6>-->
-            <ul class="nav justify-content-end">
+            <ul class="nav justify-content-end ml-auto">
                 <li class="nav-item" sec:authorize="isAnonymous()">
                     <a class="nav-link text-light" th:href="@{/login}"><i class="fas fa-sign-in-alt"></i> Login</a>
                 </li>

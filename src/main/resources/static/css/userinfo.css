@@ -1,9 +1,76 @@
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px 0 rgba(102, 126, 234, 0.25);
     max-width: 300px;
     margin: auto;
     text-align: center;
-    font-family: arial;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    border-radius: 15px;
+    overflow: hidden;
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px 0 rgba(102, 126, 234, 0.35);
+}
+
+.card h2 {
+    margin: 20px 0 10px 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.card p {
+    margin: 8px 0;
+}
+
+.card-header-img {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header-img::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.card-header-img i {
+    font-size: 80px;
+    color: white;
+    z-index: 1;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .role {
@@ -17,11 +84,22 @@
     display: inline-block;
     padding: 8px;
     color: white;
-    background-color: #6bced4;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     text-align: center;
     cursor: pointer;
     width: 100%;
     font-size: 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.button:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #f093fb 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    color: white;
+    text-decoration: none;
 }
 
 .a {
@@ -55,9 +133,12 @@ div.record {
 
 #table {
     border-top: 3px solid gray;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     padding: 15px;
     width:100%;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .tr, .td, .th {
@@ -86,7 +167,7 @@ div.record {
 
 
 #add_btn {
-    border-radius: 5px;
+    border-radius: 8px;
     border: 2px solid #A9A9A9;
     color: black;
     padding: 5px;

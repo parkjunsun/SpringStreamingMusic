@@ -317,7 +317,11 @@ function trigger(state, pl) {
         document.getElementsByClassName(index)[0].style.color = "#00CDFF";
         document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "#00CDFF";
         document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "#00CDFF";
-        document.getElementById(index).scrollIntoView();
+        document.getElementById(index).scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
+        });
     }
     else if (state == YT.PlayerState.ENDED || state == YT.PlayerState.UNSTARTED) {
         document.getElementById(index).innerHTML = "";
@@ -667,6 +671,7 @@ $(document).ready(function() {
             copy.splice(update_pos, 0, tmp[start_pos]);
 
             $(document).ready(function(){
+                    $('#reorder-overlay').fadeIn('slow');
                     $('#reorder').fadeIn('slow');
             });
 
@@ -680,6 +685,7 @@ $(document).ready(function() {
 
 function hide() {
     $(document).ready(function(){
+            $('#reorder-overlay').fadeOut('slow');
             $('#reorder').fadeOut('slow');
             window.location.reload();
     });

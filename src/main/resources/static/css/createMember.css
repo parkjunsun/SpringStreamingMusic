@@ -1,5 +1,6 @@
 .fieldError {
     border-color: #bd2130;
+    border-radius: 8px;
 }
 
 #auth_btn {
@@ -14,6 +15,7 @@
     display: inline-block;
     font-size: 15px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 #exec_btn {
@@ -28,9 +30,11 @@
     display: inline-block;
     font-size: 15px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 #auth_input {
     width: 446px;
     height: 50px;
+    border-radius: 8px;
 }

@@ -41,9 +41,15 @@ public class PlaylistController {
                                @AuthenticationPrincipal MemberContext member) {
 
 
-        String username = member.getUsername();
-        model.addAttribute("name", username);
-        List<SongDto> songs = songService.findAllSongsByName(username);   //컨트롤러에서는 엔티티를 절대 직접 반환하지 말자. dto로 받아야한다 entity를 직접보내면 json 생성 라이브러리 문제로 무한루프에 빠진다
+        if (!member.getMember().getProvider().equals("JSMUSIC")){
+            model.addAttribute("name", member.getMember().getRealname());
+        }
+        else {
+            model.addAttribute("name", member.getMember().getUsername());
+        }
+
+        //컨트롤러에서는 엔티티를 절대 직접 반환하지 말자. dto로 받아야한다 entity를 직접보내면 json 생성 라이브러리 문제로 무한루프에 빠진다
+        List<SongDto> songs = songService.findAllSongsByMemberId(member.getMember().getId());
         model.addAttribute("songs", songs);
         return "playlist";
     }
@@ -194,12 +200,17 @@ public class PlaylistController {
                               @RequestParam("genre") String genre) {
 
 
-        String refactoringGenreName = dataApi.refactoringName(genre);
-        String username = memberContext.getUsername();
 
-        List<SongDto> songs = songService.findAllSongsByCategory(username, refactoringGenreName);
+        String refactoringGenreName = dataApi.refactoringName(genre);
+        List<SongDto> songs = songService.findAllSongsByCategory(memberContext.getMember().getId(), refactoringGenreName);
+
+        if (!memberContext.getMember().getProvider().equals("JSMUSIC")){
+            model.addAttribute("name", memberContext.getMember().getRealname());
+        }
+        else {
+            model.addAttribute("name", memberContext.getMember().getUsername());
+        }
         model.addAttribute("songs", songs);
-        model.addAttribute("name", username);
         model.addAttribute("genrename", genre);
 
         return "genreplaylist";

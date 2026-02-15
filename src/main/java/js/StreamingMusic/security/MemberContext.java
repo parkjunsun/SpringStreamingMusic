@@ -13,19 +13,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-//public class MemberContext extends User{
-//
-//    private final Member member;
-//
-//    public MemberContext(Member member, Collection<? extends GrantedAuthority> authorities) {
-//        super(member.getUsername(), member.getPassword(), authorities);
-//        this.member = member;
-//    }
-//
-//    public Member getMember() {
-//        return member;
-//    }
-//}
 
 @Getter @Setter
 public class MemberContext implements UserDetails, OAuth2User {

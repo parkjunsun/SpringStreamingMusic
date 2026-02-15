@@ -201,11 +201,26 @@ var errorCnt = 0;
             document.getElementsByClassName(index)[0].style.color = "#00CDFF";
             document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "#00CDFF";
             document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "#00CDFF";
-            document.getElementById(index).scrollIntoView();
+            document.getElementById(index).scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'nearest'
+            });
         }
-        else if (state == YT.PlayerState.ENDED) {
-            document.getElementById(index).innerHTML = "";
-            document.getElementsByClassName(index)[0].style.color = "black";
+        else if (state == YT.PlayerState.ENDED || state == YT.PlayerState.UNSTARTED) {
+            resetSongColor(index);
+        }
+    }
+
+    function resetSongColor(idx) {
+        if (idx !== undefined && document.getElementById(idx)) {
+            document.getElementById(idx).innerHTML = "";
+            document.getElementsByClassName(idx)[0].getElementsByClassName("shorting")[0].style.color = "black";
+            if (document.getElementsByClassName(idx)[0].getElementsByClassName("shorting")[1].getElementsByTagName("i")[0]) {
+                document.getElementsByClassName(idx)[0].getElementsByClassName("shorting")[1].style.color = "red";
+            } else {
+                document.getElementsByClassName(idx)[0].getElementsByClassName("shorting")[1].style.color = "black";
+            }
         }
     }
 
@@ -277,9 +292,7 @@ var errorCnt = 0;
             if (flag == 1){
                 if (arr.length){
                     idx = getRandomId();
-                    document.getElementById(index).innerHTML = "";
-                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
-                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
+                    resetSongColor(index);
                     player.playVideoAt(idx);
                 }
                 else if (!arr.length){
@@ -288,9 +301,7 @@ var errorCnt = 0;
                     }
                     shuffle();
                     idx = getRandomId();
-                    document.getElementById(index).innerHTML = "";
-                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
-                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
+                    resetSongColor(index);
                     player.playVideoAt(idx);
                 }
 
@@ -300,9 +311,7 @@ var errorCnt = 0;
                 if (idx == id_lst.length -1){
                     idx = -1
                 }
-                document.getElementById(index).innerHTML = "";
-                document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
-                document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
+                resetSongColor(index);
                 player.playVideoAt(idx + 1);
             }
 
@@ -351,13 +360,6 @@ var errorCnt = 0;
 
         });
 
-        $('tr').hover(function(){
-                $(this).css('background-color',"#D7F1FA");
-                $(this).find('button.playbutton').css('background-color',"#D7F1FA");
-        }, function(){
-                $(this).css('background-color',"white");
-                $(this).find('button.playbutton').css('background-color',"white");
-        });
 
 
         $('#search').keyup(function(){
@@ -419,9 +421,7 @@ var errorCnt = 0;
         player.playVideoAt(c_index);
 
         document.getElementById('play').innerHTML = 'pause_circle_outline';
-        document.getElementById(index).innerHTML = "";
-        document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
-        document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
+        resetSongColor(index);
     }
 
     function formatTime(time){
@@ -443,9 +443,7 @@ var errorCnt = 0;
             if (flag == 1){
                 if (arr.length){
                     idx = getRandomId();
-                    document.getElementById(index).innerHTML = "";
-                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
-                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
+                    resetSongColor(index);
                     player.playVideoAt(idx);
                 }
                 else if (!arr.length){
@@ -454,9 +452,7 @@ var errorCnt = 0;
                     }
                     shuffle();
                     idx = getRandomId();
-                    document.getElementById(index).innerHTML = "";
-                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
-                    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
+                    resetSongColor(index);
                     player.playVideoAt(idx);
                 }
 
@@ -466,9 +462,7 @@ var errorCnt = 0;
                 if (idx == id_lst.length -1){
                     idx = -1
                 }
-                document.getElementById(index).innerHTML = "";
-                document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
-                document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
+                resetSongColor(index);
                 player.playVideoAt(idx + 1);
             }
         }
@@ -506,6 +500,7 @@ var errorCnt = 0;
                 copy.splice(update_pos, 0, tmp[start_pos]);
 
                 $(document).ready(function(){
+                        $('#reorder-overlay').fadeIn('slow');
                         $('#reorder').fadeIn('slow');
                 });
 
@@ -519,6 +514,7 @@ var errorCnt = 0;
 
     function hide() {
         $(document).ready(function(){
+                $('#reorder-overlay').fadeOut('slow');
                 $('#reorder').fadeOut('slow');
                 window.location.reload();
         });

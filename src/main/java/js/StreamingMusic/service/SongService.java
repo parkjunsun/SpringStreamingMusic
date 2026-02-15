@@ -42,7 +42,7 @@ public class SongService {
         return songRepository.findAllByName(name);
     }
 
-
+    public List<SongDto> findAllSongsByMemberId(Long memberId) {return songRepository.findAllByMemberId(memberId);}
 
     private void validateDuplicateSong(Song song, String name, String title, String artist) {
         List<Song> duplicateSong = songRepository.findDuplicateSong(song, name, title, artist);
@@ -52,8 +52,8 @@ public class SongService {
     }
 
 
-    public List<SongDto> findAllSongsByCategory(String name, String genre) {
-        return songRepository.findAllByCategory(name, genre);
+    public List<SongDto> findAllSongsByCategory(Long memberId, String genre) {
+        return songRepository.findAllByCategory(memberId, genre);
     }
 
 }
