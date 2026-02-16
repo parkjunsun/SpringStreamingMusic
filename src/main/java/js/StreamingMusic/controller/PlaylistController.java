@@ -73,7 +73,9 @@ public class PlaylistController {
             return "redirect:" + request.getHeader("Referer");
         }
 
+
         if (param.size() == 1) {
+
             String[] params = param.get(0).split(";");
             String title = params[0];
             String artist = params[1];

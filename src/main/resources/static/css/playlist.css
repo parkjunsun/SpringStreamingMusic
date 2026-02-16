@@ -118,7 +118,7 @@ button.cont {
 
 div.playlist {
     width: 50%;
-    height: 100vh;
+    height: 100%;
     float: left;
     box-sizing: border-box;
     overflow-y: auto;
@@ -129,7 +129,7 @@ div.playlist {
 div.action {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     width: 50%;
-    height: 100vh;
+    height: 100%;
     float: left;
     box-sizing: border-box;
     color: white;
@@ -137,7 +137,12 @@ div.action {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+#progress-wrapper {
+    margin-top: auto;
 }
 
 /* 재생중인 곡 하이라이트 */
@@ -228,7 +233,7 @@ td:nth-child(2) {
     width: 20%;
     text-align: right;
     color: #888;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 td:nth-child(3) {
@@ -245,7 +250,7 @@ td:nth-child(3) {
     border: 0;
     outline: 0;
     background-color: transparent;
-    font-size: 14px;
+    font-size: 12px;
     cursor: pointer;
     transition: color 0.3s ease;
     padding: 0;
@@ -280,13 +285,12 @@ td:nth-child(3) {
     background: rgba(255, 255, 255, 0.1);
     padding: 10px 8px;
     border-radius: 12px;
-    margin-top: 10px;
     backdrop-filter: blur(10px);
 }
 
 #controls i {
     color: white;
-    font-size: 24px;
+    font-size: clamp(24px, 3vw, 32px);
     cursor: pointer;
     vertical-align: middle;
     padding: 5px;
@@ -300,7 +304,7 @@ td:nth-child(3) {
 }
 
 #controls #play {
-    font-size: 45px;
+    font-size: clamp(45px, 5vw, 55px);
     padding: 6px;
 }
 
@@ -354,6 +358,10 @@ td:nth-child(3) {
 
 
 #link {
+    width: 70%;
+    max-width: 400px;
+    min-width: 150px;
+    height: auto;
     border: none;
     border-radius: 15px;
     -moz-border-radius: 15px;
@@ -403,9 +411,9 @@ td:nth-child(3) {
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    width: 400px;
+    width: 350px;
     max-width: 90%;
-    padding: 30px;
+    padding: 25px;
     border-radius: 20px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     z-index: 1000;
@@ -415,9 +423,9 @@ td:nth-child(3) {
 #reorder span {
     color: #333;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 15px;
     display: inline-block;
-    margin: 10px 15px;
+    margin: 8px 12px;
 }
 
 #relocation {
@@ -427,15 +435,15 @@ td:nth-child(3) {
 #relocation-submit {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
-    width: 120px;
-    height: 46px;
+    width: 110px;
+    height: 42px;
     cursor: pointer;
-    font-size: 15px;
-    line-height: 46px;
+    font-size: 14px;
+    line-height: 42px;
     color: white;
     font-weight: bold;
     border-radius: 25px;
-    margin: 20px 10px 10px 10px;
+    margin: 15px 8px 8px 8px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
@@ -448,15 +456,15 @@ td:nth-child(3) {
 #cancel {
     background: #e0e0e0;
     border: none;
-    width: 120px;
-    height: 46px;
+    width: 110px;
+    height: 42px;
     cursor: pointer;
-    font-size: 15px;
-    line-height: 46px;
+    font-size: 14px;
+    line-height: 42px;
     color: #666;
     font-weight: bold;
     border-radius: 25px;
-    margin: 20px 10px 10px 10px;
+    margin: 15px 8px 8px 8px;
     transition: all 0.3s ease;
 }
 
@@ -517,6 +525,19 @@ td:nth-child(3) {
     margin-left: 8px;
 }
 
+#now-playing-section {
+    text-align: center;
+    padding-top: 10px;
+}
+
+#now-playing-section #title {
+    font-size: clamp(14px, 2vw, 22px);
+}
+
+#now-playing-section #artist {
+    font-size: clamp(11px, 1.5vw, 16px);
+}
+
 /* Material Icons 색상 */
 .material-icons {
     vertical-align: middle;
@@ -530,7 +551,7 @@ td:nth-child(3) {
 /* 곡 시간 표시 */
 td[style*="text-align:right"] {
     color: #888;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 /* 스크롤바 스타일 */
@@ -567,148 +588,11 @@ div.playlist::-webkit-scrollbar-thumb:hover {
     }
 }
 
-@media screen and (max-width: 1200px) {
-    div.playlist,
-    div.action {
-        width: 100%;
-        height: 50vh;
-        float: none;
-    }
-
-    div.action {
-        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    }
-
-    #notice {
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    #reorder {
-        width: 90%;
-        max-width: 400px;
-        padding: 25px;
-    }
-}
-
-/* 매우 작은 팝업 화면 */
-@media screen and (max-width: 900px) {
-    div.action {
-        padding: 10px;
-    }
-
-    .logo_div {
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    .logo_font {
-        font-size: 18px;
-    }
-
-    #link {
-        width: 50% !important;
-        max-width: 200px;
-    }
-
-    #controls {
-        padding: 10px;
-        margin-top: 10px;
-    }
-
-    #controls i {
-        font-size: 24px;
-        padding: 5px;
-    }
-
-    #controls #play {
-        font-size: 40px;
-    }
-
-    #dv {
-        padding: 15px;
-        margin-bottom: 15px;
-    }
-
-    #dv h5 {
-        font-size: 16px;
-    }
-
-    .container {
-        padding: 15px;
-        margin-bottom: 15px;
-    }
-
-    #search_box {
-        margin-bottom: 15px;
-    }
-
-    #search_box input#search {
-        height: 40px;
-        font-size: 13px;
-    }
-
-    table {
-        width: 98%;
-        padding: 5px;
-    }
-
-    tr {
-        padding: 6px;
-        margin-bottom: 5px;
-    }
-
-    td {
-        padding: 8px 4px;
-    }
-
-    td:first-child {
-        width: 55%;
-    }
-
-    td:nth-child(2) {
-        width: 20%;
-        font-size: 11px;
-    }
-
-    td:nth-child(3) {
-        width: 25%;
-    }
-
-    .playbutton {
-        font-size: 12px;
-    }
-
-    #progress-bar {
-        margin: 10px auto;
-    }
-
-    #reorder {
-        width: 85%;
-        padding: 20px;
-    }
-
-    #reorder h4 {
-        font-size: 16px;
-    }
-
-    #reorder p {
-        font-size: 13px;
-    }
-
-    #relocation-submit,
-    #cancel {
-        width: 100px;
-        height: 42px;
-        font-size: 14px;
-        margin: 15px 5px 5px 5px;
-    }
-}
-
-/* 기본 body 스타일 추가 */
-body {
+/* 기본 html, body 스타일 */
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
     overflow: hidden;
     font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }

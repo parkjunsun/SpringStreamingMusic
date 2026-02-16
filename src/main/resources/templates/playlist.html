@@ -59,10 +59,12 @@
         <p id="artist" style="font-size:12px; color: rgba(255,255,255,0.8); margin-bottom: 8px;"></p>
         <img id="link" src="../images/white.png" style="width:45%; max-width: 200px;" alt="Album Cover">
     </div>
-    <input type="range" id="progress-bar" value="0">
-    <div style="margin:0 20px;">
-        <span id="current-time" style="font-size:11px; color: rgba(255,255,255,0.8);">0:00</span>
-        <span id="duration" style="float:right; font-size:11px; color: rgba(255,255,255,0.8);">0:00</span>
+    <div id="progress-wrapper">
+        <div style="margin:0 20px 5px 20px;">
+            <span id="current-time" style="font-size:11px; color: rgba(255,255,255,0.8);">0:00</span>
+            <span id="duration" style="float:right; font-size:11px; color: rgba(255,255,255,0.8);">0:00</span>
+        </div>
+        <input type="range" id="progress-bar" value="0">
     </div>
     <div id="controls">
         <i id="repeat" class="material-icons" title="반복on/off">repeat</i>&nbsp;&nbsp;&nbsp;
@@ -75,8 +77,8 @@
     </div>
     <div id="reorder-overlay" style="display:none" onclick="hide();"></div>
     <div id="reorder" style="display:none">
-        <h4 style="color: #667eea; margin-bottom: 15px;">🎵 플레이리스트 재배치</h4>
-        <p style="color: #666; margin-bottom: 20px;">변경된 순서를 저장하시겠습니까?</p>
+        <h4 style="color: #667eea; margin-bottom: 12px; font-size: 18px;">🎵 플레이리스트 재배치</h4>
+        <p style="color: #666; margin-bottom: 18px; font-size: 14px;">변경된 순서를 저장하시겠습니까?</p>
         <form action="/playlist/relocation" method="post" style="display: inline-block;">
             <input type="hidden" name="relocation" id="relocation" value="">
             <input type="submit" id="relocation-submit" value="배치완료">

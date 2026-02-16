@@ -66,16 +66,18 @@ input[type=text] {
 
     #table {
         border-top: 3px solid gray;
-        border-collapse: separate;
+        border-collapse: collapse;
         border-spacing: 0;
-        padding: 10px;
         width:100%;
         border-radius: 15px;
         overflow: hidden;
     }
 
-    #tr, .td {
+    #tr {
         border-bottom: 1px solid #B0C4DE;
+    }
+
+    .td {
         padding: 20px;
     }
 

@@ -10,7 +10,13 @@
         <div class="container">
             <ul class="nav">
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link text-light" href="/playlist" onClick="window.open(this.href, '','width=1400,height=800'); return false;">
+                    <a class="nav-link text-light" href="/playlist" onClick="
+                        var width = 780;
+                        var height = 500;
+                        var left = (screen.width - width) / 2;
+                        var top = (screen.height - height) / 2;
+                        window.open(this.href, 'playlist', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top + ',scrollbars=yes,resizable=yes');
+                        return false;">
                         <i class="fas fa-list"></i> 플레이리스트
                     </a>
                 </li>
