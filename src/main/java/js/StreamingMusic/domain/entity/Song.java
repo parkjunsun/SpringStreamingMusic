@@ -24,7 +24,6 @@ public class Song {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
-//    @JsonBackReference
     private Member member;
 
     public void setMember(Member member) {

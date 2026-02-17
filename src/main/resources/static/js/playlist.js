@@ -6,6 +6,7 @@ var index; // 현재 재생 중인 곡의 인덱스
 var video_state;
 var video_player;
 var youTubePlayerVolumeItemId = 'YouTube-player-volume'; // 볼륨 컨트롤 ID
+var lastPlayedIndex; // 마지막으로 재생된 곡의 인덱스
 
 var genreDict = {};
 var ordered = [];
@@ -22,6 +23,21 @@ var ytCnt = 0;
 var etcCnt = 0;
 
 
+if (lastPlayedSongId) {
+    for (var i in data) {
+        if (data[i].id == lastPlayedSongId) {
+            lastPlayedIndex = i;
+            break;
+        }
+    }
+}
+
+// lastPlayedIndex가 설정되지 않은 경우 기본값 0 (첫 곡)
+if (typeof lastPlayedIndex === 'undefined' || lastPlayedIndex === null) {
+    lastPlayedIndex = 0;
+}
+
+
 for (var i in data) {
     id_lst.push(data[i].videoId);
 }
@@ -29,7 +45,6 @@ for (var i in data) {
 for (var i=0; i<id_lst.length; i++){
     arr[i] = i;
 }
-
 
 var totalCnt = id_lst.length;
 
@@ -179,7 +194,7 @@ function onYouTubeIframeAPIReady () {
             loadPlaylist:{
                 listType:'playlist',
                 list: id_lst,
-                index: parseInt("0"),
+                index: parseInt(lastPlayedIndex),               //변경해야할 부분
                 suggestedQuality: 'small'
             },
             playerVars: {
@@ -216,15 +231,25 @@ function onPlayerError(event) {
 
 function initialize (event) {
     document.getElementById("count").innerHTML = "전체: " + id_lst.length + "곡";
-    document.getElementById("link").src = data[0].img;
-    document.getElementById("title").innerHTML = data[0].title;
-    document.getElementById("artist").innerHTML = data[0].artist;
+    document.getElementById("link").src = data[lastPlayedIndex].img;
+    document.getElementById("title").innerHTML = data[lastPlayedIndex].title;
+    document.getElementById("artist").innerHTML = data[lastPlayedIndex].artist;
 
-    // 첫 곡 인덱스 초기화
-    num = 0;
+    document.getElementById(lastPlayedIndex).innerHTML = "campaign";
+    document.getElementsByClassName(lastPlayedIndex)[0].style.color = "#00CDFF";
+    document.getElementsByClassName(lastPlayedIndex)[0].getElementsByClassName("shorting")[0].style.color = "#00CDFF";
+    document.getElementsByClassName(lastPlayedIndex)[0].getElementsByClassName("shorting")[1].style.color = "#00CDFF";
+    document.getElementById(lastPlayedIndex).scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
+    });
+
+    // 첫 곡 인덱스 초기화 - 마지막으로 재생한 곡부터 시작
+    num = lastPlayedIndex;
 
     var p = event.target;
-    p.cuePlaylist(id_lst);
+    p.cuePlaylist(id_lst, lastPlayedIndex);
     updateTimerDisplay();
     updateProgressBar();
     clearInterval(time_update_interval);
@@ -265,7 +290,7 @@ function onStateChange(event) {
                     player.loadPlaylist({
                         'playlist': id_lst,
                         'listType': 'playlist',
-                        'index': 0,
+                        'index': lastPlayedIndex,
                         'startSeconds': 0,
                         'suggestedQuality': 'small'
                     });
@@ -393,12 +418,14 @@ function trigger(state, pl) {
             inline: 'nearest'
         });
 
-        //노래시작되면 레코드 기록에 저장 (신규 insert / 기존 횟수+1)
         $(document).ready(function () {
+             //노래시작되면 레코드 기록에 저장 (신규 insert / 기존 횟수+1)
+             //마지막으로 들은 곡 Member 테이블에 update
              $.ajax({
-                 url: "/data",
+                 url: "/record",
                  type: "POST",
                  data: {
+                     "id": data[index].id,
                      "title": data[index].title,
                      "artist": data[index].artist,
                      "img": data[index].img,
@@ -778,7 +805,6 @@ var start_pos = 0
 var copy = data.slice();
 var tmp = data.slice();
 var reorder_lst = []
-
 
 $(document).ready(function() {
     $("#sortable").sortable({

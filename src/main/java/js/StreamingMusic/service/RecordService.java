@@ -1,5 +1,6 @@
 package js.StreamingMusic.service;
 
+import js.StreamingMusic.domain.entity.Member;
 import js.StreamingMusic.domain.entity.Record;
 import js.StreamingMusic.domain.dto.RecordDto;
 import js.StreamingMusic.repository.RecordRepository;

@@ -24,6 +24,7 @@
     <script th:inline="javascript">
         /* <![CDATA[ */
         var data = /*[[${songs}]]*/
+        var lastPlayedSongId = /*[[${lastPlayedSongId}]]*/
         var ballardUrl = /*[[@{/playlist/category(genre = '발라드')}]]*/
         var danceUrl = /*[[@{/playlist/category(genre = '댄스')}]]*/
         var hiphopUrl = /*[[@{/playlist/category(genre = '힙합')}]]*/

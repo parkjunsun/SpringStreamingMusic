@@ -29,6 +29,8 @@ public class Member {
 
     private int songQuantity;
     private int boardQuantity;
+    private Long lastPlayedSongId;
+
     private String joinDate;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)

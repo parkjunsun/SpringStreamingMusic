@@ -30,6 +30,12 @@ public class MemberService {
         memberRepository.remove(member);
     }
 
+    @Transactional
+    public void updateLastPlayedSongId(Long memberId, Long songId) {
+        Member member = memberRepository.findOne(memberId);
+        member.setLastPlayedSongId(songId);
+    }
+
     public Member findById(Long id) {
         return memberRepository.findOne(id);
     }

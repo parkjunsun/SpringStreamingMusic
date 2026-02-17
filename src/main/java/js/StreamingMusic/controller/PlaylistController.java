@@ -40,17 +40,22 @@ public class PlaylistController {
     public String showPlaylist(Model model,
                                @AuthenticationPrincipal MemberContext member) {
 
+        // DB에서 최신 Member 정보 조회 (lastPlayedSongId 갱신을 위해)
+        Member freshMember = memberService.findById(member.getMember().getId());
 
-        if (!member.getMember().getProvider().equals("JSMUSIC")){
-            model.addAttribute("name", member.getMember().getRealname());
+        if (!freshMember.getProvider().equals("JSMUSIC")){
+            model.addAttribute("name", freshMember.getRealname());
         }
         else {
-            model.addAttribute("name", member.getMember().getUsername());
+            model.addAttribute("name", freshMember.getUsername());
         }
 
-        //컨트롤러에서는 엔티티를 절대 직접 반환하지 말자. dto로 받아야한다 entity를 직접보내면 json 생성 라이브러리 문제로 무한루프에 빠진다
-        List<SongDto> songs = songService.findAllSongsByMemberId(member.getMember().getId());
+        // 로그인한 회원의 플레이리스트에 있는 곡들을 가져와서 모델에 담아줌
+        List<SongDto> songs = songService.findAllSongsByMemberId(freshMember.getId());
         model.addAttribute("songs", songs);
+
+        // DB에서 조회한 최신 lastPlayedSongId를 모델에 담아줌
+        model.addAttribute("lastPlayedSongId", freshMember.getLastPlayedSongId());
         return "playlist";
     }
 

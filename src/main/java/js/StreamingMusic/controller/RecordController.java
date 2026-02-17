@@ -22,15 +22,16 @@ public class RecordController {
     private final RecordService recordService;
     private final MemberService memberService;
 
-    @PostMapping("/data")
+    @PostMapping("/record")
     @ResponseBody
     public Message test(HttpServletRequest request, @AuthenticationPrincipal MemberContext memberContext) {
 
 
         String username = memberContext.getUsername();
-        Member member = memberService.findByUsername(username).get(0);
+        Member member = memberService.findById(memberContext.getMember().getId());
 
         // ajax로 데이터 받아옴
+        Long id = Long.valueOf(request.getParameter("id")); //song테이블의 고유id값
         String title = request.getParameter("title");
         String artist = request.getParameter("artist");
         String img = request.getParameter("img");
@@ -45,10 +46,12 @@ public class RecordController {
             record.setPlayCount(1);
             record.setMember(member);
 
-            recordService.addRecord(record);
+            recordService.addRecord(record);    //노래기록저장 (insert)
         } else {
-            recordService.addRecordCount(username, title, artist);
+            recordService.addRecordCount(username, title, artist);  //노래기록저장 (update)
         }
+
+        memberService.updateLastPlayedSongId(member.getId(), id);  //마지막으로 재생한 곡의 아이디 업데이트
 
         Message message = new Message();
         message.setMsg("정상적으로 데이터 전송이 완료되었습니다");
