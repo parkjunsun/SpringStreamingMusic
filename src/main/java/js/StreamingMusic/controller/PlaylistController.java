@@ -62,11 +62,10 @@ public class PlaylistController {
                                RedirectAttributes redirectAttributes,
                                HttpServletRequest request) throws IOException, ParseException {
 
-
         tempKeyword = keyword;
 
-        String username = member.getUsername();
-        Member m = memberService.findByUsername(username).get(0);
+        Member m = memberService.findById(member.getMember().getId());
+        String username = m.getUsername();
 
         if (param == null) {
             redirectAttributes.addFlashAttribute("errorMsg", "곡을 선택해주세요");

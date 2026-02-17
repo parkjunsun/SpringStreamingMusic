@@ -65,7 +65,7 @@
     <table id="table">
         <tr id="tr" th:each="song : ${songs}">
             <td class="td chkbox">
-                <input type="checkbox" style="padding:0px 0px 0px 5px;" name="add" th:value="${song.title} + ';' + ${song.artist}" form="form1">
+                <input type="checkbox" style="padding:0px 0px 0px 5px;" name="add" th:value="${#strings.replace(song.title,',','')} + ';' + ${#strings.replace(song.artist,',','')}" form="form1">
             </td>
             <td class="td rank" th:text="${songStat.count}"></td>
             <td class="td image" >
@@ -82,7 +82,7 @@
             </td>
             <td class="icony">
                 <form action="/playlist" method="post">
-                    <input type="submit" class="plus_btn" name="add" th:value="${song.title} + ';' + ${song.artist}">
+                    <input type="submit" class="plus_btn" name="add" th:value="${#strings.replace(song.title,',','')} + ';' + ${#strings.replace(song.artist,',','')}">
                     <input type="hidden" name="keyword" th:value="${keyword}">
                 </form>
             </td>

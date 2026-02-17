@@ -247,7 +247,6 @@ function onStateChange(event) {
         errorCnt = 0;
     }
 
-
     trigger(event.data, event.target);
     play_stop(event.data, event.target);
     video_state = event.data;
@@ -412,21 +411,6 @@ function trigger(state, pl) {
         console.log("ENDED 이벤트 - index:", index, "flag:", flag, "arr.length:", arr.length);
         // 곡 종료 시에는 하이라이트 제거하지 않음 (다음 곡 재생 시 제거됨)
         next_flag = 0;
-
-//         if (next_flag != 1) {
-//             $(document).ready(function () {
-//                 $.ajax({
-//                     url: "/data",
-//                     type: "POST",
-//                     data: {
-//                         "title": data[index].title,
-//                         "artist": data[index].artist,
-//                         "img": data[index].img,
-//                         "songid": data[index].songid
-//                     },
-//                 });
-//             });
-//         }
     }
 }
 

@@ -43,6 +43,7 @@ public class SearchController {
         }
 
         List<HashMap<String, String>> search = getSearchSongs.getSearch(keyword);
+
         if (!search.isEmpty()) {
             model.addAttribute("songs", search);
             model.addAttribute("keyword", keyword);
@@ -57,7 +58,7 @@ public class SearchController {
     @PostMapping("/search")
     public String playSearchSong(Model model,
                                  @AuthenticationPrincipal MemberContext memberContext,
-                                @RequestParam(value = "play") String param,
+                                 @RequestParam(value = "play") String param,
                                 HttpServletRequest request) throws IOException, ParseException {
 
 
