@@ -1,15 +1,21 @@
-var errorCnt = 0;
-var id_lst = [];
-var arr = []
-var num = 0;
-var index; // 현재 재생 중인 곡의 인덱스
-var video_state;
-var video_player;
-var youTubePlayerVolumeItemId = 'YouTube-player-volume'; // 볼륨 컨트롤 ID
-var lastPlayedIndex; // 마지막으로 재생된 곡의 인덱스
+// ============================================
+// 전역 변수 선언
+// ============================================
 
-var genreDict = {};
-var ordered = [];
+// YouTube Player 관련 변수
+var errorCnt = 0;                           // 동영상 로드 에러 카운트
+var id_lst = [];                            // YouTube 동영상 ID 리스트
+var arr = []                                // 셔플용 인덱스 배열
+var num = 0;                                // 셔플 모드에서 사용하는 현재 곡 번호
+var index;                                  // 현재 재생 중인 곡의 인덱스
+var video_state;                            // 현재 비디오 상태 (재생/정지 등)
+var video_player;                           // YouTube Player 객체
+var youTubePlayerVolumeItemId = 'YouTube-player-volume'; // 볼륨 컨트롤 ID
+var lastPlayedIndex;                        // 마지막으로 재생된 곡의 인덱스 (DB에서 가져옴)
+
+// 장르 통계 관련 변수
+var genreDict = {};                         // 장르별 비율을 저장하는 딕셔너리
+var ordered = [];                           // 장르를 비율 순으로 정렬한 배열
 var ballardCnt = 0;
 var danceCnt = 0;
 var RBcnt = 0;
@@ -23,6 +29,9 @@ var ytCnt = 0;
 var etcCnt = 0;
 
 
+// ============================================
+// 마지막으로 재생한 곡 찾기 (DB에서 가져온 lastPlayedSongId 사용)
+// ============================================
 if (lastPlayedSongId) {
     for (var i in data) {
         if (data[i].id == lastPlayedSongId) {
@@ -37,7 +46,9 @@ if (typeof lastPlayedIndex === 'undefined' || lastPlayedIndex === null) {
     lastPlayedIndex = 0;
 }
 
-
+// ============================================
+// 플레이리스트 데이터 초기화
+// ============================================
 for (var i in data) {
     id_lst.push(data[i].videoId);
 }
@@ -48,6 +59,9 @@ for (var i=0; i<id_lst.length; i++){
 
 var totalCnt = id_lst.length;
 
+// ============================================
+// 장르별 곡 수 집계
+// ============================================
 for (var i in data){
     if (data[i].genre.includes('발라드')){
         ballardCnt += 1;
@@ -84,6 +98,9 @@ for (var i in data){
 genreAllCnt = ballardCnt + danceCnt + rockCnt + hiphopCnt + elecCnt + indeCnt + trotCnt + ytCnt;
 etcCnt = totalCnt - genreAllCnt;
 
+// ============================================
+// 장르별 비율 계산 및 딕셔너리 생성
+// ============================================
 genreDict['발라드'] = ballardCnt / totalCnt * 100;
 genreDict['댄스'] = danceCnt / totalCnt * 100;
 
@@ -106,11 +123,14 @@ for (var genre in genreDict){
     ordered.push([genre, genreDict[genre]]);
 }
 
-
+// 장르를 비율 순으로 내림차순 정렬
 ordered.sort(function(a,b) {
     return b[1] - a[1];
 });
 
+// ============================================
+// 페이지 로드 시 장르 진행률 바 초기화
+// ============================================
 window.onload = function() {
     if (id_lst.length == 0) {
         document.getElementsByClassName("progress-bar").style.display = none;
@@ -162,11 +182,17 @@ window.onload = function() {
     }
 }
 
-flag = 0;
-repeat_flag = 0;
-next_flag = 0;
+// ============================================
+// 재생 모드 제어 플래그
+// ============================================
+flag = 0;           // 0: 일반 재생, 1: 셔플 재생
+repeat_flag = 0;    // 0: 반복 없음, 1: 전체 반복, 2: 한 곡 반복
+next_flag = 0;      // 다음 곡 버튼 클릭 여부
 cnt = 0;
 
+// ============================================
+// 셔플 함수 - 배열을 무작위로 섞음 (Fisher-Yates 알고리즘)
+// ============================================
 function shuffle(){
     var j,x,i;
     for (var i = arr.length; i; i -= 1){
@@ -177,7 +203,9 @@ function shuffle(){
     }
 }
 
-
+// ============================================
+// YouTube IFrame API 로드
+// ============================================
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -187,6 +215,9 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player,
     time_update_interval = 0;
 
+// ============================================
+// YouTube Player 초기화 (API 로드 완료 시 자동 호출)
+// ============================================
 function onYouTubeIframeAPIReady () {
     player = new YT.Player('playSongIframe', {
             height: '0',
@@ -208,7 +239,10 @@ function onYouTubeIframeAPIReady () {
     });
 }
 
-
+// ============================================
+// YouTube Player 에러 핸들러
+// 동영상 로드 실패 시 대체 videoId2, videoId3로 재시도
+// ============================================
 function onPlayerError(event) {
     errorCnt = errorCnt + 1;
     var errorCheck = Number(event.data);
@@ -229,6 +263,10 @@ function onPlayerError(event) {
     }
 }
 
+// ============================================
+// 페이지 로드 시 플레이어 초기 설정
+// 마지막으로 재생한 곡 정보 표시 및 플레이리스트 큐잉
+// ============================================
 function initialize (event) {
     document.getElementById("count").innerHTML = "전체: " + id_lst.length + "곡";
     document.getElementById("link").src = data[lastPlayedIndex].img;
@@ -259,14 +297,20 @@ function initialize (event) {
             updateProgressBar();
     }, 1000);
 
-
 }
 
+// ============================================
+// 셔플 모드용 랜덤 인덱스 가져오기
+// arr 배열의 첫 번째 요소를 제거하고 반환
+// ============================================
 function getRandomId() {
     return arr.shift();
 }
 
-
+// ============================================
+// YouTube Player 상태 변경 이벤트 핸들러
+// 재생/일시정지/종료 등의 상태 변화 처리
+// ============================================
 function onStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING){
         errorCnt = 0;
@@ -329,7 +373,7 @@ function onStateChange(event) {
 
                 // 플레이리스트 자동 진행 방지를 위해 loadVideoById 사용
                 player.loadVideoById(id_lst[num]);
-                console.log("=== loadVideoById 호출 완료 ===");
+                console.log("=== loadVideoById 호출 완료, 다음 곡 index:", num, "===");
             }
         }
     }
@@ -342,6 +386,10 @@ function onStateChange(event) {
     }
 }
 
+// ============================================
+// 자동 셔플 재충전
+// arr 배열이 비어있으면 전체 인덱스를 다시 채우고 섞음
+// ============================================
 function autoshuffle() {
     if (!arr.length){
         for (var i=0; i<id_lst.length; i++){
@@ -351,6 +399,12 @@ function autoshuffle() {
     }
 }
 
+// ============================================
+// 곡 변경 시 UI 업데이트 및 재생 기록 저장
+// - 이전 곡 하이라이트 제거
+// - 새 곡 하이라이트 및 정보 표시
+// - Ajax로 재생 기록 전송
+// ============================================
 function trigger(state, pl) {
     if (state == YT.PlayerState.PLAYING) {
         var prevIndex = index;
@@ -360,6 +414,7 @@ function trigger(state, pl) {
         var newIndex;
         if (flag == 1 && typeof num !== 'undefined') {
             newIndex = num;
+            console.log("셔플 모드 - 새 곡 num:", num);
         } else {
             var playlistIndex = pl.getPlaylistIndex();
             if (playlistIndex >= 0) {
@@ -368,7 +423,8 @@ function trigger(state, pl) {
         }
 
         // 같은 곡이면 하이라이트 업데이트 건너뛰기 (seekTo, 일시정지 후 재생 등)
-        if (prevIndex === newIndex && typeof prevIndex !== 'undefined') {
+        // 단, 셔플 모드에서는 곡 전환이 있을 수 있으므로 체크하지 않음
+        if (flag == 0 && prevIndex === newIndex && typeof prevIndex !== 'undefined') {
             console.log("같은 곡 계속 재생 중 - 하이라이트 유지, index:", index);
             return;
         }
@@ -441,6 +497,9 @@ function trigger(state, pl) {
     }
 }
 
+// ============================================
+// 재생/정지 버튼 클릭 이벤트 핸들러
+// ============================================
 function play_stop(state, pl){
     $(document).ready(function(){
         $('#play').on('click', function() {
@@ -458,38 +517,55 @@ function play_stop(state, pl){
     });
 }
 
+// ============================================
+// YouTube Player 활성화 여부 확인
+// ============================================
 function youTubePlayerActive() {
     return player && player.hasOwnProperty('getPlayerState');
 }
 
+// ============================================
+// 재생 시간 표시 업데이트
+// ============================================
 function updateTimerDisplay(){
     $('#current-time').text(formatTime( player.getCurrentTime() ));
     $('#duration').text(formatTime(player.getDuration()));
 }
 
+// ============================================
+// 진행률 바 초기화
+// ============================================
 function initProgressBar(){
     $('#progress-bar').val(0);
 }
 
+// ============================================
+// 진행률 바 업데이트
+// ============================================
 function updateProgressBar(){
     $('#progress-bar').val((player.getCurrentTime() / player.getDuration()) * 100);
 }
 
-
+// ============================================
+// 볼륨 조절
+// ============================================
 function youTubePlayerVolumeChange(volume) {
     if (youTubePlayerActive()) {
         player.setVolume(volume);
     }
 }
 
-
+// ============================================
+// UI 컨트롤 이벤트 핸들러 등록
+// ============================================
 $(document).ready(function(){
+    // 진행률 바 클릭/드래그 시 재생 위치 이동
     $('#progress-bar').on('mouseup touchend', function (e) {
         var newTime = player.getDuration() * (e.target.value / 100);
         player.seekTo(newTime);
     });
 
-
+    // 음소거 토글 버튼
     $('#mute-toggle').on('click',function() {
         var mute_toggle = $(this);
 
@@ -502,9 +578,9 @@ $(document).ready(function(){
             player.mute();
             mute_toggle.text('volume_off');
         }
-
     });
 
+    // 다음 곡 버튼 - 셔플/일반 모드에 따라 다른 동작
     $('#next').on('click', function() {
         next_flag = 1;
         if (flag == 1){
@@ -550,15 +626,15 @@ $(document).ready(function(){
             }
             player.playVideoAt(idx + 1);
         }
-
     });
 
+    // 처음부터 재생 버튼
     $('#replay').on('click', function() {
             player.seekTo(0);
     });
 
 
-
+    // 셔플 버튼 토글 - 랜덤 재생 ON/OFF
     $('#shuffle').on('click', function(e) {
         var shuffle_toggle = $(this);
 
@@ -583,19 +659,27 @@ $(document).ready(function(){
                 flag = 1;
                 shuffle_toggle.css('color', "black");
 
-                // 플레이리스트 모드 해제를 위해 현재 곡을 loadVideoById로 재로드
+                // 플레이리스트 모드 해제를 위해 현재 곡을 재로드
                 if (typeof index !== 'undefined') {
                     var currentTime = player.getCurrentTime();
                     var wasPlaying = (video_state == YT.PlayerState.PLAYING);
                     num = index;
 
-                    player.loadVideoById({
-                        'videoId': id_lst[index],
-                        'startSeconds': currentTime
-                    });
-
-                    // 재생 중이었으면 자동 재생됨
-                    console.log("셔플 모드 전환 - 플레이리스트 모드 해제, 현재 곡:", index, "시간:", currentTime);
+                    // 재생 중이면 loadVideoById, 아니면 cueVideoById로 버퍼링 최소화
+                    if (wasPlaying) {
+                        player.loadVideoById({
+                            'videoId': id_lst[index],
+                            'startSeconds': currentTime,
+                            'suggestedQuality': 'small'  // 빠른 로딩
+                        });
+                        console.log("셔플 ON - 재생 중, 빠른 로딩으로 전환");
+                    } else {
+                        player.cueVideoById({
+                            'videoId': id_lst[index],
+                            'startSeconds': currentTime
+                        });
+                        console.log("셔플 ON - 일시정지, 버퍼링 없이 큐잉");
+                    }
                 }
             }
             else {
@@ -618,18 +702,31 @@ $(document).ready(function(){
 
                 // 셔플 OFF 시 플레이리스트 모드로 복귀
                 var currentTime = player.getCurrentTime();
-                player.loadPlaylist({
-                    'playlist': id_lst,
-                    'listType': 'playlist',
-                    'index': index,
-                    'startSeconds': currentTime
-                });
-                console.log("플레이리스트 모드로 복귀, index:", index);
+                var wasPlaying = (video_state == YT.PlayerState.PLAYING);
+
+                if (wasPlaying) {
+                    player.loadPlaylist({
+                        'playlist': id_lst,
+                        'listType': 'playlist',
+                        'index': index,
+                        'startSeconds': currentTime,
+                        'suggestedQuality': 'small'  // 빠른 로딩
+                    });
+                    console.log("셔플 OFF - 재생 중, 빠른 로딩으로 복귀");
+                } else {
+                    player.cuePlaylist({
+                        'playlist': id_lst,
+                        'listType': 'playlist',
+                        'index': index,
+                        'startSeconds': currentTime
+                    });
+                    console.log("셔플 OFF - 일시정지, 버퍼링 없이 큐잉");
+                }
             }
         }
-
     });
 
+    // 반복 재생 버튼 - 없음 → 전체 반복 → 한 곡 반복 순환
     $('#repeat').on('click', function(e) {
             var repeat_toggle = $(this);
 
@@ -647,9 +744,9 @@ $(document).ready(function(){
                     repeat_toggle.text('repeat').css('color', "#a0a0a0");
                 }
             }
-
     });
 
+    // 테이블 행 마우스 호버 시 배경색 변경
     $('tr').hover(function(){
             $(this).css('background-color',"#D7F1FA");
             $(this).find('button.playbutton').css('background-color',"#D7F1FA");
@@ -659,6 +756,7 @@ $(document).ready(function(){
     });
 
 
+    // 검색 기능 - 곡 제목/아티스트 필터링
     $('#search').keyup(function(){
             var k = $('#search').val()
             $('tr').hide();
@@ -676,6 +774,9 @@ $(document).ready(function(){
     });
 });
 
+// ============================================
+// 플레이어 제어 함수들 (외부에서 호출 가능)
+// ============================================
 function playYoutube () {
     player.playVideo();
 }
@@ -691,6 +792,9 @@ function stopYoutube () {
     player.stopVideo();
 }
 
+// ============================================
+// 곡 목록에서 특정 곡 클릭 시 재생
+// ============================================
 var played = false;
 
 function buttonplay(element) {
@@ -706,6 +810,26 @@ function buttonplay(element) {
         }
     }
 
+    // 이전 하이라이트 제거 (현재 재생 중인 곡 또는 초기 하이라이트)
+    if (typeof index !== 'undefined' && index !== null) {
+        // 현재 재생 중인 곡의 하이라이트 제거
+        document.getElementById(index).innerHTML = "";
+        document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
+        if (document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].getElementsByTagName("i")[0]) {
+            document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "red";
+        } else {
+            document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
+        }
+    } else if (typeof lastPlayedIndex !== 'undefined' && lastPlayedIndex !== null) {
+        // 아직 재생이 시작되지 않았다면 초기 하이라이트(lastPlayedIndex) 제거
+        document.getElementById(lastPlayedIndex).innerHTML = "";
+        document.getElementsByClassName(lastPlayedIndex)[0].getElementsByClassName("shorting")[0].style.color = "black";
+        if (document.getElementsByClassName(lastPlayedIndex)[0].getElementsByClassName("shorting")[1].getElementsByTagName("i")[0]) {
+            document.getElementsByClassName(lastPlayedIndex)[0].getElementsByClassName("shorting")[1].style.color = "red";
+        } else {
+            document.getElementsByClassName(lastPlayedIndex)[0].getElementsByClassName("shorting")[1].style.color = "black";
+        }
+    }
 
     // 셔플 모드일 때는 num 변수 업데이트 및 loadVideoById 사용
     if (flag == 1) {
@@ -716,15 +840,11 @@ function buttonplay(element) {
     }
 
     document.getElementById('play').innerHTML = 'pause_circle_outline';
-    document.getElementById(index).innerHTML = "";
-    document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[0].style.color = "black";
-    if (document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].getElementsByTagName("i")[0]) {
-        document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "red";
-    } else {
-        document.getElementsByClassName(index)[0].getElementsByClassName("shorting")[1].style.color = "black";
-    }
 }
 
+// ============================================
+// 시간을 "분:초" 형식으로 변환
+// ============================================
 function formatTime(time){
     time = Math.round(time);
 
@@ -735,7 +855,12 @@ function formatTime(time){
     return minutes + ":" + seconds;
 }
 
-
+// ============================================
+// 키보드 단축키 이벤트 핸들러
+// 좌측 화살표(37): 처음부터 재생
+// 우측 화살표(39): 다음 곡
+// 스페이스바(32): 재생/일시정지
+// ============================================
 document.onkeydown = function(e) {
     if (e.which == 37) {
         player.seekTo(0);
@@ -801,6 +926,9 @@ document.onkeydown = function(e) {
     }
 }
 
+// ============================================
+// 곡 순서 재정렬 기능 (Drag & Drop)
+// ============================================
 var start_pos = 0
 var copy = data.slice();
 var tmp = data.slice();
@@ -829,7 +957,9 @@ $(document).ready(function() {
     });
 });
 
-
+// ============================================
+// 재정렬 팝업 닫기 및 페이지 새로고침
+// ============================================
 function hide() {
     $(document).ready(function(){
             $('#reorder-overlay').fadeOut('slow');

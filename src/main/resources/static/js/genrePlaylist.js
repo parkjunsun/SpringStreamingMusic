@@ -1,10 +1,17 @@
-var errorCnt = 0;
-    var id_lst = [];
-    var arr = []
-    var num = 0;
-    var video_state;
-    var video_player;
+// ============================================
+// 전역 변수 선언
+// ============================================
 
+// YouTube Player 관련 변수
+var errorCnt = 0;                           // 동영상 로드 에러 카운트
+    var id_lst = [];                            // YouTube 동영상 ID 리스트
+    var arr = []                                // 셔플용 인덱스 배열
+    var num = 0;                                // 셔플 모드에서 사용하는 현재 곡 번호
+    var index;                                  // 현재 재생 중인 곡의 인덱스
+    var video_state;                            // 현재 비디오 상태 (재생/정지 등)
+    var video_player;                           // YouTube Player 객체
+
+    // 장르 통계 관련 변수 (사용되지 않음 - 제거 고려)
     var genreDict = {};
     var ordered = [];
     var ballardCnt = 0;
@@ -17,6 +24,10 @@ var errorCnt = 0;
     var bluesCnt = 0;
     var trotCnt = 0;
 
+// ============================================
+// 플레이리스트 데이터 초기화
+// ============================================
+
     for (var i in data) {
         id_lst.push(data[i].videoId);
     }
@@ -28,9 +39,16 @@ var errorCnt = 0;
 
     var totalCnt = id_lst.length;
 
-    flag = 0;
-    repeat_flag = 0;
+// ============================================
+// 재생 모드 제어 플래그
+// ============================================
+    flag = 0;           // 0: 일반 재생, 1: 셔플 재생
+    repeat_flag = 0;    // 0: 반복 없음, 1: 전체 반복, 2: 한 곡 반복
     cnt = 0;
+
+// ============================================
+// 셔플 함수 - 배열을 무작위로 섞음 (Fisher-Yates 알고리즘)
+// ============================================
 
     function shuffle(){
         var j,x,i;
@@ -158,17 +176,32 @@ var errorCnt = 0;
             }
         }
         else {
+            if (event.data === YT.PlayerState.ENDED) {
+                console.log("=== 셔플 모드 ENDED 발생 ===");
+                console.log("repeat_flag:", repeat_flag);
 
-            if (repeat_flag == 2){
-                if (event.data == YT.PlayerState.ENDED){
+                if (repeat_flag == 2){
+                    // 한곡 반복 모드
+                    console.log("한곡 반복 모드 - 이전 곡 재생");
                     player.previousVideo();
                 }
-            }
-            else {
-                if (event.data == YT.PlayerState.ENDED) {
-                    num = getRandomId();
-                    player.playVideoAt(num);
+                else {
+                    // 셔플 재생 모드 (repeat_flag == 0 또는 1)
+                    console.log("=== 셔플 랜덤 재생 시작 ===");
+                    console.log("현재 index:", index, "flag:", flag, "arr 길이:", arr.length);
+                    console.log("ENDED 전 arr:", arr.slice());
+
                     autoshuffle();
+                    console.log("autoshuffle 후 arr:", arr.slice());
+
+                    num = getRandomId();
+                    console.log("getRandomId()로 선택된 num:", num);
+                    console.log("남은 arr:", arr.slice());
+                    console.log("로드할 videoId:", id_lst[num]);
+
+                    // 플레이리스트 자동 진행 방지를 위해 loadVideoById 사용
+                    player.loadVideoById(id_lst[num]);
+                    console.log("=== loadVideoById 호출 완료, 다음 곡 index:", num, "===");
                 }
             }
         }
@@ -192,7 +225,52 @@ var errorCnt = 0;
 
     function trigger(state, pl) {
         if (state == YT.PlayerState.PLAYING) {
-            index = pl.getPlaylistIndex();
+            var prevIndex = index;
+            console.log("PLAYING 이벤트 - 이전 index:", index, "flag:", flag, "num:", num);
+
+            // 새 곡의 인덱스 설정
+            var newIndex;
+            if (flag == 1 && typeof num !== 'undefined') {
+                newIndex = num;
+                console.log("셔플 모드 - 새 곡 num:", num);
+            } else {
+                var playlistIndex = pl.getPlaylistIndex();
+                if (playlistIndex >= 0) {
+                    newIndex = playlistIndex;
+                }
+            }
+
+            // 같은 곡이면 하이라이트 업데이트 건너뛰기 (일반 모드만)
+            if (flag == 0 && prevIndex === newIndex && typeof prevIndex !== 'undefined') {
+                console.log("같은 곡 계속 재생 중 - 하이라이트 유지, index:", index);
+                return;
+            }
+
+            // 이전 곡의 하이라이트 제거
+            if (typeof prevIndex !== 'undefined' && prevIndex !== null) {
+                resetSongColor(prevIndex);
+            }
+
+            // 새 곡 인덱스 설정
+            if (flag == 1 && typeof num !== 'undefined') {
+                index = num;
+                console.log("셔플 모드 - 새 곡 num 사용:", num);
+            } else {
+                if (newIndex >= 0) {
+                    index = newIndex;
+                    num = newIndex;
+                    console.log("일반 모드 - 새 곡 playlistIndex:", index);
+
+                    // 일반 모드에서만 arr에서 제거
+                    var arrIndex = arr.indexOf(Number(index));
+                    if (arrIndex !== -1) {
+                        arr.splice(arrIndex, 1);
+                        console.log("일반 모드 - arr에서", index, "제거, 남은 arr:", arr.slice());
+                    }
+                }
+            }
+
+            // 썸네일 및 정보 업데이트
             img_src = data[index].img
             document.getElementById("link").src = img_src;
             document.getElementById("title").innerHTML = data[index].title;
@@ -207,8 +285,9 @@ var errorCnt = 0;
                 inline: 'nearest'
             });
         }
-        else if (state == YT.PlayerState.ENDED || state == YT.PlayerState.UNSTARTED) {
-            resetSongColor(index);
+        else if (state == YT.PlayerState.ENDED) {
+            console.log("ENDED 이벤트 - index:", index, "flag:", flag, "arr.length:", arr.length);
+            // 곡 종료 시에는 하이라이트 제거하지 않음 (다음 곡 재생 시 제거됨)
         }
     }
 
@@ -291,18 +370,18 @@ var errorCnt = 0;
         $('#next').on('click', function() {
             if (flag == 1){
                 if (arr.length){
-                    idx = getRandomId();
+                    num = getRandomId();
                     resetSongColor(index);
-                    player.playVideoAt(idx);
+                    player.loadVideoById(id_lst[num]);
                 }
                 else if (!arr.length){
                     for (var i=0; i<id_lst.length; i++){
                         arr[i] = i;
                     }
                     shuffle();
-                    idx = getRandomId();
+                    num = getRandomId();
                     resetSongColor(index);
-                    player.playVideoAt(idx);
+                    player.loadVideoById(id_lst[num]);
                 }
 
             }
@@ -328,13 +407,88 @@ var errorCnt = 0;
 
             if (e.originalEvent){
                 if (flag == 0){
+                    // 셔플 모드 ON
+                    console.log("셔플 ON - 이전 arr:", arr.slice(), "현재 index:", index);
+
+                    // 현재 재생 중인 곡을 arr에서 제거
+                    if (typeof index !== 'undefined') {
+                        var currentArrIndex = arr.indexOf(Number(index));
+                        if (currentArrIndex !== -1) {
+                            arr.splice(currentArrIndex, 1);
+                            console.log("현재 곡(index:", index, ") arr에서 제거 - 남은 arr:", arr.slice());
+                        }
+                    }
+
+                    // 나머지 곡들만 섞기
                     shuffle();
+
+                    console.log("셔플 ON - 이후 arr:", arr.slice());
                     flag = 1;
                     shuffle_toggle.css('color', "black");
+
+                    // 플레이리스트 모드 해제를 위해 현재 곡을 재로드
+                    if (typeof index !== 'undefined') {
+                        var currentTime = player.getCurrentTime();
+                        var wasPlaying = (video_state == YT.PlayerState.PLAYING);
+                        num = index;
+
+                        // 재생 중이면 loadVideoById, 아니면 cueVideoById로 버퍼링 최소화
+                        if (wasPlaying) {
+                            player.loadVideoById({
+                                'videoId': id_lst[index],
+                                'startSeconds': currentTime,
+                                'suggestedQuality': 'small'  // 빠른 로딩
+                            });
+                            console.log("셔플 ON - 재생 중, 빠른 로딩으로 전환");
+                        } else {
+                            player.cueVideoById({
+                                'videoId': id_lst[index],
+                                'startSeconds': currentTime
+                            });
+                            console.log("셔플 ON - 일시정지, 버퍼링 없이 큐잉");
+                        }
+                    }
                 }
                 else {
+                    // 셔플 모드 OFF: 배열 초기화
+                    console.log("셔플 OFF - 배열 초기화");
+                    arr = [];
+                    for (var i=0; i<id_lst.length; i++){
+                        arr[i] = i;
+                    }
+                    // 현재 재생 중인 곡은 제거
+                    if (typeof index !== 'undefined') {
+                        var currentArrIndex = arr.indexOf(Number(index));
+                        if (currentArrIndex !== -1) {
+                            arr.splice(currentArrIndex, 1);
+                        }
+                    }
+                    console.log("셔플 OFF - arr:", arr.slice(), "index:", index);
                     flag = 0;
                     shuffle_toggle.css('color', "#a0a0a0");
+
+                    // 셔플 OFF 시 플레이리스트 모드로 복귀
+                    var currentTime = player.getCurrentTime();
+                    var wasPlaying = (video_state == YT.PlayerState.PLAYING);
+
+                    if (wasPlaying) {
+                        player.loadPlaylist({
+                            'playlist': id_lst,
+                            'listType': 'playlist',
+                            'index': index,
+                            'startSeconds': currentTime,
+                            'suggestedQuality': 'small'  // 빠른 로딩
+                        });
+                        console.log("셔플 OFF - 재생 중, 빠른 로딩으로 복귀");
+                    } else {
+                        player.cuePlaylist({
+                            'playlist': id_lst,
+                            'listType': 'playlist',
+                            'index': index,
+                            'startSeconds': currentTime
+                        });
+                        console.log("셔플 OFF - 일시정지, 버퍼링 없이 큐잉");
+                    }
                 }
             }
 
@@ -418,10 +572,24 @@ var errorCnt = 0;
         if (arr.indexOf(Number(c_index)) != -1){
             arr.splice(arr.indexOf(Number(c_index)),1);
         }
-        player.playVideoAt(c_index);
+
+        // 이전 하이라이트 제거 (현재 재생 중인 곡 또는 초기 하이라이트)
+        if (typeof index !== 'undefined' && index !== null) {
+            resetSongColor(index);
+        } else {
+            // 아직 재생이 시작되지 않았다면 초기 하이라이트(index 0) 제거
+            resetSongColor(0);
+        }
+
+        // 셔플 모드일 때는 num 변수 업데이트 및 loadVideoById 사용
+        if (flag == 1) {
+            num = Number(c_index);
+            player.loadVideoById(id_lst[c_index]);
+        } else {
+            player.playVideoAt(c_index);
+        }
 
         document.getElementById('play').innerHTML = 'pause_circle_outline';
-        resetSongColor(index);
     }
 
     function formatTime(time){
@@ -442,18 +610,18 @@ var errorCnt = 0;
         else if (e.which == 39) {
             if (flag == 1){
                 if (arr.length){
-                    idx = getRandomId();
+                    num = getRandomId();
                     resetSongColor(index);
-                    player.playVideoAt(idx);
+                    player.loadVideoById(id_lst[num]);
                 }
                 else if (!arr.length){
                     for (var i=0; i<id_lst.length; i++){
                         arr[i] = i;
                     }
                     shuffle();
-                    idx = getRandomId();
+                    num = getRandomId();
                     resetSongColor(index);
-                    player.playVideoAt(idx);
+                    player.loadVideoById(id_lst[num]);
                 }
 
             }

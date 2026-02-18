@@ -50,10 +50,12 @@
         <p id="artist" style="font-size:12px; color: rgba(255,255,255,0.8); margin-bottom: 8px;"></p>
         <img id="link" src="../images/white.png" style="width:45%; max-width: 200px;" alt="Album Cover">
     </div>
-    <input type="range" id="progress-bar" value="0">
-    <div style="margin:0 20px;">
-        <span id="current-time" style="font-size:11px; color: rgba(255,255,255,0.8);">0:00</span>
-        <span id="duration" style="float:right; font-size:11px; color: rgba(255,255,255,0.8);">0:00</span>
+    <div id="progress-wrapper">
+        <div style="margin:0 20px 5px 20px;">
+            <span id="current-time" style="font-size:11px; color: rgba(255,255,255,0.8);">0:00</span>
+            <span id="duration" style="float:right; font-size:11px; color: rgba(255,255,255,0.8);">0:00</span>
+        </div>
+        <input type="range" id="progress-bar" value="0">
     </div>
     <div id="controls">
         <i id="repeat" class="material-icons" title="반복on/off">repeat</i>&nbsp;&nbsp;&nbsp;
