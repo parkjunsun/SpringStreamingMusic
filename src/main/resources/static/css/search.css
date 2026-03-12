@@ -69,19 +69,53 @@ ol li img {vertical-align: middle;}
 
 
 #table {
-    border-top: 3px solid gray;
+    border-top: 1px solid gray;
     border-collapse: separate;
     border-spacing: 0;
     padding: 10px;
-    width:100%;
+    width: 100%;
     border-radius: 15px;
     overflow: hidden;
 }
 
-#tr, .td {
+#tr {
     border-bottom: 1px solid #B0C4DE;
-    padding: 20px;
+    display: table-row;
 }
+
+.td {
+    padding: 20px;
+    border-bottom: none;
+}
+
+#tr .td {
+    border-bottom: 1px solid #B0C4DE;
+}
+
+#tr .td:not(:last-child) {
+    border-right: none;
+}
+
+#tr:first-child .td:first-child {
+    border-top-left-radius: 15px;
+}
+
+#tr:first-child .td:last-child {
+    border-top-right-radius: 15px;
+}
+
+#tr:last-child .td {
+    border-bottom: 1px solid #B0C4DE;
+}
+
+#tr:last-child .td:first-child {
+    border-bottom-left-radius: 15px;
+}
+
+#tr:last-child .td:last-child {
+    border-bottom-right-radius: 15px;
+}
+
 
 .util {
     padding: 20px;

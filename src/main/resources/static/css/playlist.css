@@ -133,16 +133,16 @@ div.action {
     float: left;
     box-sizing: border-box;
     color: white;
-    padding: 10px 15px;
+    padding: 8px 15px 20px 15px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 5px;
 }
 
 #progress-wrapper {
-    margin-top: auto;
+    margin-top: 5px;
 }
 
 /* 재생중인 곡 하이라이트 */

@@ -99,17 +99,126 @@ var errorCnt = 0;                           // 동영상 로드 에러 카운트
         var errorCheck = Number(event.data);
 
         if (errorCheck == 150 || errorCheck == 100) {
+            var err_idx = player.getPlaylistIndex();
+
+            // 안전성 체크: err_idx가 -1이면 셔플 모드 (플레이리스트 모드 아님)
+            if (err_idx < 0) {
+                console.error("에러: 플레이리스트 인덱스 없음 (셔플 모드), err_idx:", err_idx);
+                errorCnt = 0;
+
+                // 셔플 모드면 랜덤으로 다음 곡 재생
+                if (flag == 1) {
+                    console.log("셔플 모드 - 에러 발생, 랜덤으로 다음 곡 로드");
+                    autoshuffle();
+                    num = getRandomId();
+                    if (typeof num !== 'undefined' && num >= 0 && num < id_lst.length) {
+                        player.loadVideoById(id_lst[num]);
+                        console.log("다음 랜덤 곡 로드, num:", num);
+                    } else {
+                        console.error("유효한 다음 곡 없음");
+                    }
+                } else {
+                    // 일반 모드면 첫 곡부터 재생
+                    console.log("일반 모드 - 에러 발생, 첫 곡으로 이동");
+                    player.playVideoAt(0);
+                }
+                return;
+            }
+
+            // err_idx가 데이터 범위를 벗어나거나 데이터가 없는 경우
+            if (err_idx >= data.length || !data[err_idx]) {
+                console.error("에러: 유효하지 않은 인덱스 또는 데이터 없음, err_idx:", err_idx);
+                errorCnt = 0;
+
+                // 셔플 모드 체크
+                if (flag == 1) {
+                    autoshuffle();
+                    num = getRandomId();
+                    if (typeof num !== 'undefined' && num >= 0 && num < id_lst.length) {
+                        player.loadVideoById(id_lst[num]);
+                    } else {
+                        console.error("유효한 다음 곡 없음");
+                    }
+                } else {
+                    player.nextVideo();
+                }
+                return;
+            }
+
             if (errorCnt == 1) {
-                var err_idx = player.getPlaylistIndex();
-                id_lst.splice(err_idx,1);
-                id_lst.splice(err_idx, 0, data[err_idx].videoId2);
-                player.loadPlaylist(id_lst, err_idx, 0, 'large');
+                // videoId2가 존재하는지 확인
+                if (data[err_idx].videoId2) {
+                    // 셔플 모드 체크
+                    if (flag == 1) {
+                        // 셔플 모드: loadVideoById 사용
+                        console.log("셔플 모드 - videoId2로 재시도:", data[err_idx].videoId2);
+                        player.loadVideoById(data[err_idx].videoId2);
+                    } else {
+                        // 일반 모드: 플레이리스트 업데이트
+                        id_lst.splice(err_idx, 1);
+                        id_lst.splice(err_idx, 0, data[err_idx].videoId2);
+                        player.loadPlaylist(id_lst, err_idx, 0, 'large');
+                        console.log("일반 모드 - videoId2로 재시도:", data[err_idx].videoId2);
+                    }
+                } else {
+                    console.error("에러: videoId2가 없음, 다음 곡으로 이동");
+                    errorCnt = 0;
+
+                    if (flag == 1) {
+                        autoshuffle();
+                        num = getRandomId();
+                        if (typeof num !== 'undefined' && num >= 0 && num < id_lst.length) {
+                            player.loadVideoById(id_lst[num]);
+                        }
+                    } else {
+                        player.nextVideo();
+                    }
+                }
             }
             else if (errorCnt == 2){
-                var err_idx = player.getPlaylistIndex();
-                id_lst.splice(err_idx,1);
-                id_lst.splice(err_idx, 0, data[err_idx].videoId3);
-                player.loadPlaylist(id_lst, err_idx, 0, 'large');
+                // videoId3가 존재하는지 확인
+                if (data[err_idx].videoId3) {
+                    // 셔플 모드 체크
+                    if (flag == 1) {
+                        // 셔플 모드: loadVideoById 사용
+                        console.log("셔플 모드 - videoId3로 재시도:", data[err_idx].videoId3);
+                        player.loadVideoById(data[err_idx].videoId3);
+                    } else {
+                        // 일반 모드: 플레이리스트 업데이트
+                        id_lst.splice(err_idx, 1);
+                        id_lst.splice(err_idx, 0, data[err_idx].videoId3);
+                        player.loadPlaylist(id_lst, err_idx, 0, 'large');
+                        console.log("일반 모드 - videoId3로 재시도:", data[err_idx].videoId3);
+                    }
+                } else {
+                    console.error("에러: videoId3가 없음, 다음 곡으로 이동");
+                    errorCnt = 0;
+
+                    if (flag == 1) {
+                        autoshuffle();
+                        num = getRandomId();
+                        if (typeof num !== 'undefined' && num >= 0 && num < id_lst.length) {
+                            player.loadVideoById(id_lst[num]);
+                        }
+                    } else {
+                        player.nextVideo();
+                    }
+                }
+            }
+            else {
+                // 모든 대체 videoId 실패 시 다음 곡으로
+                console.error("모든 videoId 재시도 실패, 다음 곡으로 이동");
+                errorCnt = 0;
+
+                if (flag == 1) {
+                    autoshuffle();
+                    num = getRandomId();
+                    if (typeof num !== 'undefined' && num >= 0 && num < id_lst.length) {
+                        player.loadVideoById(id_lst[num]);
+                    }
+                } else {
+                    player.nextVideo();
+                }
             }
         }
     }
